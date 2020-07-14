@@ -24,6 +24,6 @@ public class InputHandler {
 	   * 
 	   */
 	  public String getDirectory() {
-		  return "";
+		  return directory;
 	  }
 }
