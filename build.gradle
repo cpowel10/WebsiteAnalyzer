@@ -2,6 +2,10 @@ plugins {
    id 'java'
 }
 
+dependencies {
+    testImplementation('junit:junit:4.13')
+}
+
 repositories {
     jcenter()
 }
