@@ -3,8 +3,9 @@
  */
 package edu.odu.cs.cs350;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.*;
 import java.util.LinkedList;
 import java.nio.file.Paths;
 import java.nio.file.Path;
@@ -47,18 +48,20 @@ public class TestImage {
 //	}
 	
 	@Test
-	public final void testDefaultConstructor() {		
-	/*	assertThat(firstImage.type(), is(TagType.IMAGE));
+	public final void testDefaultConstructor() {	
+		
+		assertThat(firstImage.type(), is(TagType.IMAGE));
 		assertThat(firstImage.size(), is(0));
 		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
 		assertThat(firstImage.pagesOn(), is(emptyList));
-	*/	
-		assert(firstImage.type() == myType);
+	
+/*		assert(firstImage.type() == myType);
 		assert(firstImage.size() == 0);
 		assert(firstImage.listings() == emptyList);
 		assert(firstImage.numPages() == 0);
 		assert(firstImage.pagesOn() == emptyList);
+*/
 	}
 	
 	@Test
@@ -74,17 +77,18 @@ public class TestImage {
 		Image secondImage = new Image(myType, mySize, myListings, myNumPages, myPagesOn);
 		
 		//Check changes
-/*		assertThat(secondImage.type(), is(myType));
+		assertThat(secondImage.type(), is(myType));
 		assertThat(secondImage.size(), is(mySize));
 		assertThat(secondImage.listings(), is(myListings));
 		assertThat(secondImage.numPages(), is(myNumPages));
 		assertThat(secondImage.pagesOn(), is(myPagesOn));
-*/
+/*
 		assert(secondImage.type() == (myType));
 		assert(secondImage.size() == (mySize));
 		assert(secondImage.listings() == (myListings));
 		assert(secondImage.numPages() == (myNumPages));
 		assert(secondImage.pagesOn() == (myPagesOn));
+*/	
 	}
 	
 	@Test
@@ -96,21 +100,22 @@ public class TestImage {
 		firstImage.setType(myType);
 		
 		//Change has been made
-//		assertThat(firstImage.type(), is(myType));
-		assert(firstImage.type()  == (myType));
+		assertThat(firstImage.type(), is(myType));
+//		assert(firstImage.type()  == (myType));
 
 		
 		
 		//No other changes
-/*		assertThat(firstImage.size(), is(0));
-		assertThat(firstImage.listings(), is(help));
+		assertThat(firstImage.size(), is(0));
+		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
-		assertThat(firstImage.pagesOn(), is(help));	
-*/
+		assertThat(firstImage.pagesOn(), is(emptyList));	
+/*
 		assert(firstImage.size() == (0));
 		assert(firstImage.listings() == (emptyList));
 		assert(firstImage.numPages() == (0));
 		assert(firstImage.pagesOn() == (emptyList));	
+*/
 		}
 	
 	@Test
@@ -122,44 +127,46 @@ public class TestImage {
 		firstImage.setSize(mySize);
 		
 		//Change has been made
-//		assertThat(firstImage.size(), is(mySize));
-		assert(firstImage.size() == mySize);
+		assertThat(firstImage.size(), is(mySize));
+//		assert(firstImage.size() == mySize);
 		
 		
 		//No other changes
-/*		assertThat(firstImage.type(), is(help));
-		assertThat(firstImage.listings(), is(help));
+		assertThat(firstImage.type(), is(myType));
+		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
-		assertThat(firstImage.pagesOn(), is(help));	
-*/
+		assertThat(firstImage.pagesOn(), is(emptyList));	
+/*
 		assert(firstImage.type() == (myType));
 		assert(firstImage.listings() == (emptyList));
 		assert(firstImage.numPages() == (0));
 		assert(firstImage.pagesOn() == (emptyList));	
-}
+*/
+		}
 	
 	@Test
 	public final void testSetListings() {
 		//Set up
-		LinkedList<Path> myListings = new LinkedList<Path>();
+		LinkedList<Path> myListings = new LinkedList<Path>(); //likely bad
 		
 		//Change
 		firstImage.setListings(myListings);
 		
 		//Change has been made
-//		assertThat(firstImage.listings(), is(myListings));
-		assert(firstImage.listings() == myListings);
+		assertThat(firstImage.listings(), is(myListings));
+//		assert(firstImage.listings() == myListings);
 		
 		//No other changes
-/*		assertThat(firstImage.type(), is(help));
-		assertThat(firstImage.size(), is(myPagesOn));
+		assertThat(firstImage.type(), is(myType));
+		assertThat(firstImage.size(), is(0));
 		assertThat(firstImage.numPages(), is(0));
-		assertThat(firstImage.pagesOn(), is(help));		
-*/
+		assertThat(firstImage.pagesOn(), is(emptyList));		
+/*
 		assert(firstImage.size() == (0));
 		assert(firstImage.listings() == (emptyList));
 		assert(firstImage.numPages() == (0));
 		assert(firstImage.pagesOn() == (emptyList));	
+*/
 		}
 	
 	@Test
@@ -171,45 +178,46 @@ public class TestImage {
 		firstImage.setNumPages(myNumPages);
 		
 		//Change has been made
-//		assertThat(firstImage.numPages(), is(myNumPages));
-		assert(firstImage.numPages() == (myNumPages));
+		assertThat(firstImage.numPages(), is(myNumPages));
+//		assert(firstImage.numPages() == (myNumPages));
 
 		
 		//No other changes
-/*		assertThat(firstImage.type(), is(help));
-		assertThat(firstImage.size(), is(myPagesOn));
-		assertThat(firstImage.listings(), is(help));
-		assertThat(firstImage.pagesOn(), is(help));
-*/
+		assertThat(firstImage.type(), is(myType));
+		assertThat(firstImage.size(), is(0));
+		assertThat(firstImage.listings(), is(emptyList));
+		assertThat(firstImage.pagesOn(), is(emptyList));
+/*
 		assert(firstImage.size() == (0));
 		assert(firstImage.listings() == (emptyList));
 		assert(firstImage.numPages() == (0));
 		assert(firstImage.pagesOn() == (emptyList));	
+*/
 		}
 	
 	@Test
 	public final void testSetPagesOn() {
 		//Set up
-		LinkedList<Path> myPagesOn = new LinkedList<Path>();
+		LinkedList<Path> myPagesOn = new LinkedList<Path>(); //I think this is bad, myPagesOn == emptyList?
 		
 		//Change
 		firstImage.setPagesOn(myPagesOn);
 		
 		//Change has been made
-//		assertThat(firstImage.pagesOn(), is(myPagesOn));
-		assert(firstImage.pagesOn() == (myPagesOn));
+		assertThat(firstImage.pagesOn(), is(myPagesOn));
+//		assert(firstImage.pagesOn() == (myPagesOn));
 
 		
 		//No other changes
-/*		assertThat(firstImage.type(), is(help));
-		assertThat(firstImage.size(), is(myPagesOn));
-		assertThat(firstImage.listings(), is(help));
+		assertThat(firstImage.type(), is(myType));
+		assertThat(firstImage.size(), is(0));
+		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
-*/
+/*
 		assert(firstImage.type() == (myType));
 		assert(firstImage.size() == (0));
 		assert(firstImage.listings() == (emptyList));
 		assert(firstImage.numPages() == (0));
-		assert(firstImage.pagesOn() == (emptyList));	
+*/
 		}
 }
