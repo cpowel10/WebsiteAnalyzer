@@ -36,6 +36,9 @@ public class HTMLDocument {
 		return path;
 	}
 	
+	/*
+	 * May go in PageReader class
+	 */
 	public void addElement(Object tag) {
 		if (tag instanceof Anchor) {
 			allAnchors.add((Anchor) tag);
