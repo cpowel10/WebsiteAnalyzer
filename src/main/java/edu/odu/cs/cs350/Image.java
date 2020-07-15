@@ -14,52 +14,48 @@ public class Image extends Tag {
 	private LinkedList<Path> pagesOn;
 	
 	public Image() {
-		// TODO Auto-generated constructor stub
+		this.setType(TagType.IMAGE);
+		this.setSize(0);
+		LinkedList<Path> emptyList = new LinkedList<Path>();
+		this.setListings(emptyList);
+		this.setNumPages(0);
+		this.setPagesOn(emptyList);
 	}
 	public Image(TagType myType, int mySize, LinkedList<Path> myListings, int myNumPages, LinkedList<Path> myPagesOn) {
-		//TODO
+		this.setType(myType);
+		this.setSize(mySize);
+		this.setListings(myListings);
+		this.setNumPages(myNumPages);
+		this.setPagesOn(myPagesOn);
 	}
 	public TagType type() {
-		//TODO
-		return TagType.ANCHOR;
+		return this.type;
 	}
 	public int size() {
-		//TODO
-		return -1;
+		return this.size;
 	}
 	public LinkedList<Path> listings() {
-		//TODO
-		 LinkedList<Path> emptyList = new LinkedList<Path>();
-		 return emptyList;
+		 return this.listings;
 	}
 	public int numPages() {
-		//TODO
-		return -1;
+		return this.numPages;
 	}
 	public LinkedList<Path> pagesOn() {
-		//TODO		
-		 LinkedList<Path> emptyList = new LinkedList<Path>();
-		 return emptyList;	
-		 }
-	public TagType setType(TagType myType) {
-		//TODO
-		return TagType.ANCHOR;
+		 return this.pagesOn;	
 	}
-	public int setSize(int mySize) {
-		//TODO
-		return -1;
+	public void setType(TagType myType) {
+		this.type = myType;
 	}
-	public LinkedList<Path> setListings(LinkedList<Path> list) {
-		//TODO
-		 LinkedList<Path> emptyList = new LinkedList<Path>();
-		 return emptyList;
+	public void setSize(int mySize) {
+		this.size = mySize;
 	}
-	public int setNumPages(int numberOfPages) {
-		//TODO
-		return -1;
+	public void setListings(LinkedList<Path> list) {
+		this.listings = list;
 	}
-	public LinkedList<Path> setPagesOn(LinkedList<Path> list) {
-		//TODO		
-		 LinkedList<Path> emptyList = new LinkedList<Path>();
-		 return emptyList;	}
+	public void setNumPages(int numberOfPages) {
+		this.numPages = numberOfPages;
+	}
+	public void setPagesOn(LinkedList<Path> list) {
+		this.pagesOn = list;
+	}
 }
