@@ -56,12 +56,12 @@ public class TestImage {
 		assertThat(firstImage.numPages(), is(0));
 		assertThat(firstImage.pagesOn(), is(emptyList));
 	
-/*		assert(firstImage.type() == myType);
+		assert(firstImage.type() == myType);
 		assert(firstImage.size() == 0);
-		assert(firstImage.listings() == emptyList);
+		assert(firstImage.listings().equals(emptyList));
 		assert(firstImage.numPages() == 0);
-		assert(firstImage.pagesOn() == emptyList);
-*/
+		assert(firstImage.pagesOn().equals(emptyList));
+
 	}
 	
 	@Test
@@ -82,13 +82,13 @@ public class TestImage {
 		assertThat(secondImage.listings(), is(myListings));
 		assertThat(secondImage.numPages(), is(myNumPages));
 		assertThat(secondImage.pagesOn(), is(myPagesOn));
-/*
+
 		assert(secondImage.type() == (myType));
 		assert(secondImage.size() == (mySize));
 		assert(secondImage.listings() == (myListings));
 		assert(secondImage.numPages() == (myNumPages));
 		assert(secondImage.pagesOn() == (myPagesOn));
-*/	
+	
 	}
 	
 	@Test
@@ -110,12 +110,12 @@ public class TestImage {
 		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
 		assertThat(firstImage.pagesOn(), is(emptyList));	
-/*
+
 		assert(firstImage.size() == (0));
-		assert(firstImage.listings() == (emptyList));
+		assert(firstImage.listings().equals((emptyList)));
 		assert(firstImage.numPages() == (0));
-		assert(firstImage.pagesOn() == (emptyList));	
-*/
+		assert(firstImage.pagesOn().equals((emptyList)));	
+
 		}
 	
 	@Test
@@ -136,12 +136,12 @@ public class TestImage {
 		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
 		assertThat(firstImage.pagesOn(), is(emptyList));	
-/*
+
 		assert(firstImage.type() == (myType));
-		assert(firstImage.listings() == (emptyList));
+		assert(firstImage.listings().equals((emptyList)));
 		assert(firstImage.numPages() == (0));
-		assert(firstImage.pagesOn() == (emptyList));	
-*/
+		assert(firstImage.pagesOn().equals((emptyList)));	
+
 		}
 	
 	@Test
@@ -161,12 +161,12 @@ public class TestImage {
 		assertThat(firstImage.size(), is(0));
 		assertThat(firstImage.numPages(), is(0));
 		assertThat(firstImage.pagesOn(), is(emptyList));		
-/*
+
+		assert(firstImage.type() == (myType));
 		assert(firstImage.size() == (0));
-		assert(firstImage.listings() == (emptyList));
 		assert(firstImage.numPages() == (0));
-		assert(firstImage.pagesOn() == (emptyList));	
-*/
+		assert(firstImage.pagesOn().equals((emptyList)));
+
 		}
 	
 	@Test
@@ -187,12 +187,11 @@ public class TestImage {
 		assertThat(firstImage.size(), is(0));
 		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.pagesOn(), is(emptyList));
-/*
+
+		assert(firstImage.type() == (myType));
 		assert(firstImage.size() == (0));
-		assert(firstImage.listings() == (emptyList));
-		assert(firstImage.numPages() == (0));
-		assert(firstImage.pagesOn() == (emptyList));	
-*/
+		assert(firstImage.listings().equals((emptyList)));
+		assert(firstImage.pagesOn().equals((emptyList)));
 		}
 	
 	@Test
@@ -213,11 +212,11 @@ public class TestImage {
 		assertThat(firstImage.size(), is(0));
 		assertThat(firstImage.listings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
-/*
+
 		assert(firstImage.type() == (myType));
 		assert(firstImage.size() == (0));
-		assert(firstImage.listings() == (emptyList));
+		assert(firstImage.listings().equals((emptyList)));
 		assert(firstImage.numPages() == (0));
-*/
+
 		}
 }
