@@ -36,6 +36,22 @@ public class HTMLDocument {
 		return path;
 	}
 	
+	public LinkedList<Image> getImages(){
+		return allImages;
+	}
+	
+	public LinkedList<Script> getScripts(){
+		return allScripts;
+	}
+	
+	public LinkedList<Style> getStyles(){
+		return allStyles;
+	}
+	
+	public LinkedList<Anchor> getAnchors(){
+		return allAnchors;
+	}
+	
 	/*
 	 * May go in PageReader class
 	 */
