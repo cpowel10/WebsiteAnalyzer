@@ -16,6 +16,13 @@ public class DirectoryParser {
 	private Path homeDir;
 	private LinkedList<Path> uris;
 
+	public DirectoryParser(String home, String[] theuris) {
+		homeDir = Paths.get(home);
+
+		for(String uri : theuris)
+			uris.add(Paths.get(uri));
+	}
+
 	/*
 	 * "Sanitizes" paths by making relative paths and those with redundant
 	 * name elements removed.
