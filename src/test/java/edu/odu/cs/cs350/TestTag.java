@@ -45,7 +45,7 @@ public class TestTag {
 	
 	@Test
 	public final void testDefaultConstructor(){
-	assertThat(firstTag.path(), is(""));
+	assertThat(firstTag.path(), is(Paths.get("noAssignedPath")));
 	assertThat(firstTag.type(), is(TagType.STYLE));
 	assertThat(firstTag.externality(), is(Externality.EXTERNAL));
 	}
