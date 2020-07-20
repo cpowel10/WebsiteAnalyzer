@@ -1,80 +1,45 @@
 package edu.odu.cs.cs350;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.net.URL;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.Iterator;
 
-import edu.odu.cs.cs350.Enum.*;
-import edu.odu.cs.cs350.WebsiteFile;
-import edu.odu.cs.cs350.VideoFile;
-import edu.odu.cs.cs350.NonCategoryFile;
-import edu.odu.cs.cs350.AudioFile;
-import edu.odu.cs.cs350.ArchiveFile;
-
 public class PathManager {
-//
-	private List<Path> foundFiles;
-	private List<VideoFile> foundVideos;
-	private List<AudioFile> foundAudios;
-	private List<ArchiveFile> foundArchives;
-	private List<NonCategoryFile> foundNonCats;
 
 	private Path homeDir;
 	private URL[] urls;
 
 	public PathManager(Path home, URL[] theurls) {
-		homeDir = sanitizePath(home);
+		homeDir = home;
 		urls = theurls;
 	}
-
-	/*
-	 *
-	 */
-	public void parseWebsiteDirectory() throws IOException {
-		foundFiles = Files.walk(homeDir)
-						.filter(Files::isRegularFile)
-						.collect(Collectors.toList());
-		FileType type;
-		for(Path p : foundFiles)
-		{
-			//type = 
-		}
-	}
-
-	public void categorizeFiles() {
-		String filename;
-	}
-
 	/*
 	 * Checks a url against the provided urls to be analyzed
 	 * if internal url, the site root is removed and remaining path returned
 	 * null if otherwise
 	 */
-	//remove www.example.com part but leave path
-	public Path mapUrlToPath (URL u) { //need Paths.get(u.getPath)
+	public Path mapUrlToPath (URL toMap) {
 		Path mappedPath = null;
-		for(URL websiteurl : urls)
+		for(URL internalURL : urls)
 		{
-			if(websiteurl.getHost().equals(u.getHost()))
+			if(internalURL.getHost().equals(toMap.getHost()))
 			{
-				Path internalPath = Paths.get(websiteurl.getPath());
-				mappedPath = Paths.get((u.getPath()));
+				//If the hosts match, grab their paths
+				mappedPath = Paths.get((toMap.getPath()));
+				Path internalPath = Paths.get(internalURL.getPath());
+
 				Iterator<Path> it = internalPath.iterator();
+				//Iterate over name elements of the internalURL
 				while(it.hasNext())
 				{
+					//if the first name element matches, remove it from the mappedPath
 					if(mappedPath.startsWith(it.next()))
-						mappedPath = mappedPath.subpath(1,, mappedPath.getNameCount());
+						mappedPath = mappedPath.subpath(1, mappedPath.getNameCount());
+					else
+						return mappedPath;
 				}
 			}
 		}
