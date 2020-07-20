@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Iterator;
 
 import edu.odu.cs.cs350.Enum.*;
 import edu.odu.cs.cs350.WebsiteFile;
@@ -63,10 +64,19 @@ public class PathManager {
 	//remove www.example.com part but leave path
 	public Path mapUrlToPath (URL u) { //need Paths.get(u.getPath)
 		Path mappedPath = null;
-		for(URL url : urls)
+		for(URL websiteurl : urls)
 		{
-			if(url.getHost().equals(u.getHost()))
-				mappedPath = mappedPath.resolve(u.getPath()); 
+			if(websiteurl.getHost().equals(u.getHost()))
+			{
+				Path internalPath = Paths.get(websiteurl.getPath());
+				mappedPath = Paths.get((u.getPath()));
+				Iterator<Path> it = internalPath.iterator();
+				while(it.hasNext())
+				{
+					if(mappedPath.startsWith(it.next()))
+						mappedPath = mappedPath.subpath(1,, mappedPath.getNameCount());
+				}
+			}
 		}
 		return mappedPath;
 	}
