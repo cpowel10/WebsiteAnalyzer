@@ -2,6 +2,7 @@ package edu.odu.cs.cs350;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 
 import java.nio.file.Path;
@@ -9,37 +10,78 @@ import java.nio.file.Paths;
 
 import java.net.URL;
 
-import java.util.LinkedList;
-import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import edu.odu.cs.cs350.Enum.*;
+import edu.odu.cs.cs350.WebsiteFile;
+import edu.odu.cs.cs350.VideoFile;
+import edu.odu.cs.cs350.NonCategoryFile;
+import edu.odu.cs.cs350.AudioFile;
+import edu.odu.cs.cs350.ArchiveFile;
 
 public class DirectoryParser {
 
-	private LinkedList<Path> accessedPaths;
+	private List<Path> foundFiles;
+	private List<VideoFile> foundVideos;
+	private List<AudioFile> foundAudios;
+	private List<ArchiveFile> foundArchives;
+	private List<NonCategoryFile> foundNonCats;
 
 	private Path homeDir;
-	private Path[] urls;
+	private URL[] urls;
 
-	public DirectoryParser(Path home, Path[] theurls) {
-		homeDir = home;
+	public DirectoryParser(Path home, URL[] theurls) {
+		homeDir = sanitizePath(home);
 		urls = theurls;
 	}
 
 	/*
 	 *
 	 */
-	public void parseWebsiteDirectory() {
-
+	public void parseWebsiteDirectory() throws IOException {
+		foundFiles = Files.walk(homeDir)
+						.filter(Files::isRegularFile)
+						.collect(Collectors.toList());
+		FileType type;
+		for(Path p : foundFiles)
+		{
+			type = 
+		}
 	}
 
-	public Path urlToPath()
+	public void categorizeFiles() {
+		String filename;
+	}
 
 	/*
-	 * "Sanitizes" paths by making relative paths and those with redundant
-	 * name elements removed.
+	 * Checks a url against the provided urls to be analyzed
+	 * if internal url, the site root is removed and remaining path returned
+	 * null if otherwise
 	 */
-	public Path expandPath(Path p) {
+	public Path mapUrlToPath (URL u) {
+		Path mappedPath = null;
+		for(URL url : urls)
+		{
+			if(url.getHost().equals(u.getHost())
+				mappedPath = u.getPath();
+		}
+		return mappedPath;
+	}
+
+	/*
+	 * Transmutes any relative paths to absolute and removes redunant name elements
+	 */
+	public Path sanitizePath(Path p) {
 		Path expanded;
 		expanded = p.normalize().toAbsolutePath();
 		return expanded;
+	}
+
+	public Path urlToPath(URL url) {
+		Path thepath = Paths.get(url.getPath());
+		sanitizePath(thepath);
+		return thepath;
 	}
 }
