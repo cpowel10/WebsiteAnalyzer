@@ -47,7 +47,7 @@ public class DirectoryParser {
 		FileType type;
 		for(Path p : foundFiles)
 		{
-			type = 
+			
 		}
 	}
 
@@ -64,7 +64,7 @@ public class DirectoryParser {
 		Path mappedPath = null;
 		for(URL url : urls)
 		{
-			if(url.getHost().equals(u.getHost())
+			if(url.getHost().equals(u.getHost()))
 				mappedPath = u.getPath();
 		}
 		return mappedPath;

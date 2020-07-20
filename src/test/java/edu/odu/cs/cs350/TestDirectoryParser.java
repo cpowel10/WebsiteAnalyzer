@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.Before;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,11 +33,7 @@ public class TestDirectoryParser {
     private LinkedList<Path> expectedPaths = new LinkedList<Path>();
 
     @Before
-    public void setUp()
-    {
-
-        dparser = new DirectoryParser(homeDir, urls);
-
+    public void setUp() throws MalformedURLException {
         //Paths to 'pages' or HTMLDocuments that the parser should add to be analyzed
         expectedPaths.add(Paths.get("Home/slideshow/SlideShowIndex.html"));
         expectedPaths.add(Paths.get("Home/articles/fire.html"));
@@ -45,10 +42,13 @@ public class TestDirectoryParser {
         urls[0] = new URL("https://www.example.com/hello/world");
         urls[1] = new URL("https://www.example.com/my/test");
         urls[2] = new URL("https://www.example.com/my/test/path");
+
+        dparser = new DirectoryParser(homeDir, urls);
+
     }
 
     @Test
-    public void testSanitizePath() {
+    public void testSanitizePath() throws IOException {
         //Absolute and relative paths to an image
         Path img_absolute_path = Paths.get("Home/Images/slideshow/slide1.png");
         Path img_relative_path = Paths.get("../Images/slideshow/slide1.png");
@@ -60,12 +60,12 @@ public class TestDirectoryParser {
     }
 
     @Test
-    public void testMapUrlToPath() {
+    public void testMapUrlToPath() throws MalformedURLException {
         Path mappedPath;
 
         testurl1 = new URL("https://www.example.com/good/test");
         mappedPath = dparser.mapUrlToPath(testurl1);
-        assertThat(mappedPath.toString(), is("/good/test");
+        assertThat(mappedPath.toString(), is("/good/test"));
 
         testurl2 = new URL("https://www.example.com/my/test/path/hello");
         mappedPath = dparser.mapUrlToPath(testurl2);
@@ -73,11 +73,11 @@ public class TestDirectoryParser {
         
         testurl3 = new URL("https://www.example.com/outside");
         mappedPath = dparser.mapUrlToPath(testurl3);
-        assertThat(mappedPath.toString(), is(null));
+        assertThat(mappedPath.toString(), is(equalTo(null)));
         
         testurl4 = new URL("https://www.bad.example.com/my/test");
         mappedPath = dparser.mapUrlToPath(testurl4);
-        assertThat(mappedPath.toString(), is(null));
+        assertThat(mappedPath.toString(), is(equalTo(null)));
     }
 
     @Test

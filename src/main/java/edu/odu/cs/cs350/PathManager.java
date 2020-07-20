@@ -22,29 +22,49 @@ public class PathManager {
 	 * null if otherwise
 	 */
 	public Path mapUrlToPath (URL toMap) {
-		Path mappedPath = null;
-		for(URL internalURL : urls)
+		Path mappedPath = Paths.get("");
+		Path internalPath = matchHost(toMap);
+		Path toMapPath = Paths.get(toMap.getPath());
+		
+		//Iterate over name elements of the internalURL
+		Iterator<Path> it = internalPath.iterator();
+		while(it.hasNext()&&toMapPath.getNameCount()>0)
 		{
-			if(internalURL.getHost().equals(toMap.getHost()))
+			//if the first name elements match, remove it
+			if(toMapPath.subpath(0, 1).equals(it.next()))
 			{
-				//If the hosts match, grab their paths
-				mappedPath = Paths.get((toMap.getPath()));
-				Path internalPath = Paths.get(internalURL.getPath());
-
-				Iterator<Path> it = internalPath.iterator();
-				//Iterate over name elements of the internalURL
-				while(it.hasNext())
-				{
-					//if the first name element matches, remove it from the mappedPath
-					if(mappedPath.startsWith(it.next()))
-						mappedPath = mappedPath.subpath(1, mappedPath.getNameCount());
-					else
-						return mappedPath;
-				}
+				toMapPath = toMapPath.subpath(1, toMapPath.getNameCount());
+				mappedPath = toMapPath;
 			}
+			else
+				return mappedPath;
 		}
 		return mappedPath;
 	}
+
+	
+	/* 
+	 * Grabs the Path portion of whatever URL we match to for mapping
+	 */ 
+	public Path matchHost (URL toMap) {
+		Path matchedPath = Paths.get("");
+		for(URL internalURL : urls)
+			if(internalURL.getHost().equals(toMap.getHost()))
+				matchedPath = Paths.get(internalURL.getPath());
+		return matchedPath;
+	}
+
+
+	/*Path tempPath = Paths.get(toMap.getPath());
+				for(int i = 0; i < internalPath.getNameCount()-1; i++)
+				{
+					if(internalPath.subpath(i, i+1).equals(tempPath.subpath(0, 1)))
+					{
+						tempPath = tempPath.subpath(1, tempPath.getNameCount());
+					}	
+				}*/
+
+
 
 	/*
 	 * Transmutes any relative paths to absolute and removes redunant name elements
