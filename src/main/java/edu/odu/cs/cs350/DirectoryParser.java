@@ -14,12 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.odu.cs.cs350.*;
 import edu.odu.cs.cs350.Enum.*;
-import edu.odu.cs.cs350.WebsiteFile;
-import edu.odu.cs.cs350.VideoFile;
-import edu.odu.cs.cs350.NonCategoryFile;
-import edu.odu.cs.cs350.AudioFile;
-import edu.odu.cs.cs350.ArchiveFile;
 
 public class DirectoryParser {
 
@@ -29,11 +25,14 @@ public class DirectoryParser {
 	private List<ArchiveFile> foundArchives;
 	private List<NonCategoryFile> foundNonCats;
 
+	private PathManager pman;
+
 	private Path homeDir;
 	private URL[] urls;
 
 	public DirectoryParser(Path home, URL[] theurls) {
-		homeDir = sanitizePath(home);
+		pman = new PathManager();
+		homeDir = pman.sanitizePath(home);
 		urls = theurls;
 	}
 
@@ -53,35 +52,5 @@ public class DirectoryParser {
 
 	public void categorizeFiles() {
 		String filename;
-	}
-
-	/*
-	 * Checks a url against the provided urls to be analyzed
-	 * if internal url, the site root is removed and remaining path returned
-	 * null if otherwise
-	 */
-	public Path mapUrlToPath (URL u) {
-		Path mappedPath = null;
-		for(URL url : urls)
-		{
-			if(url.getHost().equals(u.getHost()))
-				mappedPath = u.getPath();
-		}
-		return mappedPath;
-	}
-
-	/*
-	 * Transmutes any relative paths to absolute and removes redunant name elements
-	 */
-	public Path sanitizePath(Path p) {
-		Path expanded;
-		expanded = p.normalize().toAbsolutePath();
-		return expanded;
-	}
-
-	public Path urlToPath(URL url) {
-		Path thepath = Paths.get(url.getPath());
-		sanitizePath(thepath);
-		return thepath;
 	}
 }
