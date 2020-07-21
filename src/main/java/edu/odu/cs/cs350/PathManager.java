@@ -19,7 +19,7 @@ public class PathManager {
 	/*
 	 * Checks a url against the provided urls to be analyzed
 	 * if internal url, the site root is removed and remaining path returned
-	 * null if otherwise
+	 * if external, returns an empty path
 	 */
 	public Path mapUrlToPath (URL toMap) {
 		Path mappedPath = Paths.get("");
@@ -42,7 +42,6 @@ public class PathManager {
 		return mappedPath;
 	}
 
-	
 	/* 
 	 * Grabs the Path portion of whatever URL we match to for mapping
 	 */ 
@@ -53,18 +52,6 @@ public class PathManager {
 				matchedPath = Paths.get(internalURL.getPath());
 		return matchedPath;
 	}
-
-
-	/*Path tempPath = Paths.get(toMap.getPath());
-				for(int i = 0; i < internalPath.getNameCount()-1; i++)
-				{
-					if(internalPath.subpath(i, i+1).equals(tempPath.subpath(0, 1)))
-					{
-						tempPath = tempPath.subpath(1, tempPath.getNameCount());
-					}	
-				}*/
-
-
 
 	/*
 	 * Transmutes any relative paths to absolute and removes redunant name elements
