@@ -8,14 +8,17 @@ import java.net.URL;
 import java.util.Iterator;
 
 public class PathManager {
-
 	private Path homeDir;
 	private URL[] urls;
 
+	public PathManager() {
+	}
+	
 	public PathManager(Path home, URL[] theurls) {
 		homeDir = home;
 		urls = theurls;
 	}
+
 	/*
 	 * Checks a url against the provided urls to be analyzed
 	 * if internal url, the site root is removed and remaining path returned
