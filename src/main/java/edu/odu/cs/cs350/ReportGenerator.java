@@ -1,8 +1,9 @@
 package edu.odu.cs.cs350;
 
-
+import java.io.FileWriter;   // Import the FileWriter class
 import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
+import java.util.Iterator;
 
 public class ReportGenerator {
 	/*
@@ -16,9 +17,33 @@ public class ReportGenerator {
 	 * writes collected data to a .txt file
 	 */
 	public File generateText(Website web) {
-		return null;
-	}
+		
+		File myFile = new File("notSure.txt"); 
+	 try {   
+		 if (myFile.createNewFile()) {
+	         System.out.println("File created: " + myFile.getName());
+	     }
+		 
+        FileWriter myWrite = new FileWriter("notSure.txt");
+		Iterator<HTMLDocument> docIt = web.getPages().iterator();
+		
+/*		while(docIt.hasNext())
+		{
+			Iterator<Tag> tagIt = new docIt.getImages().iterator();
+			while(tagIt.hasNext())
+				myWrite.write(tagIt.size().toString());
+				myWrite.write("   ");
+				myWrite.write(tagIt.path());
+		}
+*/
+		myWrite.close();
+	    return myFile;
 	
+    } catch(IOException ie) {
+        ie.printStackTrace();
+	}
+	 return myFile;
+	}
 	/*
 	 * writes collected data to a .xls file
 	 */
