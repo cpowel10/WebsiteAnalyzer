@@ -1,15 +1,17 @@
 package edu.odu.cs.cs350;
 
-import java.util.Collection;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.LinkedList;
 
 public class Website {
 	private String localPath;
-	private Collection<String> urls;
-	private Collection<HTMLDocument> allPages;
-	private Collection<AudioFile> allAudioFiles;
-	private Collection<VideoFile> allVideoFiles;
-	private Collection<ArchiveFile> allArchiveFiles;
-	private Collection<NonCategoryFile> allNonCategoryFiles;
+	private LinkedList<String> urls;
+	public LinkedList<HTMLDocument> allPages; //need to write setters
+	private LinkedList<AudioFile> allAudioFiles;
+	private LinkedList<VideoFile> allVideoFiles;
+	private LinkedList<ArchiveFile> allArchiveFiles;
+	private LinkedList<NonCategoryFile> allNonCategoryFiles;
 
 	public Website() {
 		// TODO Auto-generated constructor stub
@@ -18,7 +20,7 @@ public class Website {
 	/*
 	 * returns the Collection of HTMLDocument Objects
 	 */
-	public Collection<HTMLDocument> getPages(){
+	public LinkedList<HTMLDocument> getPages(){
 		return null;
 	}
 	

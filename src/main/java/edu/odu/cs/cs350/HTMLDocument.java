@@ -1,16 +1,25 @@
 package edu.odu.cs.cs350;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 
 public class HTMLDocument {
-  	private LinkedList<Image> allImages;
+  	public LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
   	private LinkedList<Anchor> allAnchors;
   	private int totalImageSize;
   	private Path path;
   	
+	public HTMLDocument() {
+		this.path = Paths.get("pathNotSet");
+		allImages = new LinkedList<Image>();
+		allStyles = new LinkedList<Style>();
+		allScripts = new LinkedList<Script>();
+		allAnchors = new LinkedList<Anchor>();
+		totalImageSize = 0;
+	}
   	/*
   	 * set private path variable to given userPath
   	 */
