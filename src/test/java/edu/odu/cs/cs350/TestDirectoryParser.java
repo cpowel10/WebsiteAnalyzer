@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Iterator;
 
 public class TestDirectoryParser {
@@ -29,7 +30,7 @@ public class TestDirectoryParser {
     private URL testurl3;
     private URL testurl4;
 
-    private LinkedList<Path> parsedPaths = new LinkedList<Path>();
+    private List<Path> parsedPaths;
     private LinkedList<Path> expectedPaths = new LinkedList<Path>();
 
     @Before
@@ -46,42 +47,8 @@ public class TestDirectoryParser {
         dparser = new DirectoryParser(homeDir, urls);
 
     }
-
     @Test
-    public void testSanitizePath() throws IOException {
-        //Absolute and relative paths to an image
-        Path img_absolute_path = Paths.get("Home/Images/slideshow/slide1.png");
-        Path img_relative_path = Paths.get("../Images/slideshow/slide1.png");
-
-        //dparser expands relative path to the absolute and compare
-        Path expanded_path = dparser.sanitizePath(img_relative_path);
-        boolean sameFile = Files.isSameFile(expanded_path, img_absolute_path);
-        assertThat(sameFile, is(true));
-    }
-
-    @Test
-    public void testMapUrlToPath() throws MalformedURLException {
-        Path mappedPath;
-
-        testurl1 = new URL("https://www.example.com/good/test");
-        mappedPath = dparser.mapUrlToPath(testurl1);
-        assertThat(mappedPath.toString(), is("/good/test"));
-
-        testurl2 = new URL("https://www.example.com/my/test/path/hello");
-        mappedPath = dparser.mapUrlToPath(testurl2);
-        assertThat(mappedPath.toString(), is("/path/hello"));
-        
-        testurl3 = new URL("https://www.example.com/outside");
-        mappedPath = dparser.mapUrlToPath(testurl3);
-        assertThat(mappedPath.toString(), is(equalTo(null)));
-        
-        testurl4 = new URL("https://www.bad.example.com/my/test");
-        mappedPath = dparser.mapUrlToPath(testurl4);
-        assertThat(mappedPath.toString(), is(equalTo(null)));
-    }
-
-    @Test
-    public void testParseWebsiteDirectory() {
+    public void testParseWebsiteDirectory() throws IOException {
         boolean isPresent;
         //Parse through the local copy of the website for all pages with html content
         dparser.parseWebsiteDirectory();

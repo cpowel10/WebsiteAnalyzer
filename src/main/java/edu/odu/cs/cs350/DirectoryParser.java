@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 import java.net.URL;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,10 +21,11 @@ import edu.odu.cs.cs350.Enum.*;
 public class DirectoryParser {
 
 	private List<Path> foundFiles;
-	private List<VideoFile> foundVideos;
-	private List<AudioFile> foundAudios;
-	private List<ArchiveFile> foundArchives;
-	private List<NonCategoryFile> foundNonCats;
+	private LinkedList<VideoFile> foundVideos;
+	private LinkedList<AudioFile> foundAudios;
+	private LinkedList<ArchiveFile> foundArchives;
+	private LinkedList<NonCategoryFile> foundNonCats;
+	private LinkedList<HTMLDocument> pages;
 
 	private PathManager pman;
 
@@ -52,5 +54,9 @@ public class DirectoryParser {
 
 	public void categorizeFiles() {
 		String filename;
+	}
+
+	public List<Path> getPages() {
+		return foundFiles;
 	}
 }
