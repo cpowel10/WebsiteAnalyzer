@@ -36,6 +36,7 @@ public class ReportGenerator {
 				myWrite.write(tagIt.path());
 		}
 */
+		
 		myWrite.close();
 	    return myFile;
 	
