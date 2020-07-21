@@ -25,14 +25,16 @@ public class TestHTMLDocument {
 	LinkedList<Script> scripts = new LinkedList<Script>();
 	LinkedList<Style> styles = new LinkedList<Style>();
 	LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+	Path test1 = Paths.get("fake/path");
+	Path test2 = Paths.get("fake/path2");
 
 	Image img1 = new Image(TagType.IMAGE, 2, llp, 1, llp2);
 	Image img2 = new Image(TagType.IMAGE, 3, llp, 1, llp2);
 	Image img3 = new Image(TagType.IMAGE, 13, llp, 1, llp2);
-	Style sty1 = new Style("fake/path", Externality.INTERNAL);
-	Style sty2 = new Style("fake/path2", Externality.EXTERNAL);
-	Script script1 = new Script("fake/path", Externality.INTRA);
-	Anchor anch1 = new Anchor("fake/path", Externality.INTERNAL);
+	Style sty1 = new Style(test1, Externality.INTERNAL);
+	Style sty2 = new Style(test2, Externality.EXTERNAL);
+	Script script1 = new Script(test1, Externality.INTRA);
+	Anchor anch1 = new Anchor(test2, Externality.INTERNAL);
 	HTMLDocument page1 = new HTMLDocument(path1);
 
 	@Test
