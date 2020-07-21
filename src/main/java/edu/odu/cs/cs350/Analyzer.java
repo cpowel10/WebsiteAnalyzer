@@ -24,9 +24,6 @@ public class Analyzer {
 		  //add HTMLDocuments to Website
 	  }
 	  
-	  /*
-	   * 
-	   */
 	  public void analyzeImages(Path path) {
 		  //Call scanForImages(Path) for the given path
 		  //which returns a list of images found on that path
@@ -35,25 +32,25 @@ public class Analyzer {
 		  
 	  }
 	  
-	  /*
-	   * 
-	   */
 	  public void analyzeStyles(Path path) {
+		  //Call scanForStyles(Path) for the given path
+		  //which returns a list of stylesheets found on that path
 		  
+		  //add all stylesheets in the recieved list to analyzedStyles
 	  }
 	  
-	  /*
-	   * 
-	   */
 	  public void analyzeScripts(Path path) {
+		  //Call scanForScripts(Path) for the given path
+		  //which returns a list of scripts found on that path
 		  
+		  //add all scripts in the recieved list to analyzedScripts
 	  }
 	  
-	  /*
-	   * 
-	   */
 	  public void analyzeAnchors(Path path) {
+		  //Call scanForAnchors(Path) for the given path
+		  //which returns a list of anchors found on that path
 		  
+		  //add all anchors in the recieved list to analyzedAnchors
 	  }
 	  
 	  /*
