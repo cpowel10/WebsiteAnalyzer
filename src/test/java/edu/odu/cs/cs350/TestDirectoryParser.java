@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Iterator;
 
@@ -29,8 +30,8 @@ public class TestDirectoryParser {
     private URL testurl3;
     private URL testurl4;
 
-    private List<Path> parsedPaths = new LinkedList<Path>();
-    private List<Path> expectedPaths = new LinkedList<Path>();
+    private List<Path> parsedPaths;
+    private LinkedList<Path> expectedPaths = new LinkedList<Path>();
 
     @Before
     public void setUp() throws MalformedURLException {
@@ -47,7 +48,7 @@ public class TestDirectoryParser {
 
     }
     @Test
-    public void testParseWebsiteDirectory() {
+    public void testParseWebsiteDirectory() throws IOException {
         boolean isPresent;
         //Parse through the local copy of the website for all pages with html content
         dparser.parseWebsiteDirectory();
