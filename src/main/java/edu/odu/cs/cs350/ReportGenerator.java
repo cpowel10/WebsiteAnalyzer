@@ -26,4 +26,11 @@ public class ReportGenerator {
 		return null;
 		
 	}
+	
+	/*
+	 * writes The names of all output files(one per line) to standard out.
+	 */
+	public File generateDisplay(/*Website*/) {
+		return null;
+	}
 }
