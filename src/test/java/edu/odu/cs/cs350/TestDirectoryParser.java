@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Iterator;
 
 public class TestDirectoryParser {
@@ -29,8 +29,8 @@ public class TestDirectoryParser {
     private URL testurl3;
     private URL testurl4;
 
-    private LinkedList<Path> parsedPaths = new LinkedList<Path>();
-    private LinkedList<Path> expectedPaths = new LinkedList<Path>();
+    private List<Path> parsedPaths = new LinkedList<Path>();
+    private List<Path> expectedPaths = new LinkedList<Path>();
 
     @Before
     public void setUp() throws MalformedURLException {

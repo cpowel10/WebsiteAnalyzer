@@ -24,6 +24,7 @@ public class DirectoryParser {
 	private List<AudioFile> foundAudios;
 	private List<ArchiveFile> foundArchives;
 	private List<NonCategoryFile> foundNonCats;
+	private List<HTMLDocument> pages;
 
 	private PathManager pman;
 
@@ -52,5 +53,9 @@ public class DirectoryParser {
 
 	public void categorizeFiles() {
 		String filename;
+	}
+
+	public List<Path> getPages() {
+		return foundFiles;
 	}
 }
