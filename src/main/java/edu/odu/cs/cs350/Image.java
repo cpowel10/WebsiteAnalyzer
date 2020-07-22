@@ -57,11 +57,17 @@ public class Image extends Tag {
 	public void setSize(long mySize) {
 		this.size = mySize;
 	}
-	public void setListings(LinkedList<Path> list) {
-		this.listings = list;
+	public void addListing(Path listing) {
+		listings.add(listing);
 	}
 	public void incrementListings() {
 		numPages++;
+	}
+	public void setListings(LinkedList<Path> myListings) {
+		listings = myListings;
+	}
+	public void setNumPages(int num) {
+		numPages = num;
 	}
 	public void setPagesOn(LinkedList<Path> list) {
 		this.pagesOn = list;
