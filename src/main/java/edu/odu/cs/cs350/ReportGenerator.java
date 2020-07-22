@@ -16,34 +16,38 @@ public class ReportGenerator {
 	/*
 	 * writes collected data to a .txt file
 	 */
-	public File generateText(Website web) {
+	public void generateText(Website web) {
 		
 		File myFile = new File("notSure.txt"); 
 	 try {   
 		 if (myFile.createNewFile()) {
-	         System.out.println("File created: " + myFile.getName());
+	         System.out.println("Text File created: " + myFile.getName());
 	     }
 		 
+		HTMLDocument tempDoc;
+		Image tempImg = null;
         FileWriter myWrite = new FileWriter("notSure.txt");
-		Iterator<HTMLDocument> docIt = web.getPages().iterator();
-		
-/*		while(docIt.hasNext())
+		Iterator<HTMLDocument> docIt = web.allPages.iterator();
+		Iterator<Image> imgIt;
+		while(docIt.hasNext())
 		{
-			Iterator<Tag> tagIt = new docIt.getImages().iterator();
-			while(tagIt.hasNext())
-				myWrite.write(tagIt.size().toString());
+			tempDoc = docIt.next();
+			imgIt = tempDoc.getImages().iterator();
+			while(imgIt.hasNext())
+				tempImg = imgIt.next();
+				myWrite.write((tempImg.size()));
 				myWrite.write("   ");
-				myWrite.write(tagIt.path());
+				myWrite.write((tempImg.path()).toString());
+				imgIt.next();
 		}
-*/
-		
+
 		myWrite.close();
-	    return myFile;
+	    //return myFile;
 	
     } catch(IOException ie) {
         ie.printStackTrace();
 	}
-	 return myFile;
+	// return myFile;
 	}
 	/*
 	 * writes collected data to a .xls file
