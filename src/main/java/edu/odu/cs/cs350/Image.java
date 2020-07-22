@@ -7,7 +7,8 @@ import java.nio.file.Path;
 import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.Enum.TagType;
 
-public class Image extends Tag {
+public class Image extends Tag 	implements Comparable<Image> {
+	
 	private TagType type = TagType.IMAGE;
 	private long size;
 	private LinkedList<Path> listings;
@@ -75,6 +76,7 @@ public class Image extends Tag {
 	
 	//Would someone look at this and help me figure out where it belongs, I need it for report generator. 
 	//Sorry for pushing broken code :-/
+		
 	@Override
 	public int compareTo(Image img) {
 		
