@@ -78,9 +78,12 @@ public class TestReportGenerator {
 	}
 	@Test
 	public final void testTxt() {
+
+		//generateText(webs);//Cannot figure this out >:(
 		File myFile = new File("notSure.txt"); 
-		assertThat(myFile, is("10KB /path/0 /n 100KB /path/1 /n 1000KB /n /path/2")); //There is certainly a better way
-		//assertThat(true, is(false));
+
+		//assertThat(generateText(webs), is("10KB /path/0 /n 100KB /path/1 /n 1000KB /n /path/2")); //There is certainly a better way
+		assertThat(true, is(false));
 		//fail("Not yet implemented"); // TODO
 	}
 	@Test
