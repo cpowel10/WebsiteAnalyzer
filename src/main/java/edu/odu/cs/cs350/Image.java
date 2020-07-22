@@ -4,11 +4,12 @@ import java.util.LinkedList;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 
+import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.Enum.TagType;
 
 public class Image extends Tag {
 	private TagType type = TagType.IMAGE;
-	private int size;
+	private long size;
 	private LinkedList<Path> listings;
 	private int numPages;
 	private LinkedList<Path> pagesOn;
@@ -21,7 +22,14 @@ public class Image extends Tag {
 		this.setNumPages(0);
 		this.setPagesOn(emptyList);
 	}
-	public Image(int mySize, LinkedList<Path> myListings, int myNumPages, LinkedList<Path> myPagesOn) {
+
+	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality) {
+		super(myPath, TagType.IMAGE, myExternality);
+		size = mySize;
+		listings.add(firstListing);
+	}
+
+	public Image(long mySize, LinkedList<Path> myListings, int myNumPages, LinkedList<Path> myPagesOn) {
 		this.setType(TagType.IMAGE);
 		this.setSize(mySize);
 		this.setListings(myListings);
@@ -31,7 +39,7 @@ public class Image extends Tag {
 	public TagType type() {
 		return this.type;
 	}
-	public int size() {
+	public long size() {
 		return this.size;
 	}
 	public LinkedList<Path> listings() {
@@ -46,14 +54,14 @@ public class Image extends Tag {
 	public void setType(TagType myType) {
 		this.type = myType;
 	}
-	public void setSize(int mySize) {
+	public void setSize(long mySize) {
 		this.size = mySize;
 	}
 	public void setListings(LinkedList<Path> list) {
 		this.listings = list;
 	}
-	public void setNumPages(int numberOfPages) {
-		this.numPages = numberOfPages;
+	public void incrementListings() {
+		numPages++;
 	}
 	public void setPagesOn(LinkedList<Path> list) {
 		this.pagesOn = list;
