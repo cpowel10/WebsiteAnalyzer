@@ -5,23 +5,108 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 
 public class Website {
-	private String localPath;
+	private Path localPath;
 	private LinkedList<String> urls;
-	public LinkedList<HTMLDocument> allPages; //need to write setters
+	public LinkedList<HTMLDocument> allPages; //setters have been written, replace .allPages with .getPages() then switch this to private
 	private LinkedList<AudioFile> allAudioFiles;
 	private LinkedList<VideoFile> allVideoFiles;
 	private LinkedList<ArchiveFile> allArchiveFiles;
 	private LinkedList<NonCategoryFile> allNonCategoryFiles;
 
 	public Website() {
-		// TODO Auto-generated constructor stub
+		this.localPath = Paths.get("pathNotSet");
+		this.urls = new LinkedList<String>();
+		this.allPages = new LinkedList<HTMLDocument>();
+		this.allAudioFiles = new LinkedList<AudioFile>();
+		this.allVideoFiles = new LinkedList<VideoFile>();
+		this.allArchiveFiles = new LinkedList<ArchiveFile>();
+		this.allNonCategoryFiles = new LinkedList<NonCategoryFile>();
 	}
-
+	//getters 
 	/*
-	 * returns the Collection of HTMLDocument Objects
+	 * returns the Path 
+	 */
+	public Path getPath() {
+		return this.localPath;
+	}
+	/*
+	 * returns the LinkedList of URLS(of type string)
+	 */
+	public LinkedList<String> getURLs(){
+		return this.urls;
+	}
+	/*
+	 * returns the LinkedList of pages(of type HTMLDocument)
 	 */
 	public LinkedList<HTMLDocument> getPages(){
-		return null;
+		return this.allPages;
+	}
+	/*
+	 * returns the LinkedList of audioFiles
+	 */
+	public LinkedList<AudioFile> getAudioFiles(){
+		return this.allAudioFiles;
+	}
+	/*
+	 * returns the LinkedList of videoFiles
+	 */
+	public LinkedList<VideoFile> getVideoFiles(){
+		return this.allVideoFiles;
+	}
+	/*
+	 * returns the LinkedList of archiveFiles
+	 */
+	public LinkedList<ArchiveFile> getArchiveFiles(){
+		return this.allArchiveFiles;
+	}
+	/*
+	 * returns the LinkedList of nonCategoryFiles
+	 */
+	public LinkedList<NonCategoryFile> getNonCatFiles(){
+		return this.allNonCategoryFiles;
+	}
+	//Setters
+	/*
+	 * sets the Path
+	 */
+	public void setPath(Path path) {
+		this.localPath = path;
+	}
+	/*
+	 * sets the urls
+	 */
+	public void setURLs(LinkedList<String> url){
+		this.urls = url;
+	}
+	/*
+	 * sets the pages(of type HTMLDocument)
+	 */
+	public void setPages(LinkedList<HTMLDocument> pages){
+		this.allPages = pages;
+	}
+	/*
+	 * sets the audioFiles
+	 */
+	public void setAudioFiles(LinkedList<AudioFile> files){
+		this.allAudioFiles = files;
+	}
+	/*
+	 * sets the videoFiles
+	 */
+	public void setVideoFiles(LinkedList<VideoFile> files){
+		this.allVideoFiles = files;
+	}
+	/*
+	 * sets the archiveFiles
+	 */
+	public void setArchiveFiles(LinkedList<ArchiveFile> files){
+		this.allArchiveFiles = files;
+	}
+	/*
+	 * sets the nonCategoryFiles
+	 */
+	public void setNonCatFiles(LinkedList<NonCategoryFile> files){
+		this.allNonCategoryFiles = files;
 	}
 	
 	/*
@@ -29,7 +114,12 @@ public class Website {
 	 * are marked as internal
 	 */
 	public int numInternalImages() {
-		return -1;
+		int count = 0;
+		//for each HTMLDoc
+		//	for eachImage
+		//		if( x.externality == externality.INTERNAL)
+		//			count++;
+		return count;
 	}
 	
 	/*
@@ -37,7 +127,12 @@ public class Website {
 	 * are marked as External
 	 */
 	int numExternalImages() {
-		return -1;
+		int count = 0;
+		//for each HTMLDoc
+		//	for eachImage
+		//		if( x.externality == externality.EXTERNAL)
+		//			count++;
+		return count;
 	}
 	
 	/*
