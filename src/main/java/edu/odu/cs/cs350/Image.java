@@ -72,4 +72,28 @@ public class Image extends Tag {
 	public void setPagesOn(LinkedList<Path> list) {
 		this.pagesOn = list;
 	}
+	
+	//Would someone look at this and help me figure out where it belongs, I need it for report generator. 
+	//Sorry for pushing broken code :-/
+	@Override
+	public int compareTo(Image img) {
+		
+		String lhsPath = (this.path()).toString();
+		String rhsPath = (img.path()).toString(); 
+		int lhsLength = lhsPath.length();
+		int rhsLength = rhsPath.length();
+		int max = 0;
+		if(lhsLength > rhsLength)
+			max = lhsLength;
+		else
+			max = rhsLength;
+		for(int i = 0; i < max; i++) {
+			if((int)lhsPath.charAt(i) - (int)rhsPath.charAt(i) > 0)
+				return 1; //difference is greater than 0 means lhs is larger(comes later in alphabet)
+			else if((int)lhsPath.charAt(i) - (int)rhsPath.charAt(i) < 0)
+				return -1;
+		}
+		return 0; 
+	}
+ 
 }

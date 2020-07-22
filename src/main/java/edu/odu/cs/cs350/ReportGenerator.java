@@ -1,9 +1,11 @@
 package edu.odu.cs.cs350;
 
+import java.util.Collections;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class ReportGenerator {
 	/*
@@ -23,23 +25,26 @@ public class ReportGenerator {
 		 if (myFile.createNewFile()) {
 	         System.out.println("Text File created: " + myFile.getName());
 	     }
-		 
 		HTMLDocument tempDoc;
 		Image tempImg = null;
         FileWriter myWrite = new FileWriter("notSure.txt");
 		Iterator<HTMLDocument> docIt = web.allPages.iterator();
 		Iterator<Image> imgIt;
-		while(docIt.hasNext())
-		{
+		LinkedList<Image> toWrite = new LinkedList<Image>();
+		while(docIt.hasNext())		{
 			tempDoc = docIt.next();
 			imgIt = tempDoc.getImages().iterator();
-			while(imgIt.hasNext())
+			while(imgIt.hasNext()) {
 				tempImg = imgIt.next();
-				myWrite.write((tempImg.size()));
-				myWrite.write("   ");
-				myWrite.write((tempImg.path()).toString());
+				toWrite.add(tempImg);	
+				//myWrite.write((String.valueOf(tempImg.size())));
+				//myWrite.write("   ");
+				//myWrite.write((tempImg.path()).toString());
 				imgIt.next();
+			}
 		}
+		//Collections.sort(toWrite); //One of the these! using the broken logic I placed in Image
+		//Collections.sort(toWrite, myCompareLogic);
 
 		myWrite.close();
 	    //return myFile;
