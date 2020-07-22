@@ -8,9 +8,9 @@ import edu.odu.cs.cs350.Enum.TagType;
 
 public class Tag {
 
-	protected Path path;
-	protected TagType type;
-	protected Externality eality;
+	private Path path;
+	private TagType type;
+	private Externality eality;
 
 	public Tag() {
 		this.setPath(Paths.get("noAssignedPath")); 
@@ -39,5 +39,14 @@ public class Tag {
 	}
 	public void setExternality(Externality ext) {
 		this.eality = ext;
+	}
+	@Override
+	public boolean equals(Object other) {
+		if(this == other)
+			return true;
+		if(!(other instanceof Tag))
+			return false;
+		Tag otherTag = (Tag) other);
+		return this.path.equals(otherTag.path());
 	}
 }

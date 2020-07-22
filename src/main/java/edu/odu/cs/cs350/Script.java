@@ -6,9 +6,7 @@ import java.nio.file.Path;
 
 public class Script extends Tag {	
 	public Script(Path inPath, Externality inEality) {
-		super.path = inPath;
-		super.type = TagType.SCRIPT;
-		super.eality = inEality;
+		super(inPath, TagType.SCRIPT, inEality);
 	}
 
 }

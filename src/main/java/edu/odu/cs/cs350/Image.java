@@ -21,8 +21,8 @@ public class Image extends Tag {
 		this.setNumPages(0);
 		this.setPagesOn(emptyList);
 	}
-	public Image(TagType myType, int mySize, LinkedList<Path> myListings, int myNumPages, LinkedList<Path> myPagesOn) {
-		this.setType(myType);
+	public Image(int mySize, LinkedList<Path> myListings, int myNumPages, LinkedList<Path> myPagesOn) {
+		this.setType(TagType.IMAGE);
 		this.setSize(mySize);
 		this.setListings(myListings);
 		this.setNumPages(myNumPages);
