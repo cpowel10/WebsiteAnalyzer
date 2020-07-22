@@ -45,10 +45,23 @@ public class ReportGenerator {
 		}
 		//Collections.sort(toWrite); //One of the these! using the broken logic I placed in Image
 		//Collections.sort(toWrite, myCompareLogic);
-
+		
+		docIt = web.allPages.iterator();
+		while(docIt.hasNext()) {
+			tempDoc = docIt.next();
+			imgIt = tempDoc.getImages().iterator();
+			while(imgIt.hasNext()) {
+				tempImg = imgIt.next();
+				myWrite.write((String.valueOf(tempImg.size())));
+				myWrite.write("   ");
+				myWrite.write((tempImg.path()).toString());
+				myWrite.write("\n");
+				
+			}
+		}
 		myWrite.close();
 	    //return myFile;
-	
+		
     } catch(IOException ie) {
         ie.printStackTrace();
 	}
@@ -65,6 +78,6 @@ public class ReportGenerator {
 	 * writes The names of all output files(one per line) to standard out.
 	 */
 	public File generateDisplay(Website web) {
-		return null;
+		return null; //I think we shouldn't use this and that we should just output filename when generating each file.
 	}
 }
