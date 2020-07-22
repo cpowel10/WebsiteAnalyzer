@@ -44,7 +44,8 @@ public class ReportGenerator {
 			}
 		}
 		//Collections.sort(toWrite); //One of the these! using the broken logic I placed in Image
-		toWrite.sort();
+		//toWrite.sort();
+		//toWrite.sort(new compareTo());
 		Collections.sort(toWrite);
 		//Collections.sort(toWrite, myCompareLogic);
 		
