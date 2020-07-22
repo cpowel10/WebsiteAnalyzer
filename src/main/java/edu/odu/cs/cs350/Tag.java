@@ -40,4 +40,13 @@ public class Tag {
 	public void setExternality(Externality ext) {
 		this.eality = ext;
 	}
+	@Override
+	public boolean equals(Object other) {
+		if(this == other)
+			return true;
+		if(!(other instanceof Tag))
+			return false;
+		Tag otherTag = (Tag) other);
+		return this.path.equals(otherTag.path());
+	}
 }
