@@ -8,9 +8,9 @@ import edu.odu.cs.cs350.Enum.TagType;
 
 public class Tag {
 
-	protected Path path;
-	protected TagType type;
-	protected Externality eality;
+	private Path path;
+	private TagType type;
+	private Externality eality;
 
 	public Tag() {
 		this.setPath(Paths.get("noAssignedPath")); 

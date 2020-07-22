@@ -6,10 +6,7 @@ import java.nio.file.Path;
 
 public class Style extends Tag {
 	public Style(Path inPath, Externality inEality) {
-		// TODO Auto-generated constructor stub
-		super.path = inPath;
-		super.type = TagType.STYLE;
-		super.eality = inEality;
+		super(inPath, TagType.STYLE, inEality);
 	}
 
 }

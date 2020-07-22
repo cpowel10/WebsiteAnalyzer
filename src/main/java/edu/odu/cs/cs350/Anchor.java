@@ -7,9 +7,7 @@ import java.nio.file.Path;
 
 public class Anchor extends Tag {	
 	public Anchor(Path inPath, Externality inEality) {
-		super.path = inPath;
-		super.type = TagType.ANCHOR;
-		super.eality = inEality;
+		super(inPath, TagType.ANCHOR, inEality);
 	}
 
 }
