@@ -35,8 +35,8 @@ public class PageReader {
 			File imgFile = new File(i.attr("src"));
 			long fileSize = imgFile.length();
 			//need to convert fileSize from bytes to MiB
-			long fileSizeMiB = (long) (fileSize * 9.53674e-7);
-			tempImage.setSize(fileSizeMiB);
+			//long fileSizeMiB = (long) (fileSize * 9.53674e-7);
+			tempImage.setSize((int)(fileSize));
 			//set the path to image Path list
 			Path imgPath = Paths.get(i.attr("src"));
 			LinkedList<Path> imgPaths = new LinkedList<Path>();
