@@ -46,7 +46,7 @@ public class Tag {
 			return true;
 		if(!(other instanceof Tag))
 			return false;
-		Tag otherTag = (Tag) other);
+		Tag otherTag = (Tag) other;
 		return this.path.equals(otherTag.path());
 	}
 }
