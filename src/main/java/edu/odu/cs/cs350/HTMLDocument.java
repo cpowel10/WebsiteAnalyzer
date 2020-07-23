@@ -120,11 +120,7 @@ public class HTMLDocument {
 		str += Integer.toString(allStyles.size()) + " ";
 		str += Integer.toString(allScripts.size()) + " ";
 		str += Integer.toString(allAnchors.size()) + " ";
-<<<<<<< HEAD
 		str += String.valueOf(totalImageSize);
-=======
-		str += Integer.toString((int)totalImageSize);
->>>>>>> 89dba4629a5c5ecbdf20ab6c5d324a820e8bde75
 		return str;
 	}
 }
