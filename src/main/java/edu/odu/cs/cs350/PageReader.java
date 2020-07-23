@@ -33,15 +33,18 @@ public class PageReader {
 			Image tempImage = new Image();
 			//find size of Image
 			File imgFile = new File(i.attr("src"));
-			double fileSize = imgFile.length();
-			tempImage.setSize((int) fileSize);
+			long fileSize = imgFile.length();
+			//need to convert fileSize from bytes to MiB
+			long fileSizeMiB = (long) (fileSize * 9.53674e-7);
+			tempImage.setSize(fileSizeMiB);
 			//set the path to image Path list
 			Path imgPath = Paths.get(i.attr("src"));
-			//LinkedList<Path> imgPaths = new LinkedList<Path>();
-			//imgPaths.add(imgPath);
-			//tempImage.setPagesOn(pathList);
-			//tempImage.setListings(imgPaths);
+			LinkedList<Path> imgPaths = new LinkedList<Path>();
+			imgPaths.add(imgPath);
+			tempImage.setPagesOn(pathList);
+			tempImage.setListings(imgPaths);
 			tempImage.setNumPages(1);
+			imgList.add(tempImage);
 		  }
 		  //return updated LinkedList of Images from given page
 		  return imgList;

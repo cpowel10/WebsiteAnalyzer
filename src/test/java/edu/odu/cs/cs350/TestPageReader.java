@@ -27,8 +27,6 @@ public class TestPageReader {
 	
 	@Before
 	public void setup() {
-		//set up HTMLDocument(s) to have lists filled
-		//with images, anchors, scripts, and styles
 		LinkedList<Path> paths = new LinkedList<Path>();
 		LinkedList<Path> imgPaths = new LinkedList<Path>();
 		paths.add(path1);
