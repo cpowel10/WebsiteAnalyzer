@@ -74,7 +74,7 @@ public class TestImage {
 		LinkedList<Path> myPagesOn = new LinkedList<Path>();
 		
 		//Change
-		Image secondImage = new Image(myType, mySize, myListings, myNumPages, myPagesOn);
+		Image secondImage = new Image(mySize, myListings, myNumPages, myPagesOn);
 		
 		//Check changes
 		assertThat(secondImage.type(), is(myType));

@@ -17,10 +17,10 @@ public class PageReader {
 	/*
 	 * 
 	 */
-	  public LinkedList<Image> scanForImages(HTMLDocument page) throws IOException{
+	  public LinkedList<Image> scanForImages(Path path) throws IOException{
 		  //get Path of HTMLDocument
-		  Path path = page.getPath();
 		  LinkedList<Path> pathList = new LinkedList<Path>();
+		  LinkedList<Image> imgList = new LinkedList<Image>();
 		  pathList.add(path);
 		  //use jsoup library to find image tags
 		  File pathFile = path.toFile();
@@ -37,22 +37,21 @@ public class PageReader {
 			tempImage.setSize((int) fileSize);
 			//set the path to image Path list
 			Path imgPath = Paths.get(i.attr("src"));
-			LinkedList<Path> imgPaths = new LinkedList<Path>();
-			imgPaths.add(imgPath);
-			tempImage.setPagesOn(pathList);
-			tempImage.setListings(imgPaths);
+			//LinkedList<Path> imgPaths = new LinkedList<Path>();
+			//imgPaths.add(imgPath);
+			//tempImage.setPagesOn(pathList);
+			//tempImage.setListings(imgPaths);
 			tempImage.setNumPages(1);
-			page.addElement(tempImage);
 		  }
 		  //return updated LinkedList of Images from given page
-		  return page.getImages();
+		  return imgList;
 		  
 	  }
 	  
 	  /*
 	   * 
 	   */
-	  public LinkedList<Style> scanForStyles(HTMLDocument page){
+	  public LinkedList<Style> scanForStyles(Path path){
 		  return null;
 		  
 	  }
@@ -60,7 +59,7 @@ public class PageReader {
 	  /*
 	   * 
 	   */
-	  public LinkedList<Script> scanForScripts(HTMLDocument page){
+	  public LinkedList<Script> scanForScripts(Path path){
 		  return null;
 		  
 	  }
@@ -68,7 +67,7 @@ public class PageReader {
 	  /*
 	   * 
 	   */
-	  public LinkedList<Anchor> scanForAnchors(HTMLDocument page){
+	  public LinkedList<Anchor> scanForAnchors(Path path){
 		  return null;
 		  
 	  }
