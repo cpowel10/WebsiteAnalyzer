@@ -1,12 +1,12 @@
 package edu.odu.cs.cs350;
 
+import java.nio.file.Path;
+
 import edu.odu.cs.cs350.Enum.FileType;
 
 public class AudioFile extends WebsiteFile {
-	public AudioFile(int inSize, String inPath) {
-		super.size = inSize;
-		super.path = inPath;
-		super.type = FileType.AUDIO;
+	public AudioFile(int inSize, Path inPath) {
+		super(inSize, inPath, FileType.AUDIO);
 	}
 
 }
