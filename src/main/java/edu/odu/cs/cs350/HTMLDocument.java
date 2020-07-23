@@ -9,7 +9,7 @@ public class HTMLDocument {
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
   	private LinkedList<Anchor> allAnchors;
-  	private int totalImageSize;
+  	private long totalImageSize;
   	private Path path;
   	
 	public HTMLDocument() {
@@ -37,7 +37,7 @@ public class HTMLDocument {
 	 * allImages and returns the totalImageSize
 	 * for the current HTMLDocument
 	 */
-	public int getTotalImageSize() {
+	public long getTotalImageSize() {
 		return totalImageSize;
 	}
 	
@@ -59,6 +59,31 @@ public class HTMLDocument {
 	
 	public LinkedList<Anchor> getAnchors(){
 		return allAnchors;
+	}
+	public void setPath(Path pth) {
+		this.path = pth;
+	}
+	
+	public void setImages(LinkedList<Image> images){
+		this.allImages = images;
+	}
+	
+	public void setScripts(LinkedList<Script> scripts){
+		this.allScripts = scripts;
+	}
+	
+	public void setStyles(LinkedList<Style> styles){
+		this.allStyles = styles;
+	}
+	
+	public void setAnchors(LinkedList<Anchor> anchors){
+		this.allAnchors = anchors;
+	}
+	public void addToImageSize(long imageSize){
+		long size;
+		size = this.totalImageSize;
+		size += imageSize;
+		this.totalImageSize = size; 
 	}
 	
 	/*
@@ -90,7 +115,7 @@ public class HTMLDocument {
 		str += Integer.toString(allStyles.size()) + " ";
 		str += Integer.toString(allScripts.size()) + " ";
 		str += Integer.toString(allAnchors.size()) + " ";
-		str += Integer.toString(totalImageSize);
+		str += Integer.toString((int)totalImageSize);
 		return str;
 	}
 }
