@@ -63,6 +63,30 @@ public class HTMLDocument {
 
 	public void setTotalImageSize(long size) {
 		totalImageSize = size;
+	public void setPath(Path pth) {
+		this.path = pth;
+	}
+	
+	public void setImages(LinkedList<Image> images){
+		this.allImages = images;
+	}
+	
+	public void setScripts(LinkedList<Script> scripts){
+		this.allScripts = scripts;
+	}
+	
+	public void setStyles(LinkedList<Style> styles){
+		this.allStyles = styles;
+	}
+	
+	public void setAnchors(LinkedList<Anchor> anchors){
+		this.allAnchors = anchors;
+	}
+	public void addToImageSize(long imageSize){
+		long size;
+		size = this.totalImageSize;
+		size += imageSize;
+		this.totalImageSize = size; 
 	}
 	
 	/*
@@ -94,7 +118,11 @@ public class HTMLDocument {
 		str += Integer.toString(allStyles.size()) + " ";
 		str += Integer.toString(allScripts.size()) + " ";
 		str += Integer.toString(allAnchors.size()) + " ";
+<<<<<<< HEAD
 		str += String.valueOf(totalImageSize);
+=======
+		str += Integer.toString((int)totalImageSize);
+>>>>>>> 89dba4629a5c5ecbdf20ab6c5d324a820e8bde75
 		return str;
 	}
 }

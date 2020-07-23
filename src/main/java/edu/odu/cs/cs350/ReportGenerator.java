@@ -19,8 +19,8 @@ public class ReportGenerator {
 	 * writes collected data to a .txt file
 	 */
 	public void generateText(Website web) {
-		
-		File myFile = new File("notSure.txt"); 
+		long total = 0;
+		File myFile = new File("WebsiteAnalysis.txt"); 
 	 try {   
 		 if (myFile.createNewFile()) {
 	         System.out.println("Text File created: " + myFile.getName());
@@ -33,6 +33,7 @@ public class ReportGenerator {
 		LinkedList<Image> toWrite = new LinkedList<Image>();
 		while(docIt.hasNext())		{
 			tempDoc = docIt.next();
+			total += docIt.getTotalImageSize();
 			imgIt = tempDoc.getImages().iterator();
 			while(imgIt.hasNext()) {
 				tempImg = imgIt.next();
@@ -40,7 +41,6 @@ public class ReportGenerator {
 				//myWrite.write((String.valueOf(tempImg.size())));
 				//myWrite.write("   ");
 				//myWrite.write((tempImg.path()).toString());
-				imgIt.next();
 			}
 		}
 		//Collections.sort(toWrite); //One of the these! using the broken logic I placed in Image
@@ -59,9 +59,10 @@ public class ReportGenerator {
 				myWrite.write("   ");
 				myWrite.write((tempImg.path()).toString());
 				myWrite.write("\n");
-				
 			}
 		}
+		myWrite.write(String.valueOf(total));
+		myWrite.write("  .");
 		myWrite.close();
 	    //return myFile;
 		
