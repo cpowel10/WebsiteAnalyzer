@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Scanner;
 
 import edu.odu.cs.cs350.*;
 import edu.odu.cs.cs350.Enum.*;
@@ -25,12 +26,14 @@ public class DirectoryParser {
 	private LinkedList<AudioFile> foundAudios;
 	private LinkedList<ArchiveFile> foundArchives;
 	private LinkedList<NonCategoryFile> foundNonCats;
-	private LinkedList<HTMLDocument> pages;
+	private LinkedList<Path> htmlPaths;
 
 	private PathManager pman;
 
 	private Path homeDir;
 	private URL[] urls;
+
+	Scanner scanner;
 
 	public DirectoryParser(Path home, URL[] theurls) {
 		pman = new PathManager();
@@ -48,7 +51,10 @@ public class DirectoryParser {
 		FileType type;
 		for(Path p : foundFiles)
 		{
-			
+			scanner = new Scanner(p);
+			if(scanner.hasNext("<html>")&&scanner.hasNext("</html>"))
+				htmlPaths.add(p);
+			scanner.close();
 		}
 	}
 
