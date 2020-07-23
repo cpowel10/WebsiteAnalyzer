@@ -9,7 +9,7 @@ public class HTMLDocument {
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
   	private LinkedList<Anchor> allAnchors;
-  	private int totalImageSize;
+  	private long totalImageSize;
   	private Path path;
   	
 	public HTMLDocument() {
@@ -37,7 +37,7 @@ public class HTMLDocument {
 	 * allImages and returns the totalImageSize
 	 * for the current HTMLDocument
 	 */
-	public int getTotalImageSize() {
+	public long getTotalImageSize() {
 		return totalImageSize;
 	}
 	
@@ -59,6 +59,10 @@ public class HTMLDocument {
 	
 	public LinkedList<Anchor> getAnchors(){
 		return allAnchors;
+	}
+
+	public void setTotalImageSize(long size) {
+		totalImageSize = size;
 	}
 	
 	/*
