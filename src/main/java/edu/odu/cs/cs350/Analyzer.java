@@ -15,6 +15,10 @@ public class Analyzer {
 	private LinkedList<Style> analyzedStyles = new LinkedList<Style>();
 	private LinkedList<Script> analyzedScripts = new LinkedList<Script>();
 	private LinkedList<Anchor> analyzedAnchors = new LinkedList<Anchor>();
+
+	public Analyzer(Website mysite) {
+		site = mysite;
+	}
 	
 	public void analyzerMain(LinkedList<Path> paths) {
 		//Call analyzeImages(Path) for each path in paths
@@ -30,7 +34,7 @@ public class Analyzer {
 		//add HTMLDocuments to Website
 	}
 	
-	public void analyzeImages(Path path) throws IOException {
+	public void analyzeImages() throws IOException {
 		//Call scanForImages(Path) for the given path
 		//which returns a list of images found on that path
 		HTMLDocument tempPage;
@@ -51,7 +55,7 @@ public class Analyzer {
 				tempImage = imgit.next();
 				int imgindex;
 				imgindex = analyzedImages.indexOf(tempImage);
-				if(imgindex!=-1) {
+				if(imgindex==-1) {
 					imgToAddPath = tempImage.path();
 					imgToAddListing = tempPage.getPath();
 					if(tempImage.externality()==Externality.INTERNAL) {
