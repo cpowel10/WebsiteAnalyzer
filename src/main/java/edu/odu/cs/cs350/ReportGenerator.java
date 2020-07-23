@@ -33,7 +33,7 @@ public class ReportGenerator {
 		LinkedList<Image> toWrite = new LinkedList<Image>();
 		while(docIt.hasNext())		{
 			tempDoc = docIt.next();
-			total += docIt.getTotalImageSize();
+			total = tempDoc.getTotalImageSize();
 			imgIt = tempDoc.getImages().iterator();
 			while(imgIt.hasNext()) {
 				tempImg = imgIt.next();
