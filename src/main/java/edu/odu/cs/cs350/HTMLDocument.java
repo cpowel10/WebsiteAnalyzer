@@ -63,6 +63,8 @@ public class HTMLDocument {
 
 	public void setTotalImageSize(long size) {
 		totalImageSize = size;
+	}
+
 	public void setPath(Path pth) {
 		this.path = pth;
 	}
