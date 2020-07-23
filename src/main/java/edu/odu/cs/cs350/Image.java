@@ -16,12 +16,12 @@ public class Image extends Tag 	implements Comparable<Image> {
 	private LinkedList<Path> pagesOn;
 	
 	public Image() {
-		this.setType(TagType.IMAGE);
+		super(Paths.get("lol"), TagType.IMAGE, Externality.INTERNAL);
 		this.setSize(0);
-		LinkedList<Path> emptyList = new LinkedList<Path>();
-		this.setListings(emptyList);
+		listings = new LinkedList<Path>();
 		this.setNumPages(0);
-		this.setPagesOn(emptyList);
+		pagesOn = new LinkedList<Path>();
+
 	}
 
 	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality) {
