@@ -94,7 +94,7 @@ public class HTMLDocument {
 		str += Integer.toString(allStyles.size()) + " ";
 		str += Integer.toString(allScripts.size()) + " ";
 		str += Integer.toString(allAnchors.size()) + " ";
-		str += Integer.toString(totalImageSize);
+		str += String.valueOf(totalImageSize);
 		return str;
 	}
 }
