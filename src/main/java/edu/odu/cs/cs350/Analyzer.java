@@ -37,6 +37,7 @@ public class Analyzer {
 		Image tempImage;
 		Image imgToAdd;
 		long imgToAddSize;
+		long pageImageSize = 0;
 		Iterator<HTMLDocument> pageit = site.allPages.iterator();
 		Iterator<Image> imgit;
 		Path imgToAddPath;
@@ -66,7 +67,11 @@ public class Analyzer {
 					analyzedImages.get(imgindex).incrementListings();
 					analyzedImages.get(imgindex).addListing(tempPage.getPath());
 				}
+				if(tempImage.externality()==Externality.INTERNAL)
+					pageImageSize+=Files.size(tempImage.path());
 			}
+			tempPage.setTotalImageSize(pageImageSize);
+			pageImageSize = 0;
 		}
 	}
 
