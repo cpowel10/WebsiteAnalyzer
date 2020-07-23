@@ -74,9 +74,6 @@ public class Image extends Tag 	implements Comparable<Image> {
 	public void setPagesOn(LinkedList<Path> list) {
 		this.pagesOn = list;
 	}
-	
-	//Would someone look at this and help me figure out where it belongs, I need it for report generator. 
-	//Sorry for pushing broken code :-/
 		
 	@Override
 	public int compareTo(Image img) {
