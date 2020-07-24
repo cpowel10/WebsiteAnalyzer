@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 
-public class HTMLDocument {
+public class HTMLDocument implements Comparable<HTMLDocument> {
   	public LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
@@ -109,6 +109,27 @@ public class HTMLDocument {
 			totalImageSize += ((Image) tag).size();
 		}
 	}
+	@Override
+	public int compareTo(HTMLDocument doc) {
+		
+		String lhsPath = (this.getPath()).toString();
+		String rhsPath = (doc.getPath()).toString(); 
+		int lhsLength = lhsPath.length();
+		int rhsLength = rhsPath.length();
+		int max = 0;
+		if(lhsLength > rhsLength)
+			max = lhsLength;
+		else
+			max = rhsLength;
+		for(int i = 0; i < max; i++) {
+			if((int)lhsPath.charAt(i) - (int)rhsPath.charAt(i) > 0)
+				return 1; //difference is greater than 0 means lhs is larger(comes later in alphabet)
+			else if((int)lhsPath.charAt(i) - (int)rhsPath.charAt(i) < 0)
+				return -1;
+		}
+		return 0; 
+	}
+ 
 	
 	/*
 	 * For Testing Only Below
@@ -120,11 +141,8 @@ public class HTMLDocument {
 		str += Integer.toString(allStyles.size()) + " ";
 		str += Integer.toString(allScripts.size()) + " ";
 		str += Integer.toString(allAnchors.size()) + " ";
-<<<<<<< HEAD
 		str += String.valueOf(totalImageSize);
-=======
-		str += Integer.toString((int)totalImageSize);
->>>>>>> 89dba4629a5c5ecbdf20ab6c5d324a820e8bde75
+
 		return str;
 	}
 }

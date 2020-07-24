@@ -30,11 +30,12 @@ public class ReportGenerator {
         FileWriter myWrite = new FileWriter("notSure.txt");
 		Iterator<HTMLDocument> docIt = web.allPages.iterator();
 		Iterator<Image> imgIt;
-		LinkedList<Image> toWrite = new LinkedList<Image>();
+		LinkedList<HTMLDocument> toWrite = new LinkedList<HTMLDocument>();
 		while(docIt.hasNext())		{
 			tempDoc = docIt.next();
 			total += tempDoc.getTotalImageSize();
-			imgIt = tempDoc.getImages().iterator();
+			toWrite.add(tempDoc);
+		/*mgIt = tempDoc.getImages().iterator();
 			while(imgIt.hasNext()) {
 				tempImg = imgIt.next();
 				toWrite.add(tempImg);	
@@ -42,24 +43,24 @@ public class ReportGenerator {
 				//myWrite.write("   ");
 				//myWrite.write((tempImg.path()).toString());
 			}
+			*/
+			
 		}
-		//Collections.sort(toWrite); //One of the these! using the broken logic I placed in Image
-		//toWrite.sort();
-		//toWrite.sort(new compareTo());
+
 		Collections.sort(toWrite);
 		//Collections.sort(toWrite, myCompareLogic);
 		
 		docIt = web.allPages.iterator();
 		while(docIt.hasNext()) {
 			tempDoc = docIt.next();
-			imgIt = tempDoc.getImages().iterator();
-			while(imgIt.hasNext()) {
-				tempImg = imgIt.next();
-				myWrite.write((String.valueOf(tempImg.size())));
-				myWrite.write("   ");
-				myWrite.write((tempImg.path()).toString());
-				myWrite.write("\n");
-			}
+			//imgIt = tempDoc.getImages().iterator();
+			//while(imgIt.hasNext()) {
+			//	tempImg = imgIt.next();
+			myWrite.write((String.valueOf(tempDoc.getTotalImageSize())));
+			myWrite.write("   ");
+			myWrite.write((tempDoc.getPath()).toString());
+			myWrite.write("\n");
+			//}
 		}
 		myWrite.write(String.valueOf(total));
 		myWrite.write("  .");
