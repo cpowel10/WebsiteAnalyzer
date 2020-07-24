@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 
 public class HTMLDocument implements Comparable<HTMLDocument> {
-  	public LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
+  	private LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
   	private LinkedList<Anchor> allAnchors;
@@ -89,6 +89,10 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		size = this.totalImageSize;
 		size += imageSize;
 		this.totalImageSize = size; 
+	}
+
+	public void addImage(Image img) {
+		allImages.add(img);
 	}
 	
 	/*

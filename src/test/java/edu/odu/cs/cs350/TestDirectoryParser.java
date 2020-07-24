@@ -44,7 +44,7 @@ public class TestDirectoryParser {
         urls[1] = new URL("https://www.example.com/my/test");
         urls[2] = new URL("https://www.example.com/my/test/path");
 
-        dparser = new DirectoryParser(homeDir, urls);
+        dparser = new DirectoryParser(homeDir);
 
     }
     @Test

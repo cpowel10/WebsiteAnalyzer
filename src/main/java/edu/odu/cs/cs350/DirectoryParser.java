@@ -20,7 +20,7 @@ import edu.odu.cs.cs350.Enum.*;
 
 public class DirectoryParser {
 
-	private List<Path> foundFiles;
+	private LinkedList<Path> foundFiles;
 	private LinkedList<VideoFile> foundVideos;
 	private LinkedList<AudioFile> foundAudios;
 	private LinkedList<ArchiveFile> foundArchives;
@@ -32,27 +32,29 @@ public class DirectoryParser {
 	private Path homeDir;
 	private URL[] urls;
 
-	public DirectoryParser(Path home, URL[] theurls) {
+	/* //This constructor once we incororate the URLS
+		
+	    public DirectoryParser(Path home, URL[] theurls) {
 		pman = new PathManager();
 		homeDir = pman.sanitizePath(home);
 		urls = theurls;
+	}*/
+
+	public DirectoryParser(Path home) {
+		homeDir = home;
 	}
 
-	/*
-	 *
-	 */
 	public void parseWebsiteDirectory() throws IOException {
 		foundFiles = Files.walk(homeDir)
 						.filter(Files::isRegularFile)
-						.collect(Collectors.toList());
-		FileType type;
-		for(Path p : foundFiles)
-		{
-		}
+						.collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	public void categorizeFiles() {
-		String filename;
+		for(Path p : foundFiles)
+		{
+			//categorize
+		}
 	}
 
 	public List<Path> getPages() {

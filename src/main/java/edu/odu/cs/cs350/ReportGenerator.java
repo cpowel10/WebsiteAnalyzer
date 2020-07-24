@@ -19,57 +19,64 @@ public class ReportGenerator {
 	 * writes collected data to a .txt file
 	 */
 	public void generateText(Website web) {
-		long total = 0;
+		
+		//Stores the total size to be outputted on the final line
+		long total = 0; 
+		
+		//Make a file
 		File myFile = new File("WebsiteAnalysis.txt"); 
-	 try {   
-		 if (myFile.createNewFile()) {
-	         System.out.println("Text File created: " + myFile.getName());
-	     }
+		
+		//If the file was created output that it was and its name
+		try {   
+			if (myFile.createNewFile()) {
+				System.out.println("Text File created: " + myFile.getName());
+			}
+		 
+		//holds data between iterator 
 		HTMLDocument tempDoc;
-		Image tempImg = null;
-        FileWriter myWrite = new FileWriter("notSure.txt");
+		
+		//make a fileWriter to write to the file
+		FileWriter myWrite = new FileWriter(myFile);
+		
+		//Iterator for the different pages of the website
 		Iterator<HTMLDocument> docIt = web.allPages.iterator();
-		Iterator<Image> imgIt;
-		LinkedList<Image> toWrite = new LinkedList<Image>();
+		
+		//Store the data that will be written
+		LinkedList<HTMLDocument> toWrite = new LinkedList<HTMLDocument>();
+		
+		//Iterate over all pages, find the total sum of image sizes, write data to toWrite
 		while(docIt.hasNext())		{
 			tempDoc = docIt.next();
 			total += tempDoc.getTotalImageSize();
-			imgIt = tempDoc.getImages().iterator();
-			while(imgIt.hasNext()) {
-				tempImg = imgIt.next();
-				toWrite.add(tempImg);	
-				//myWrite.write((String.valueOf(tempImg.size())));
-				//myWrite.write("   ");
-				//myWrite.write((tempImg.path()).toString());
-			}
+			toWrite.add(tempDoc);			
 		}
-		//Collections.sort(toWrite); //One of the these! using the broken logic I placed in Image
-		//toWrite.sort();
-		//toWrite.sort(new compareTo());
+
+		//Sorts toWrite with my overridden comparison (lexiconographical order of paths/pages)
 		Collections.sort(toWrite);
-		//Collections.sort(toWrite, myCompareLogic);
+
+		//iterate for toWrite
+		docIt = toWrite.iterator();
 		
-		docIt = web.allPages.iterator();
+		//Iterate over toWrite, print(to file), first the total image size of the page,
+		//a couple spaces, then the path all on one line. Then add line break for the next. 
 		while(docIt.hasNext()) {
 			tempDoc = docIt.next();
-			imgIt = tempDoc.getImages().iterator();
-			while(imgIt.hasNext()) {
-				tempImg = imgIt.next();
-				myWrite.write((String.valueOf(tempImg.size())));
-				myWrite.write("   ");
-				myWrite.write((tempImg.path()).toString());
-				myWrite.write("\n");
-			}
+			myWrite.write((String.valueOf(tempDoc.getTotalImageSize())));
+			myWrite.write("   "); //will need to be a setWidth equivalent for final product
+			myWrite.write((tempDoc.getPath()).toString());
+			myWrite.write("\n");
 		}
-		myWrite.write(String.valueOf(total));
-		myWrite.write("  .");
-		myWrite.close();
-	    //return myFile;
 		
+		//Print the total image size of all pages combined in proper form (same as before but with "." as path)
+		myWrite.write(String.valueOf(total));
+		myWrite.write("  ."); //will need a setWidth equivalent for final product
+		myWrite.close();
+	
+	
     } catch(IOException ie) {
         ie.printStackTrace();
 	}
-	// return myFile;
+	 
 	}
 	/*
 	 * writes collected data to a .xls file

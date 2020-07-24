@@ -62,7 +62,7 @@ public class TestReportGenerator {
 		myImages.add(image3);
 		
 		HTMLDocument doc = new HTMLDocument();
-		doc.allImages = myImages;
+		doc.setImages(myImages);
 		
 		LinkedList<HTMLDocument> myDocs = new LinkedList<HTMLDocument>();
 		myDocs.add(doc);

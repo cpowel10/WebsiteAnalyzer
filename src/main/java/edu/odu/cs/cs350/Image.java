@@ -75,6 +75,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 		this.pagesOn = list;
 	}
 		
+	//New comparison logic 
 	@Override
 	public int compareTo(Image img) {
 		
@@ -82,18 +83,21 @@ public class Image extends Tag 	implements Comparable<Image> {
 		String rhsPath = (img.path()).toString(); 
 		int lhsLength = lhsPath.length();
 		int rhsLength = rhsPath.length();
+		
+		//grab a quick max length for iteration/indexing
 		int max = 0;
 		if(lhsLength > rhsLength)
 			max = lhsLength;
 		else
 			max = rhsLength;
+		
 		for(int i = 0; i < max; i++) {
 			if((int)lhsPath.charAt(i) - (int)rhsPath.charAt(i) > 0)
 				return 1; //difference is greater than 0 means lhs is larger(comes later in alphabet)
 			else if((int)lhsPath.charAt(i) - (int)rhsPath.charAt(i) < 0)
-				return -1;
+				return -1; //lhs is smaller
 		}
-		return 0; 
+		return 0; //equal 
 	}
  
 }

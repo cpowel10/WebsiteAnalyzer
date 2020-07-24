@@ -35,46 +35,73 @@ public class Analyzer {
 	}
 	
 	public void analyzeImages() throws IOException {
-		//Call scanForImages(Path) for the given path
-		//which returns a list of images found on that path
 		HTMLDocument tempPage;
+
 		Image tempImage;
 		Image imgToAdd;
+
 		long imgToAddSize;
 		long pageImageSize = 0;
-		Iterator<HTMLDocument> pageit = site.allPages.iterator();
-		Iterator<Image> imgit;
+
+		Iterator<HTMLDocument> pageIt = site.allPages.iterator();
+		Iterator<Image> imgIt;
+
 		Path imgToAddPath;
 		Path imgToAddListing;
-		while(pageit.hasNext())
+		
+		//Iterate over all pages
+		while(pageIt.hasNext())
 		{
-			tempPage = pageit.next();
-			imgit = tempPage.getImages().iterator();
-			while(imgit.hasNext())
+			tempPage = pageIt.next();
+			
+			//iterator for traversal of all images of a page
+			imgIt = tempPage.getImages().iterator();
+			
+			//Iterate over all images of a page
+			while(imgIt.hasNext())
 			{
-				tempImage = imgit.next();
-				int imgindex;
-				imgindex = analyzedImages.indexOf(tempImage);
-				if(imgindex==-1) {
+				tempImage = imgIt.next();
+				
+				//Save the index
+				int imgIndex = analyzedImages.indexOf(tempImage);
+				
+				//When index is -1, it has not been analyzed before, 
+				//so we assign the data to variables then create an image, 
+				//then finally add it to the collection of analyzed images. 
+				if(imgIndex==-1) {
+					
+					//variables are functionally unnecessary but help readability
 					imgToAddPath = tempImage.path();
 					imgToAddListing = tempPage.getPath();
-					if(tempImage.externality()==Externality.INTERNAL) {
+					
+					//Internal image procedure
+					if(tempImage.externality() == Externality.INTERNAL) {
 						imgToAddSize = Files.size(tempImage.path());
-						imgToAdd = generateInternalImage(imgToAddPath, imgToAddSize, imgToAddListing);
+						imgToAdd = generateInternalImage(imgToAddPath, 
+								imgToAddSize, imgToAddListing);
 					}
+					//ExternalImage procedure
 					else {
-						imgToAdd = generateExternalImage(tempImage.path(), tempPage.getPath());
+						imgToAdd = generateExternalImage(imgToAddPath, imgToAddListing);
 					}
+					//add image to list of analyzed images
 					analyzedImages.add(imgToAdd);
 				}
+				//Image has been analyzed before so we note it is another occurrence 
+				//by incrementing the listing count and add its path to the collection 
+				//of paths that reference it
 				else {
-					analyzedImages.get(imgindex).incrementListings();
-					analyzedImages.get(imgindex).addListing(tempPage.getPath());
+					analyzedImages.get(imgIndex).incrementListings();
+					analyzedImages.get(imgIndex).addListing(tempPage.getPath());
 				}
-				if(tempImage.externality()==Externality.INTERNAL)
-					pageImageSize+=Files.size(tempImage.path());
+				//Increase total pageImageSize accordingly
+				if(tempImage.externality() == Externality.INTERNAL)
+					pageImageSize += Files.size(tempImage.path());
 			}
+			//assign the correct/new total image size to the page
 			tempPage.setTotalImageSize(pageImageSize);
+			
+			//start fresh for next pass
 			pageImageSize = 0;
 		}
 	}
@@ -88,32 +115,24 @@ public class Analyzer {
 	}
 	  
 	public void analyzeStyles(Path path) {
-	//Call scanForStyles(Path) for the given path
+		//Call scanForStyles(Path) for the given path
 		//which returns a list of stylesheets found on that path
-	
 		//add all stylesheets in the recieved list to analyzedStyles
 	}
 
 	public void analyzeScripts(Path path) {
-	//Call scanForScripts(Path) for the given path
-	//which returns a list of scripts found on that path
-	
-	//add all scripts in the recieved list to analyzedScripts
+		//Call scanForScripts(Path) for the given path
+		//which returns a list of scripts found on that path
+		//add all scripts in the recieved list to analyzedScripts
 	}
 	
 	public void analyzeAnchors(Path path) {
 		//Call scanForAnchors(Path) for the given path
 		//which returns a list of anchors found on that path
-		
 		//add all anchors in the recieved list to analyzedAnchors
 	}
-	
-	/*
-	* Get toal size of all images in a path
-	* @param LinkedList of HTMLDocuments, pages
-	* @return sum of all totalImageSize variables in list of HTMLDocuments
-	*/
-	public int pageImageSize(LinkedList<HTMLDocument> pages) {
-		return -1;
+
+	public Website getWebsite() {
+		return site;
 	}
 }
