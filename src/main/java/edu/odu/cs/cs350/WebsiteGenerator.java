@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 
 import edu.odu.cs.cs350.Enum.TagType;
 
-public class PageReader {
+public class WebsiteGenerator {
 	/*
 	 * 
 	 */

@@ -1,29 +1,30 @@
 package edu.odu.cs.cs350;
 
-import java.util.Collection;
+import java.nio.file.Path;
+import java.util.LinkedList;
 
 public class InputHandler {
-	  private Collection<String> urls;
-	  private String directory;
+	private LinkedList<Path> urls;
+	private Path directory;
 	  
-	  /*
-	   * 
-	   */
-	  public void getInput() {
-		  
-	  }
+	/*
+	 * 
+	 */
+	public void getInput() {
+		
+	}
 	  
-	  /*
-	   * 
-	   */
-	  public Collection<String> getUrls(){
-		  return urls;
-	  }
+	/*
+	 * 
+	 */
+	public LinkedList<Path> getUrls(){
+		return urls;
+	}
 	  
-	  /*
-	   * 
-	   */
-	  public String getDirectory() {
-		  return directory;
-	  }
+	/*
+	 * 
+	 */
+	public Path getDirectory() {
+		return directory;
+	}
 }
