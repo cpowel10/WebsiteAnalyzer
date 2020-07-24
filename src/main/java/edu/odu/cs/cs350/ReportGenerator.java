@@ -26,10 +26,10 @@ public class ReportGenerator {
 	         System.out.println("Text File created: " + myFile.getName());
 	     }
 		HTMLDocument tempDoc;
-		Image tempImg = null;
-        FileWriter myWrite = new FileWriter("notSure.txt");
+		//Image tempImg = null;
+        FileWriter myWrite = new FileWriter(myFile);
 		Iterator<HTMLDocument> docIt = web.allPages.iterator();
-		Iterator<Image> imgIt;
+		//Iterator<Image> imgIt;
 		LinkedList<HTMLDocument> toWrite = new LinkedList<HTMLDocument>();
 		while(docIt.hasNext())		{
 			tempDoc = docIt.next();
@@ -44,14 +44,15 @@ public class ReportGenerator {
 				//myWrite.write((tempImg.path()).toString());
 			}
 			*/
+			System.out.println("I am inside the first loop");
 			
 		}
 
 		Collections.sort(toWrite);
-		//Collections.sort(toWrite, myCompareLogic);
 		
-		docIt = web.allPages.iterator();
+		docIt = toWrite.iterator();
 		while(docIt.hasNext()) {
+			System.out.println("I am inside the second loop");
 			tempDoc = docIt.next();
 			//imgIt = tempDoc.getImages().iterator();
 			//while(imgIt.hasNext()) {
