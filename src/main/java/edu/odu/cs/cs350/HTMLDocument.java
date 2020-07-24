@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 
-public class HTMLDocument {
+public class HTMLDocument implements Comparable<HTMLDocument> {
   	public LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
