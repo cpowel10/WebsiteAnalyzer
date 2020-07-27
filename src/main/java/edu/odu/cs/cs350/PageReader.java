@@ -64,14 +64,14 @@ public class PageReader {
 		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Style> styleList = new LinkedList<Style>();
 		pathList.add(path);
-		//use jsoup library to find image tags
+		//use jsoup library to find style tags
 		File pathFile = path.toFile();
 		Document doc = Jsoup.parse(pathFile, "UTF-8");
 		//String in select() will be a String to identify 
 		//what the method will search for and add to the Elements(list)
 		Elements links = doc.getElementsByTag("link");
-		//add each script file found in File to LinkedList<Script> 
-		//in given HTMLDocument Object ignoring inline scripts
+		//add each .css files found in File to LinkedList<Style> 
+		//in given HTMLDocument Object ignoring inline style tags
 		for (Element s : links) {
 			if (s.attr("rel") == "stylesheet") {
 				Style tempStyle = new Style();
@@ -115,7 +115,24 @@ public class PageReader {
 	* 
 	*/
 	public LinkedList<Anchor> scanForAnchors(Path path) throws IOException{
-		return null;
+		LinkedList<Path> pathList = new LinkedList<Path>();
+		LinkedList<Anchor> anchorList = new LinkedList<Anchor>();
+		pathList.add(path);
+		//use jsoup library to find anchor tags
+		File pathFile = path.toFile();
+		Document doc = Jsoup.parse(pathFile, "UTF-8");
+		//String in select() will be a String to identify 
+		//what the method will search for and add to the Elements(list)
+		Elements anchors = doc.getElementsByTag("a");
+		//add each anchor tag found in File to LinkedList<Anchor> 
+		//in given HTMLDocument Object
+		for (Element a : anchors) {
+			Anchor tempAnchor = new Anchor();
+			Path anchorPath = Paths.get(a.attr("href"));
+			tempAnchor.setPath(anchorPath);
+			anchorList.add(tempAnchor);
+		}
+		return anchorList;
 		
 	}
 
