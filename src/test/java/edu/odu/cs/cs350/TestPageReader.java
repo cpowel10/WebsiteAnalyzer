@@ -21,11 +21,11 @@ public class TestPageReader {
 	PageReader pgReader = new PageReader();
 	String pathStr1 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html";
 	Path path1 = Paths.get(pathStr1);
-	String pathStr2 = "";
+	String pathStr2 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page2.html";
 	Path path2 = Paths.get(pathStr2);
-	String pathStr3 = "";
+	String pathStr3 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page3.html";
 	Path path3 = Paths.get(pathStr3);
-	String pathStr4 = "";
+	String pathStr4 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page4.html";
 	Path path4 = Paths.get(pathStr4);
 	LinkedList<Image> expectedImages = new LinkedList<Image>();
 	LinkedList<Image> images;
@@ -67,49 +67,75 @@ public class TestPageReader {
 		}
 	}
 	
-//	@Test
-//	public void testPageReaderStyles() throws IOException {
-//		Path stylePath = Paths.get("");
-//		Style style1 = new Style(stylePath,Externality.EXTERNAL);
-//		
-//		/************************/
-//		images = pgReader.scanForImages(path2);
-//		styles = pgReader.scanForStyles(path2);
-//		scripts = pgReader.scanForScripts(path2);
-//		anchors = pgReader.scanForAnchors(path2);
-//		assertTrue(images.equals(expectedImages));
-//		assertTrue(styles.equals(expectedStyles));
-//		assertTrue(scripts.equals(expectedScripts));
-//		assertTrue(anchors.equals(expectedAnchors));
-//	}
-//	
-//	@Test
-//	public void testPageReaderScripts() throws IOException {
-//		Path scriptPath = Paths.get("");
-//		Script script1 = new Script(scriptPath,Externality.EXTERNAL);
-//		/************************/
-//		images = pgReader.scanForImages(path2);
-//		styles = pgReader.scanForStyles(path2);
-//		scripts = pgReader.scanForScripts(path2);
-//		anchors = pgReader.scanForAnchors(path2);
-//		assertTrue(images.equals(expectedImages));
-//		assertTrue(styles.equals(expectedStyles));
-//		assertTrue(scripts.equals(expectedScripts));
-//		assertTrue(anchors.equals(expectedAnchors));
-//	}
-//	
-//	@Test
-//	public void testPageReaderAnchors() throws IOException {
-//		Path anchorPath = Paths.get("");
-//		Anchor anchor1 = new Anchor(anchorPath,Externality.EXTERNAL);
-//		/************************/
-//		images = pgReader.scanForImages(path2);
-//		styles = pgReader.scanForStyles(path2);
-//		scripts = pgReader.scanForScripts(path2);
-//		anchors = pgReader.scanForAnchors(path2);
-//		assertTrue(images.equals(expectedImages));
-//		assertTrue(styles.equals(expectedStyles));
-//		assertTrue(scripts.equals(expectedScripts));
-//		assertTrue(anchors.equals(expectedAnchors));
-//	}
+	@Test
+	public void testPageReaderStyles() throws IOException {
+		Path stylePath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Styles\\Style.css");
+		Style style1 = new Style(stylePath,Externality.EXTERNAL);
+		expectedStyles.add(style1);
+		/************************/
+		images = pgReader.scanForImages(path2);
+		styles = pgReader.scanForStyles(path2);
+		scripts = pgReader.scanForScripts(path2);
+		anchors = pgReader.scanForAnchors(path2);
+		for (int i = 0 ; i < images.size() - 1 ; i++) {
+			assertTrue(images.get(i).equals(expectedImages.get(i)));
+		}
+		for (int i = 0 ; i < styles.size() - 1 ; i++) {
+			assertTrue(styles.get(i).equals(expectedStyles.get(i)));
+		}
+		for (int i = 0 ; i < scripts.size() - 1 ; i++) {
+			assertTrue(scripts.get(i).equals(expectedScripts.get(i)));
+		}
+		for (int i = 0 ; i < anchors.size() - 1 ; i++) {
+			assertTrue(anchors.get(i).equals(expectedAnchors.get(i)));
+		}
+	}
+	
+	@Test
+	public void testPageReaderScripts() throws IOException {
+		Path scriptPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Scripts\\JavaScript.js");
+		Script script1 = new Script(scriptPath,Externality.EXTERNAL);
+		expectedScripts.add(script1);
+		/************************/
+		images = pgReader.scanForImages(path2);
+		styles = pgReader.scanForStyles(path2);
+		scripts = pgReader.scanForScripts(path2);
+		anchors = pgReader.scanForAnchors(path2);
+		for (int i = 0 ; i < images.size() - 1 ; i++) {
+			assertTrue(images.get(i).equals(expectedImages.get(i)));
+		}
+		for (int i = 0 ; i < styles.size() - 1 ; i++) {
+			assertTrue(styles.get(i).equals(expectedStyles.get(i)));
+		}
+		for (int i = 0 ; i < scripts.size() - 1 ; i++) {
+			assertTrue(scripts.get(i).equals(expectedScripts.get(i)));
+		}
+		for (int i = 0 ; i < anchors.size() - 1 ; i++) {
+			assertTrue(anchors.get(i).equals(expectedAnchors.get(i)));
+		}
+	}
+	
+	@Test
+	public void testPageReaderAnchors() throws IOException {
+		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html");
+		Anchor anchor1 = new Anchor(anchorPath,Externality.EXTERNAL);
+		expectedAnchors.add(anchor1);
+		/************************/
+		images = pgReader.scanForImages(path2);
+		styles = pgReader.scanForStyles(path2);
+		scripts = pgReader.scanForScripts(path2);
+		anchors = pgReader.scanForAnchors(path2);
+		for (int i = 0 ; i < images.size() - 1 ; i++) {
+			assertTrue(images.get(i).equals(expectedImages.get(i)));
+		}
+		for (int i = 0 ; i < styles.size() - 1 ; i++) {
+			assertTrue(styles.get(i).equals(expectedStyles.get(i)));
+		}
+		for (int i = 0 ; i < scripts.size() - 1 ; i++) {
+			assertTrue(scripts.get(i).equals(expectedScripts.get(i)));
+		}
+		for (int i = 0 ; i < anchors.size() - 1 ; i++) {
+			assertTrue(anchors.get(i).equals(expectedAnchors.get(i)));
+		}
+	}
 }
