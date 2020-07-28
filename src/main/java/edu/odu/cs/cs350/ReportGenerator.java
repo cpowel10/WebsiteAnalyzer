@@ -76,6 +76,7 @@ public class ReportGenerator {
 	    } catch (IOException e) {
 	          e.printStackTrace();
 	       }
+		int deleteThisLine = 4; // need to get my commit to work.
 	}
 	
 	/*
