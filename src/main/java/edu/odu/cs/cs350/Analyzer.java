@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
 
+import javax.swing.text.html.HTML;
+
 import edu.odu.cs.cs350.Enum.Externality;
 
 import java.util.Iterator;
@@ -20,18 +22,40 @@ public class Analyzer {
 		site = mysite;
 	}
 	
-	public void analyzerMain(LinkedList<Path> paths) {
-		//Call analyzeImages(Path) for each path in paths
-		
-		//Call analyzeStyles(Path) for each path in paths
-		
-		//Call analyzeScripts(Path) for each path in paths
-		
-		//Call analyzeAnchors(Path) for each path in paths
-		
-		//Create HTMLDocument for each path and add all four lists 
-		
-		//add HTMLDocuments to Website
+	public void analyzeWebsite(LinkedList<Path> paths) {
+		HTMLDocument tempPage;
+		Iterator<HTMLDocument> pageIt = site.allPages.iterator();
+
+		site.readPages();
+
+		//Iterate over all pages
+		while(pageIt.hasNext()) {
+			tempPage = pageIt.next();
+
+			//to edit below to analyzePageImages(tempPage) to work;
+			analyzePageScripts(tempPage);
+			//analzyePageStyles(tempPage);
+			//analyzePageAnchors(tempPage);
+		}
+	}
+
+	public void analyzePageScripts(HTMLDocument page) {
+		Script script;
+		Script scrToAdd;
+		int index;
+		Iterator<Script> scriptIt = page.getScripts().iterator();
+		while(scriptIt.hasNext()) {
+			script = scriptIt.next();
+			index = analyzedScripts.indexOf(script);
+
+			if(index==-1) {
+				scrToAdd = script;
+				scrToAdd.addListing(page.getPath());
+				analyzedScripts.add(scrToAdd);
+			}
+			else
+				analyzedScripts.get(index).addListing(page.getPath());
+		}
 	}
 	
 	public void analyzeImages() throws IOException {
@@ -71,12 +95,12 @@ public class Analyzer {
 				if(imgIndex==-1) {
 					
 					//variables are functionally unnecessary but help readability
-					imgToAddPath = tempImage.path();
+					imgToAddPath = tempImage.getPath();
 					imgToAddListing = tempPage.getPath();
 					
 					//Internal image procedure
-					if(tempImage.externality() == Externality.INTERNAL) {
-						imgToAddSize = Files.size(tempImage.path());
+					if(tempImage.getExternality() == Externality.INTERNAL) {
+						imgToAddSize = Files.size(tempImage.getPath());
 						imgToAdd = generateInternalImage(imgToAddPath, 
 								imgToAddSize, imgToAddListing);
 					}
@@ -95,8 +119,8 @@ public class Analyzer {
 					analyzedImages.get(imgIndex).addListing(tempPage.getPath());
 				}
 				//Increase total pageImageSize accordingly
-				if(tempImage.externality() == Externality.INTERNAL)
-					pageImageSize += Files.size(tempImage.path());
+				if(tempImage.getExternality() == Externality.INTERNAL)
+					pageImageSize += Files.size(tempImage.getPath());
 			}
 			//assign the correct/new total image size to the page
 			tempPage.setTotalImageSize(pageImageSize);
@@ -113,24 +137,14 @@ public class Analyzer {
 	public Image generateExternalImage(Path myPath, Path firstListing) {
 		return new Image(myPath, -1, firstListing, Externality.EXTERNAL);
 	}
-	  
-	public void analyzeStyles(Path path) {
-		//Call scanForStyles(Path) for the given path
-		//which returns a list of stylesheets found on that path
-		//add all stylesheets in the recieved list to analyzedStyles
-	}
-
-	public void analyzeScripts(Path path) {
-		//Call scanForScripts(Path) for the given path
-		//which returns a list of scripts found on that path
-		//add all scripts in the recieved list to analyzedScripts
-	}
 	
-	public void analyzeAnchors(Path path) {
+	public void analyzePageAnchors(HTMLDocument page) {
 		//Call scanForAnchors(Path) for the given path
 		//which returns a list of anchors found on that path
 		//add all anchors in the recieved list to analyzedAnchors
 	}
+
+	
 
 	public Website getWebsite() {
 		return site;
