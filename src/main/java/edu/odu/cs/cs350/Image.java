@@ -66,7 +66,6 @@ public class Image extends Tag 	implements Comparable<Image> {
 
 	@Override
 	public int compareTo(Image img) {
-		
 		String lhsPath = (this.getPath()).toString();
 		String rhsPath = (img.getPath()).toString(); 
 		int lhsLength = lhsPath.length();
@@ -87,5 +86,4 @@ public class Image extends Tag 	implements Comparable<Image> {
 		}
 		return 0; //equal 
 	}
- 
 }
