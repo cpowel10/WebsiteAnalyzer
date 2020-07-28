@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 
-import edu.odu.cs.cs350.Enum.Externality;
-import edu.odu.cs.cs350.Enum.TagType;
+import edu.odu.cs.cs350.Enum.*;
 
 public class Image extends Tag 	implements Comparable<Image> {
 	private long size;
@@ -13,7 +12,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 	private LinkedList<Path> listings;
 	
 	public Image() {
-		super();
+		super(TagType.IMAGE);
 		size = 0;
 		listings = new LinkedList<Path>();
 		this.setNumPages(-1);
