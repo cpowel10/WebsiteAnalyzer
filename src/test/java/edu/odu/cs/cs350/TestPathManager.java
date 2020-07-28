@@ -21,7 +21,7 @@ public class TestPathManager {
 
     private PathManager pman;
 
-    private Path homeDir;
+    private Path homeDir = Paths.get("src/test/data/testWebsite").toAbsolutePath();
     
     private URL[] urls = new URL[2];
     private URL testurl1;
@@ -37,15 +37,15 @@ public class TestPathManager {
     }
 
     @Test
-    public void testSanitizePath() throws IOException {
+    public void testExpandPath() throws IOException {
         //Absolute and relative paths to an image
-        Path img_absolute_path = Paths.get("Home/Images/slideshow/slide1.png");
-        Path img_relative_path = Paths.get("../Images/slideshow/slide1.png");
+        Path img_absolute_path = homeDir.resolve("Home/Images/slideshow/slide1.png");
+        Path img_relative_from = homeDir.resolve("Home/slideshow/SlideshowIndex.html");
+        Path img_relative_path = Paths.get("../.././Images/slideshow/slide1.png");
 
         //pman expands relative path to the absolute and compare
-        Path expanded_path = pman.sanitizePath(img_relative_path);
-        boolean sameFile = Files.isSameFile(expanded_path, img_absolute_path);
-        assertThat(sameFile, is(true));
+        Path expanded_path = pman.expandPath(img_relative_path, img_relative_from);
+        assertThat(expanded_path.toString(), is(img_absolute_path.toString()));
     }
 
     @Test
