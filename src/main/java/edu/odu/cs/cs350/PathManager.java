@@ -26,6 +26,7 @@ public class PathManager {
 	 */
 	public Path mapUrlToPath (URL toMap) {
 		Path mappedPath = Paths.get("");
+
 		Path internalPath = matchHost(toMap);
 		Path toMapPath = Paths.get(toMap.getPath());
 		
@@ -33,12 +34,13 @@ public class PathManager {
 		Iterator<Path> it = internalPath.iterator();
 		while(it.hasNext()&&toMapPath.getNameCount()>0)
 		{
-			//if the first name elements match, remove it
+			//remove the leading element if they match
 			if(toMapPath.subpath(0, 1).equals(it.next()))
 			{
 				toMapPath = toMapPath.subpath(1, toMapPath.getNameCount());
 				mappedPath = toMapPath;
 			}
+			//as soon as 
 			else
 				return mappedPath;
 		}
@@ -54,6 +56,13 @@ public class PathManager {
 			if(internalURL.getHost().equals(toMap.getHost()))
 				matchedPath = Paths.get(internalURL.getPath());
 		return matchedPath;
+	}
+
+	public boolean isInternalURL (URL toCheck) {
+		for(URL internalURL : urls)
+			if(internalURL.getHost().equals(toCheck.getHost()))
+				return true;
+		return false;
 	}
 
 	/*
