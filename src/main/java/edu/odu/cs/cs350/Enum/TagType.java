@@ -4,5 +4,6 @@ public enum TagType {
 	IMAGE,
 	ANCHOR,
 	SCRIPT,
-	STYLE
+	STYLE,
+	UNDEFINED
 }
