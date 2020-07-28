@@ -13,15 +13,12 @@ public class Image extends Tag 	implements Comparable<Image> {
 	private long size;
 	private LinkedList<Path> listings;
 	private int numPages;
-	private LinkedList<Path> pagesOn;
 	
 	public Image() {
 		super(Paths.get("lol"), TagType.IMAGE, Externality.INTERNAL);
 		this.setSize(0);
 		listings = new LinkedList<Path>();
 		this.setNumPages(0);
-		pagesOn = new LinkedList<Path>();
-
 	}
 
 	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality) {
@@ -31,56 +28,47 @@ public class Image extends Tag 	implements Comparable<Image> {
 		listings.add(firstListing);
 	}
 
-	public Image(long mySize, LinkedList<Path> myListings, int myNumPages, LinkedList<Path> myPagesOn) {
-		this.setType(TagType.IMAGE);
-		this.setSize(mySize);
-		this.setListings(myListings);
-		this.setNumPages(myNumPages);
-		this.setPagesOn(myPagesOn);
-	}
 	public TagType type() {
 		return this.type;
 	}
-	public long size() {
+	
+	public long getSize() {
 		return this.size;
 	}
+
 	public LinkedList<Path> listings() {
 		 return this.listings;
 	}
+
 	public int numPages() {
 		return this.numPages;
 	}
-	public LinkedList<Path> pagesOn() {
-		 return this.pagesOn;	
-	}
+
 	public void setType(TagType myType) {
 		this.type = myType;
 	}
+
 	public void setSize(long mySize) {
 		this.size = mySize;
 	}
+
 	public void addListing(Path listing) {
 		listings.add(listing);
 	}
+
 	public void incrementListings() {
 		numPages++;
 	}
-	public void setListings(LinkedList<Path> myListings) {
-		listings = myListings;
-	}
+
 	public void setNumPages(int num) {
 		numPages = num;
 	}
-	public void setPagesOn(LinkedList<Path> list) {
-		this.pagesOn = list;
-	}
-		
-	//New comparison logic 
+
 	@Override
 	public int compareTo(Image img) {
 		
-		String lhsPath = (this.path()).toString();
-		String rhsPath = (img.path()).toString(); 
+		String lhsPath = (this.getPath()).toString();
+		String rhsPath = (img.getPath()).toString(); 
 		int lhsLength = lhsPath.length();
 		int rhsLength = rhsPath.length();
 		
