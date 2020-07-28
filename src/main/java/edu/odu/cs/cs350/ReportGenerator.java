@@ -6,13 +6,76 @@ import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.Iterator;
 import java.util.LinkedList;
+import org.json.simple.JSONObject; //Does this work for you guys?
+
 
 public class ReportGenerator {
 	/*
 	 * writes collected data to a .json file
 	 */
-	public File generateJson(Website web) {
-		return null;
+	public void generateJson(Website web) {
+		/*
+		JSONObject myJson = new JSONObject();
+		HTMLDocument page;
+		Iterator<HTMLDocument> docIt = web.allPages.iterator();
+		page = docIt.next(); 
+		Iterator<W> fileIt = myWebFile.iterator();
+
+		
+		
+		myJson.put("Basepath", web.getPath());
+		myJson.put(":urls", web.getURLs()); //every url
+		myJson.put("pages", doNothing?);
+		//{
+		while(docIt.hasNext()) {
+			myJson.put("path", page.getPath());
+			myJson.put("imageCount", page.getImages()); //need a local and an external
+			myJson.put("jsCount", page.getScripts()); //local and external
+			myJson.put("cssCount", page.getClass());//local and external
+			myJson.put("imagePaths", ); //every image path
+			myJson.put("scriptPaths"); //every script path
+			myJson.put("cssPaths", ); //every class path
+			myJson.put("linkCount", ); //intrap\intras\ext
+			//}
+			//one such for every page
+		
+			myJson.put("images", );
+			//[
+			while() {
+				myJson.put("path", getPath, "pageCount", getPageCount, "usedOn", getUsedOn);
+			}//do ^ for every image
+		
+			myJson.put("files", );
+			Iterator<ArhciveFile> = docIt.get
+			myJson.put("archive", );
+			while() {
+				myJson.put("path", getPath, "size", getSize);
+			}
+			//do ^ for every archive
+		
+			myJson.put("video", );
+			while() {
+				myJson.put("path", getPath, "size", getSize);
+			}
+			myJson.put("audio", );
+			while() {
+				myJson.put("path", getPath, "size", getSize);
+			}
+			myJson.put("other", );
+			while() {
+				myJson.put("path", getPath, "size", getSize);
+			}
+		}
+		//}
+		//}
+*/
+		try {
+			FileWriter myFile = new FileWriter("output.json");
+	       // myFile.write(myJson.toJSONString());
+	        myFile.close();
+	    } catch (IOException e) {
+	          e.printStackTrace();
+	       }
 	}
 	
 	/*
