@@ -65,6 +65,11 @@ public class Website {
 	public LinkedList<NonCategoryFile> getNonCatFiles(){
 		return this.allNonCategoryFiles;
 	}
+
+	//reads all of its pages
+	public void readPages() {
+
+	}
 	//Setters
 	/*
 	 * sets the Path
