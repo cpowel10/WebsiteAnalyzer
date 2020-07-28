@@ -57,17 +57,17 @@ public class PathManager {
 	}
 
 	/*
-	 * Transmutes any relative paths to absolute and removes redunant name elements
+	 * 'Expands' a relative path by resolving against src path and removing
+	 *  redundant name elements, effectively returns a CanonicalPath
 	 */
-	public Path sanitizePath(Path p) {
+	public Path expandPath(Path toExpand, Path src) {
 		Path expanded;
-		expanded = p.normalize().toAbsolutePath();
+		expanded = src.resolve(toExpand.normalize()).normalize();
 		return expanded;
 	}
 
 	public Path urlToPath(URL url) {
 		Path thepath = Paths.get(url.getPath());
-		sanitizePath(thepath);
 		return thepath;
 	}
 }
