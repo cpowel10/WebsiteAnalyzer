@@ -110,7 +110,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		}
 		else {
 			allImages.add((Image) tag);
-			totalImageSize += ((Image) tag).size();
+			totalImageSize += ((Image) tag).getSize();
 		}
 	}
 	//Override for comparison, used in GenerateReport for Collections.sort(List)
