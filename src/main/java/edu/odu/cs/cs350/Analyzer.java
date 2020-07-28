@@ -135,14 +135,6 @@ public class Analyzer {
 		page.setTotalImageSize(pageTotalImageSize);
 		pageTotalImageSize = 0;
 	}
-
-	public Image generateInternalImage(Path myPath, long imgSize, Path firstListing) {
-		return new Image(myPath, imgSize, firstListing, Externality.INTERNAL);
-	}
-
-	public Image generateExternalImage(Path myPath, Path firstListing) {
-		return new Image(myPath, -1, firstListing, Externality.EXTERNAL);
-	}
 	
 	public void analyzePageAnchors(HTMLDocument page) {
 		//Call scanForAnchors(Path) for the given path
