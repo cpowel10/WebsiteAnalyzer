@@ -3,6 +3,7 @@ package edu.odu.cs.cs350;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,8 +46,10 @@ public class TestPageReader {
 	@Test
 	public void testPageReaderImages() throws IOException {
 		paths.add(path1);
-		imgPaths.add(Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Images\\Image1.jpg"));
-		Image img1 = new Image(240698, imgPaths, 1, paths); //235 KB (240,698 bytes)
+		String imgString = "C:\\Users\\chris\\Desktop\\SampleHTML\\Images\\Image1.jpg";
+		imgPaths.add(Paths.get(imgString));
+		File imgFile = new File(imgString);
+		Image img1 = new Image(Paths.get(imgString), imgFile.length(), path1, Externality.INTERNAL); //~235 KB (240,698 bytes)
 		expectedImages.add(img1);
 		/************************/
 		images = pgReader.scanForImages(path1);
