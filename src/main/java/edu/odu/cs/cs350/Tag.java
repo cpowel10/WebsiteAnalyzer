@@ -23,11 +23,11 @@ public class Tag {
 		eality = Externality.UNDEFINED;
 	}
 
-	public Tag(Path pth, TagType typ, Externality ext) {
-		this.setPath(pth); 
-		this.setType(typ); 
-		this.setExternality(ext);
-		}
+	public Tag(TagType myType, Path myPath, Externality myEality) {
+		type = myType;
+		path = myPath;
+		eality = myEality;
+	}
 
 	public Path getPath() {
 		return this.path;
