@@ -4,5 +4,6 @@ public enum FileType {
 	AUDIO,
 	VIDEO,
 	ARCHIVE,
-	NONCATEGORY
+	NONCATEGORY,
+	UNDEFINED
 }
