@@ -12,9 +12,9 @@ public class Tag {
 	private Externality eality;
 
 	public Tag() {
-		this.setPath(Paths.get("noAssignedPath")); 
-		this.setType(TagType.STYLE); 
-		this.setExternality(Externality.EXTERNAL);
+		path = Paths.get("");
+		type = TagType.UNDEFINED; 
+		eality = Externality.UNDEFINED;
 	}
 
 	public Tag(Path pth, TagType typ, Externality ext) {

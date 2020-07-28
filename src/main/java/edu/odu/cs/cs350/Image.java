@@ -8,17 +8,15 @@ import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.Enum.TagType;
 
 public class Image extends Tag 	implements Comparable<Image> {
-	
-	private TagType type = TagType.IMAGE;
 	private long size;
-	private LinkedList<Path> listings;
 	private int numPages;
+	private LinkedList<Path> listings;
 	
 	public Image() {
-		super(Paths.get("lol"), TagType.IMAGE, Externality.INTERNAL);
-		this.setSize(0);
+		super();
+		size = 0;
 		listings = new LinkedList<Path>();
-		this.setNumPages(0);
+		this.setNumPages(-1);
 	}
 
 	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality) {
@@ -27,29 +25,17 @@ public class Image extends Tag 	implements Comparable<Image> {
 		listings = new LinkedList<Path>();
 		listings.add(firstListing);
 	}
-
-	public TagType type() {
-		return this.type;
-	}
 	
 	public long getSize() {
 		return this.size;
 	}
 
-	public LinkedList<Path> listings() {
+	public LinkedList<Path> getListings() {
 		 return this.listings;
 	}
 
 	public int numPages() {
 		return this.numPages;
-	}
-
-	public void setType(TagType myType) {
-		this.type = myType;
-	}
-
-	public void setSize(long mySize) {
-		this.size = mySize;
 	}
 
 	public void addListing(Path listing) {
