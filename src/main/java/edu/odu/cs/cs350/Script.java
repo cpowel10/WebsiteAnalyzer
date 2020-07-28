@@ -26,4 +26,7 @@ public class Script extends Tag {
 		listings.add(firstListing);
 	}
 
+	public void addListing(Path listing) {
+		listings.add(listing);
+	}
 }
