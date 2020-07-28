@@ -17,6 +17,12 @@ public class Tag {
 		eality = Externality.UNDEFINED;
 	}
 
+	public Tag(TagType mytype) {
+		path = Paths.get("");
+		type = mytype; 
+		eality = Externality.UNDEFINED;
+	}
+
 	public Tag(Path pth, TagType typ, Externality ext) {
 		this.setPath(pth); 
 		this.setType(typ); 
