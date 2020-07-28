@@ -32,10 +32,10 @@ public class Analyzer {
 		while(pageIt.hasNext()) {
 			tempPage = pageIt.next();
 
-			//to edit below to analyzePageImages(tempPage) to work;
+			//TODO edit below to analyzePageImages(tempPage) to work
 			analyzePageScripts(tempPage);
-			//analzyePageStyles(tempPage);
-			//analyzePageAnchors(tempPage);
+			analzyePageStyles(tempPage);
+			//TODO make analyzePageAnchors(tempPage), good luck
 		}
 	}
 
@@ -48,6 +48,7 @@ public class Analyzer {
 			script = scriptIt.next();
 			index = analyzedScripts.indexOf(script);
 
+			//if script hasn't been analyzed, make a new one with its firstListing
 			if(index==-1) {
 				scrToAdd = script;
 				scrToAdd.addListing(page.getPath());
@@ -55,6 +56,27 @@ public class Analyzer {
 			}
 			else
 				analyzedScripts.get(index).addListing(page.getPath());
+		}
+	}
+
+	public void analzyePageStyles(HTMLDocument page) {
+		Style style;
+		Style styToAdd;
+		int index;
+
+		Iterator<Style> styleIt = page.getStyles().iterator();
+		while(styleIt.hasNext()) {
+			style = styleIt.next();
+			index = analyzedStyles.indexOf(style);
+
+			//if style hasn't been analyzed, make a new one with its firstListing
+			if(index==-1) {
+				styToAdd = style;
+				styToAdd.addListing(page.getPath());
+				analyzedStyles.add(styToAdd);
+			}
+			else
+				analyzedStyles.get(index).addListing(page.getPath());
 		}
 	}
 	
