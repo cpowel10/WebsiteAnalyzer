@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import javax.swing.text.html.HTML;
 
 import edu.odu.cs.cs350.Enum.Externality;
+import edu.odu.cs.cs350.*;
 
 import java.util.Iterator;
 
@@ -26,7 +27,7 @@ public class Analyzer {
 	 * Iterates over site's pages and performs the relevant analysis on each individual
 	 * type of tag that we care about
 	 */
-	public void analyzeWebsite(LinkedList<Path> paths) {
+	public void analyzeWebsite() {
 		HTMLDocument tempPage;
 		Iterator<HTMLDocument> pageIt = site.allPages.iterator();
 
@@ -59,6 +60,7 @@ public class Analyzer {
 				scrToAdd.addListing(page.getPath());
 				analyzedScripts.add(scrToAdd);
 			}
+			//otherwise add this page's path to the scripts' listings
 			else
 				analyzedScripts.get(index).addListing(page.getPath());
 		}
@@ -77,12 +79,13 @@ public class Analyzer {
 			style = styleIt.next();
 			index = analyzedStyles.indexOf(style);
 
-			//if style hasn't been analyzed, make a new one with its firstListing
+			//if style hasn't been analyzed, make a new one with this page firstListing
 			if(index==-1) {
 				styToAdd = style;
 				styToAdd.addListing(page.getPath());
 				analyzedStyles.add(styToAdd);
 			}
+			//otherwise add this page's path to the styles' listings
 			else
 				analyzedStyles.get(index).addListing(page.getPath());
 		}
@@ -90,78 +93,47 @@ public class Analyzer {
 
 	/*
 	 * Iterates over the page's image tags and analyzes them
-	 * TODO change to new style like styles and scripts above
 	 */
-	public void analyzeImages() throws IOException {
-		HTMLDocument tempPage;
-
-		Image tempImage;
+	public void analyzeImages(HTMLDocument page) throws IOException {
 		Image imgToAdd;
+		long pageTotalImageSize = 0;
 
-		long imgToAddSize;
-		long pageImageSize = 0;
-
-		Iterator<HTMLDocument> pageIt = site.allPages.iterator();
-		Iterator<Image> imgIt;
-
-		Path imgToAddPath;
-		Path imgToAddListing;
-		
-		//Iterate over all pages
-		while(pageIt.hasNext())
+		int index;
+		Iterator<Image> imgIt = page.getImages().iterator();
+		Image tempImage;
+		//iterate over the pages' images
+		while(imgIt.hasNext())
 		{
-			tempPage = pageIt.next();
-			
-			//iterator for traversal of all images of a page
-			imgIt = tempPage.getImages().iterator();
-			
-			//Iterate over all images of a page
-			while(imgIt.hasNext())
-			{
-				tempImage = imgIt.next();
-				
-				//Save the index
-				int imgIndex = analyzedImages.indexOf(tempImage);
-				
-				//When index is -1, it has not been analyzed before, 
-				//so we assign the data to variables then create an image, 
-				//then finally add it to the collection of analyzed images. 
-				if(imgIndex==-1) {
-					
-					//variables are functionally unnecessary but help readability
-					imgToAddPath = tempImage.getPath();
-					imgToAddListing = tempPage.getPath();
-					
-					//Internal image procedure
-					if(tempImage.getExternality() == Externality.INTERNAL) {
-						imgToAddSize = Files.size(tempImage.getPath());
-						imgToAdd = generateInternalImage(imgToAddPath, 
-								imgToAddSize, imgToAddListing);
-					}
-					//ExternalImage procedure
-					else {
-						imgToAdd = generateExternalImage(imgToAddPath, imgToAddListing);
-					}
-					//add image to list of analyzed images
-					analyzedImages.add(imgToAdd);
+			tempImage = imgIt.next();
+
+			index = analyzedImages.indexOf(tempImage);
+			//if image hasn't been analyzed yet, make a new one for analyzedImages
+			//with this page as its first listing
+			if(index==-1) {
+				//Keep track of size if internal image
+				if(tempImage.getExternality() == Externality.INTERNAL) {
+					imgToAdd = new Image(tempImage.getPath(), 
+										Files.size(tempImage.getPath()),
+										page.getPath(), Externality.INTERNAL);
 				}
-				//Image has been analyzed before so we note it is another occurrence 
-				//by incrementing the listing count and add its path to the collection 
-				//of paths that reference it
 				else {
-					analyzedImages.get(imgIndex).incrementListings();
-					analyzedImages.get(imgIndex).addListing(tempPage.getPath());
+					imgToAdd = new Image(tempImage.getPath(), 0,
+										page.getPath(), Externality.EXTERNAL);
 				}
-				//Increase total pageImageSize accordingly
-				if(tempImage.getExternality() == Externality.INTERNAL)
-					pageImageSize += Files.size(tempImage.getPath());
+				analyzedImages.add(imgToAdd);
 			}
-			//assign the correct/new total image size to the page
-			tempPage.setTotalImageSize(pageImageSize);
-			
-			//start fresh for next pass
-			pageImageSize = 0;
+			//otherwise ++ the images' listing count and add this page's path to listings
+			else {
+				analyzedImages.get(index).incrementListings();
+				analyzedImages.get(index).addListing(page.getPath());
+			}
+			//Tally the size of internal images
+			if(tempImage.getExternality() == Externality.INTERNAL)
+				pageTotalImageSize += Files.size(tempImage.getPath());
 		}
+		//assign total image size to the page and reset tally
+		page.setTotalImageSize(pageTotalImageSize);
+		pageTotalImageSize = 0;
 	}
 
 	public Image generateInternalImage(Path myPath, long imgSize, Path firstListing) {
