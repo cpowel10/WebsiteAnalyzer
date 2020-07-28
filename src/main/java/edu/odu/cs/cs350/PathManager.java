@@ -40,7 +40,7 @@ public class PathManager {
 				toMapPath = toMapPath.subpath(1, toMapPath.getNameCount());
 				mappedPath = toMapPath;
 			}
-			//as soon as 
+			//as soon as an element doesn't match, root removal is complete
 			else
 				return mappedPath;
 		}
@@ -56,13 +56,6 @@ public class PathManager {
 			if(internalURL.getHost().equals(toMap.getHost()))
 				matchedPath = Paths.get(internalURL.getPath());
 		return matchedPath;
-	}
-
-	public boolean isInternalURL (URL toCheck) {
-		for(URL internalURL : urls)
-			if(internalURL.getHost().equals(toCheck.getHost()))
-				return true;
-		return false;
 	}
 
 	/*
