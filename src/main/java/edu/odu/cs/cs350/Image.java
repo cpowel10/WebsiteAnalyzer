@@ -19,7 +19,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 	}
 
 	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality) {
-		super(myPath, TagType.IMAGE, myExternality);
+		super(TagType.IMAGE, myPath, myExternality);
 		size = mySize;
 		listings = new LinkedList<Path>();
 		listings.add(firstListing);
