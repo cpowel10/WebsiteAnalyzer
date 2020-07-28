@@ -49,6 +49,10 @@ public class Image extends Tag 	implements Comparable<Image> {
 		numPages = num;
 	}
 
+	public void setSize(long mySize) {
+		size = mySize;
+	}
+
 	@Override
 	public int compareTo(Image img) {
 		String lhsPath = (this.getPath()).toString();
