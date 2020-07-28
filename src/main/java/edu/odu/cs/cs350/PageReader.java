@@ -71,6 +71,7 @@ public class PageReader {
 				styleList.add(tempStyle);
 			}
 		}
+		//return updated LinkedList of Styles from given page
 		return styleList;
 		
 	}
@@ -98,6 +99,7 @@ public class PageReader {
 				scriptList.add(tempScript);
 			}
 		}
+		//return updated LinkedList of Scripts from given page
 		return scriptList;
 		
 	}
@@ -123,6 +125,7 @@ public class PageReader {
 			tempAnchor.setPath(anchorPath);
 			anchorList.add(tempAnchor);
 		}
+		//return updated LinkedList of Anchors from given page
 		return anchorList;
 		
 	}
