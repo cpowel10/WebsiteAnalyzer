@@ -10,6 +10,7 @@ import edu.odu.cs.cs350.Enum.*;
 
 public class Script extends Tag {
 	private LinkedList<Path> listings;
+	
 	public Script() {
 		super(TagType.SCRIPT);
 		listings = new LinkedList<Path>();
