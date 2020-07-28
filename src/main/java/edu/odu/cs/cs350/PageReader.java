@@ -38,21 +38,12 @@ public class PageReader {
 		Elements images = doc.getElementsByTag("img");
 		//add each image found in File to LinkedList<Image> in given HTMLDocument Object
 		for (Element i : images) {
-		Image tempImage = new Image();
-		//find size of Image
-		File imgFile = new File(i.attr("src"));
-		long fileSize = imgFile.length();
-		//need to convert fileSize from bytes to MiB
-		//long fileSizeMiB = (long) (fileSize * 9.53674e-7);
-		tempImage.setSize((int)(fileSize));
-		//set the path to image Path list
-		Path imgPath = Paths.get(i.attr("src"));
-		LinkedList<Path> imgPaths = new LinkedList<Path>();
-		imgPaths.add(imgPath);
-		tempImage.setPagesOn(pathList);
-		tempImage.setListings(imgPaths);
-		tempImage.setNumPages(1);
-		imgList.add(tempImage);
+			Image tempImage = new Image();
+			//set the path to image Path list
+			Path imgPath = Paths.get(i.attr("src"));
+			LinkedList<Path> imgPaths = new LinkedList<Path>();
+			imgPaths.add(imgPath);
+			imgList.add(tempImage);
 		}
 		//return updated LinkedList of Images from given page
 		return imgList;
