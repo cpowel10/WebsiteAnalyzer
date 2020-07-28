@@ -22,11 +22,13 @@ public class Analyzer {
 		site = mysite;
 	}
 	
+	/* 
+	 * Iterates over site's pages and performs the relevant analysis on each individual
+	 * type of tag that we care about
+	 */
 	public void analyzeWebsite(LinkedList<Path> paths) {
 		HTMLDocument tempPage;
 		Iterator<HTMLDocument> pageIt = site.allPages.iterator();
-
-		site.readPages();
 
 		//Iterate over all pages
 		while(pageIt.hasNext()) {
@@ -39,6 +41,9 @@ public class Analyzer {
 		}
 	}
 
+	/*
+	 * Iterates over the page's script tags and analyzes them
+	 */
 	public void analyzePageScripts(HTMLDocument page) {
 		Script script;
 		Script scrToAdd;
@@ -59,6 +64,9 @@ public class Analyzer {
 		}
 	}
 
+	/*
+	 * Iterates over the page's style tags and analyzes them
+	 */
 	public void analzyePageStyles(HTMLDocument page) {
 		Style style;
 		Style styToAdd;
@@ -79,7 +87,11 @@ public class Analyzer {
 				analyzedStyles.get(index).addListing(page.getPath());
 		}
 	}
-	
+
+	/*
+	 * Iterates over the page's image tags and analyzes them
+	 * TODO change to new style like styles and scripts above
+	 */
 	public void analyzeImages() throws IOException {
 		HTMLDocument tempPage;
 
@@ -165,8 +177,6 @@ public class Analyzer {
 		//which returns a list of anchors found on that path
 		//add all anchors in the recieved list to analyzedAnchors
 	}
-
-	
 
 	public Website getWebsite() {
 		return site;
