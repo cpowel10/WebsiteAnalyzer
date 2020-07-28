@@ -6,20 +6,21 @@ import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.Iterator;
 import java.util.LinkedList;
-import org.json.simple.JSONObject; //Does this work for you guys?
-
+import org.xml.sax.ext.*;
+import com.cedarsoftware.util.io.*;
 
 public class ReportGenerator {
 	/*
 	 * writes collected data to a .json file
 	 */
 	public void generateJson(Website web) {
+		
 		/*
-		JSONObject myJson = new JSONObject();
+		JsonObject myJson = new JsonObject();
 		HTMLDocument page;
 		Iterator<HTMLDocument> docIt = web.allPages.iterator();
 		page = docIt.next(); 
-		Iterator<W> fileIt = myWebFile.iterator();
+		Iterator<WebsiteFile> fileIt = myWebFile.iterator();
 
 		
 		
@@ -46,23 +47,28 @@ public class ReportGenerator {
 			}//do ^ for every image
 		
 			myJson.put("files", );
-			Iterator<ArhciveFile> = docIt.get
+			Iterator<ArhciveFile> archiveIt = docIt.getArchiveFiles().iterator;
+			Iterator<VideoFile> videoIt = docIt.getVideoFiles().iterator;
+			Iterator<AudioFile> audioIt = docIt.getAudioFiles().iterator;
+			Iterator<nonCategoryFile> nonCatIt = docIt.getNonCategoryFiles().iterator;
+
+			
 			myJson.put("archive", );
-			while() {
+			while(archiveIt.hasNext()) {
 				myJson.put("path", getPath, "size", getSize);
 			}
 			//do ^ for every archive
 		
 			myJson.put("video", );
-			while() {
+			while(videoIt.hasNext()) {
 				myJson.put("path", getPath, "size", getSize);
 			}
 			myJson.put("audio", );
-			while() {
+			while(audioIt.hasNext()) {
 				myJson.put("path", getPath, "size", getSize);
 			}
 			myJson.put("other", );
-			while() {
+			while(nonCatIt.hasNext()) {
 				myJson.put("path", getPath, "size", getSize);
 			}
 		}
