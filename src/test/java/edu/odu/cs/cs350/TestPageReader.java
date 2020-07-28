@@ -45,11 +45,10 @@ public class TestPageReader {
 	
 	@Test
 	public void testPageReaderImages() throws IOException {
-		paths.add(path1);
 		String imgString = "C:\\Users\\chris\\Desktop\\SampleHTML\\Images\\Image1.jpg";
 		imgPaths.add(Paths.get(imgString));
-		File imgFile = new File(imgString);
-		Image img1 = new Image(Paths.get(imgString), imgFile.length(), path1, Externality.INTERNAL); //~235 KB (240,698 bytes)
+		Image img1 = new Image(); //~235 KB (240,698 bytes)
+		img1.setPath(Paths.get(imgString));
 		expectedImages.add(img1);
 		/************************/
 		images = pgReader.scanForImages(path1);
@@ -73,7 +72,8 @@ public class TestPageReader {
 	@Test
 	public void testPageReaderStyles() throws IOException {
 		Path stylePath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Styles\\Style.css");
-		Style style1 = new Style(stylePath,Externality.EXTERNAL);
+		Style style1 = new Style();
+		style1.setPath(stylePath);
 		expectedStyles.add(style1);
 		/************************/
 		images = pgReader.scanForImages(path2);
@@ -97,13 +97,14 @@ public class TestPageReader {
 	@Test
 	public void testPageReaderScripts() throws IOException {
 		Path scriptPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Scripts\\JavaScript.js");
-		Script script1 = new Script(scriptPath,Externality.EXTERNAL);
+		Script script1 = new Script();
+		script1.setPath(scriptPath);
 		expectedScripts.add(script1);
 		/************************/
-		images = pgReader.scanForImages(path2);
-		styles = pgReader.scanForStyles(path2);
-		scripts = pgReader.scanForScripts(path2);
-		anchors = pgReader.scanForAnchors(path2);
+		images = pgReader.scanForImages(path3);
+		styles = pgReader.scanForStyles(path3);
+		scripts = pgReader.scanForScripts(path3);
+		anchors = pgReader.scanForAnchors(path3);
 		for (int i = 0 ; i < images.size() - 1 ; i++) {
 			assertTrue(images.get(i).equals(expectedImages.get(i)));
 		}
@@ -121,13 +122,14 @@ public class TestPageReader {
 	@Test
 	public void testPageReaderAnchors() throws IOException {
 		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html");
-		Anchor anchor1 = new Anchor(anchorPath,Externality.EXTERNAL);
+		Anchor anchor1 = new Anchor();
+		anchor1.setPath(anchorPath);
 		expectedAnchors.add(anchor1);
 		/************************/
-		images = pgReader.scanForImages(path2);
-		styles = pgReader.scanForStyles(path2);
-		scripts = pgReader.scanForScripts(path2);
-		anchors = pgReader.scanForAnchors(path2);
+		images = pgReader.scanForImages(path4);
+		styles = pgReader.scanForStyles(path4);
+		scripts = pgReader.scanForScripts(path4);
+		anchors = pgReader.scanForAnchors(path4);
 		for (int i = 0 ; i < images.size() - 1 ; i++) {
 			assertTrue(images.get(i).equals(expectedImages.get(i)));
 		}
