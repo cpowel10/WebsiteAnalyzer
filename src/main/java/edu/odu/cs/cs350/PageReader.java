@@ -104,9 +104,9 @@ public class PageReader {
 		
 	}
 	
-	/*
+	/**
 	* 
-	*/
+	**/
 	public LinkedList<Anchor> scanForAnchors(Path path) throws IOException{
 		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Anchor> anchorList = new LinkedList<Anchor>();
@@ -121,9 +121,15 @@ public class PageReader {
 		//in given HTMLDocument Object
 		for (Element a : anchors) {
 			Anchor tempAnchor = new Anchor();
-			Path anchorPath = Paths.get(a.attr("href"));
-			tempAnchor.setPath(anchorPath);
-			anchorList.add(tempAnchor);
+			String anchorString = a.attr("href");
+			int colonIndex = anchorString.indexOf(":");
+			if (colonIndex != 4 && colonIndex != 5) {
+				tempAnchor.setPath(Paths.get(anchorString));
+				anchorList.add(tempAnchor);
+			}
+			else {
+				tempAnchor.setExternality(Externality.EXTERNAL);
+			}
 		}
 		//return updated LinkedList of Anchors from given page
 		return anchorList;

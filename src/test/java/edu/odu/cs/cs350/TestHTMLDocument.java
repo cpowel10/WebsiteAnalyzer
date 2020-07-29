@@ -28,9 +28,9 @@ public class TestHTMLDocument {
 	Path test1 = Paths.get("fake/path");
 	Path test2 = Paths.get("fake/path2");
 
-	Image img1 = new Image(2, llp, 1, llp2);
-	Image img2 = new Image(3, llp, 1, llp2);
-	Image img3 = new Image(13, llp, 1, llp2);
+	Image img1 = new Image(test1,1,test2,Externality.INTERNAL);
+	Image img2 = new Image(test1,2,test2,Externality.EXTERNAL);
+	Image img3 = new Image(test1,3,test2,Externality.INTERNAL);
 	Style sty1 = new Style(test1, Externality.INTERNAL);
 	Style sty2 = new Style(test2, Externality.EXTERNAL);
 	Script script1 = new Script(test1, Externality.INTRA);
@@ -56,7 +56,7 @@ public class TestHTMLDocument {
 		assertThat(page1.getStyles(), is(styles));
 		assertThat(page1.getScripts(), is(scripts));
 		assertThat(page1.getAnchors(), is(anchors));
-		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 1 0 0 0 2"));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 1 0 0 0 1"));
 	}
 	
 	@Test
@@ -116,6 +116,6 @@ public class TestHTMLDocument {
 		assertThat(page1.getStyles(), is(styles));
 		assertThat(page1.getScripts(), is(scripts));
 		assertThat(page1.getAnchors(), is(anchors));
-		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 3 2 1 1 18"));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 3 2 1 1 6"));
 	}
 }
