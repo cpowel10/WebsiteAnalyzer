@@ -16,7 +16,7 @@ public class WebsiteFile {
 		this.setType(FileType.UNDEFINED);
 	}
 	
-	public WebsiteFile(int size, Path path, FileType type) {
+	public WebsiteFile(long size, Path path, FileType type) {
 		this.setSize(size);
 		this.setPath(path);
 		this.setType(type);
