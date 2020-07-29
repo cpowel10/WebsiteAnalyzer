@@ -4,10 +4,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 
+import java.util.Iterator;
+
 public class Website {
 	private Path localPath;
 	private LinkedList<String> urls;
-	public LinkedList<HTMLDocument> allPages; //setters have been written, replace .allPages with .getPages() then switch this to private
+	private LinkedList<HTMLDocument> allPages; //setters have been written, replace .allPages with .getPages() then switch this to private
 	private LinkedList<AudioFile> allAudioFiles;
 	private LinkedList<VideoFile> allVideoFiles;
 	private LinkedList<ArchiveFile> allArchiveFiles;
@@ -127,6 +129,22 @@ public class Website {
 		return count;
 	}
 	
+	public Iterator<VideoFile> getVideoIterator() {
+		return allVideoFiles.iterator();
+	}
+
+	public Iterator<AudioFile> getAudioIterator() {
+		return allAudioFiles.iterator();
+	}
+
+	public Iterator<ArchiveFile> gEtaRChiVeiteRATOR() {
+		return allArchiveFiles.iterator();
+	}
+
+	public Iterator<NonCategoryFile> getNonCategoryIteraotr() {
+		return allNonCategoryFiles.iterator();
+	}
+
 	/*
 	 * returns the number of Images from the website that 
 	 * are marked as External
