@@ -14,75 +14,102 @@ public class ReportGenerator {
 	 * writes collected data to a .json file
 	 */
 	public void generateJson(Website web) {
-		
 		/*
+	
 		JsonObject myJson = new JsonObject();
 		HTMLDocument page;
 		Iterator<HTMLDocument> docIt = web.allPages.iterator();
 		page = docIt.next(); 
+		WebsiteFile myWebFile = new WebsiteFile();
 		Iterator<WebsiteFile> fileIt = myWebFile.iterator();
 
 		
 		
 		myJson.put("Basepath", web.getPath());
+
+		//json array for urls
 		myJson.put(":urls", web.getURLs()); //every url
-		myJson.put("pages", doNothing?);
+		
+		//json array for pages
+		JsonObject pages = new JsonObject();
+
 		//{
 		while(docIt.hasNext()) {
-			myJson.put("path", page.getPath());
-			myJson.put("imageCount", page.getImages()); //need a local and an external
-			myJson.put("jsCount", page.getScripts()); //local and external
-			myJson.put("cssCount", page.getClass());//local and external
-			myJson.put("imagePaths", ); //every image path
-			myJson.put("scriptPaths"); //every script path
-			myJson.put("cssPaths", ); //every class path
-			myJson.put("linkCount", ); //intrap\intras\ext
+			pages.put("path", page.getPath());
+			pages.put("imageCount", page.getImages()); //need a local and an external
+			pages.put("jsCount", page.getScripts()); //local and external
+			pages.put("cssCount", page.getClass());//local and external
+			
+			//json array for image paths
+			JsonObject imagePaths = new JsonObject();
+			pages.put("imagePaths", imagePaths); //every image path
+
+			//array for script
+			JsonObject scriptPaths = new JsonObject();
+			pages.put("scriptPaths", scriptPaths); //every script path
+
+			//array for css
+			JsonObject cssPaths = new JsonObject();
+			pages.put("cssPaths", cssPaths); //every class path
+
+			//pages.put("linkCount", ); //intrap\intras\ext
 			//}
 			//one such for every page
-		
-			myJson.put("images", );
-			//[
-			while() {
-				myJson.put("path", getPath, "pageCount", getPageCount, "usedOn", getUsedOn);
+			//end pages array
+			myJson.put("pages", pages);
+
+			//array for images
+			JsonObject images = new JsonObject();
+			Iterator<Image> imageIt;
+			while(imageIt.hasNext()) {
+				images.put("path", imageIt.getPath(), "pageCount", imageIt.getPageCount(), "usedOn", imageIt.getUsedOn());
 			}//do ^ for every image
+			myJson.put("images", images);
+
 		
-			myJson.put("files", );
 			Iterator<ArhciveFile> archiveIt = docIt.getArchiveFiles().iterator;
 			Iterator<VideoFile> videoIt = docIt.getVideoFiles().iterator;
 			Iterator<AudioFile> audioIt = docIt.getAudioFiles().iterator;
 			Iterator<nonCategoryFile> nonCatIt = docIt.getNonCategoryFiles().iterator;
 
-			
-			myJson.put("archive", );
+			JsonObject files = new JsonObject();
+
+			JsonObject archives = new JsonObject();
 			while(archiveIt.hasNext()) {
-				myJson.put("path", getPath, "size", getSize);
+				archives.put("path", archiveIt.getPath(), "size", archiveIt.getSize());
 			}
-			//do ^ for every archive
+			files.put("archive", archives);
 		
-			myJson.put("video", );
+			JsonObject videos = new JsonObject();
 			while(videoIt.hasNext()) {
-				myJson.put("path", getPath, "size", getSize);
+				videos.put("path", videoIt.getPath(), "size", videoIt.getSize());
 			}
-			myJson.put("audio", );
+			files.put("video", videos);
+
+			JsonObject audios = new JsonObject();
 			while(audioIt.hasNext()) {
-				myJson.put("path", getPath, "size", getSize);
+				audios.put("path", audioIt.getPath(), "size", audioIt.getSize());
 			}
-			myJson.put("other", );
+			files.put("audio", audios);
+
+			JsonObject others = new JsonObject();
 			while(nonCatIt.hasNext()) {
-				myJson.put("path", getPath, "size", getSize);
+				others.put("path", nonCatIt.getPath(), "size", nonCatIt.getSize());
 			}
+			files.put("other", others);
+
+			myJson.put("files", files);
+
 		}
-		//}
-		//}
-*/
+
 		try {
 			FileWriter myFile = new FileWriter("output.json");
 	       // myFile.write(myJson.toJSONString());
 	        myFile.close();
 	    } catch (IOException e) {
 	          e.printStackTrace();
-	       }
-		int deleteThisLine = 4; // need to get my commit to work.
+		   }
+		   */
 	}
 	
 	/*
