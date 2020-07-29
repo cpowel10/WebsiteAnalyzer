@@ -25,6 +25,12 @@ public class PageReader {
 		sitePages = pages;
 	}
 	
+	/**
+	 * 
+	 * @param path : Path to HTML file to be scanned
+	 * @return list of images found with only path variable defined
+	 * @throws IOException
+	 */
 	public LinkedList<Image> scanForImages(Path path) throws IOException{
 		//get Path of HTMLDocument
 		LinkedList<Path> pathList = new LinkedList<Path>();
@@ -48,9 +54,13 @@ public class PageReader {
 		//return updated LinkedList of Images from given page
 		return imgList;
 	}
-	/*
-	* 
-	*/
+	
+	/**
+	 * 
+	 * @param path : Path to HTML file to be scanned
+	 * @return list of stylesheets found with only path variable defined
+	 * @throws IOException
+	 */
 	public LinkedList<Style> scanForStyles(Path path) throws IOException{
 		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Style> styleList = new LinkedList<Style>();
@@ -76,9 +86,12 @@ public class PageReader {
 		
 	}
 	
-	/*
-	* 
-	*/
+	/**
+	 * 
+	 * @param path : Path to HTML file to be scanned
+	 * @return list of script files referenced in given path, with only path variable defined
+	 * @throws IOException
+	 */
 	public LinkedList<Script> scanForScripts(Path path) throws IOException{
 		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Script> scriptList = new LinkedList<Script>();
@@ -105,8 +118,12 @@ public class PageReader {
 	}
 	
 	/**
-	* 
-	**/
+	 * 
+	 * @param path : Path to HTML file to be scanned
+	 * @return list of anchor tags found with only path variable defined,
+	 * unless referencing an external URL with "http:" or "https"
+	 * @throws IOException
+	 */
 	public LinkedList<Anchor> scanForAnchors(Path path) throws IOException{
 		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Anchor> anchorList = new LinkedList<Anchor>();
