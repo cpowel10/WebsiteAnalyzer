@@ -124,7 +124,10 @@ public class TestPageReader {
 		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html");
 		Anchor anchor1 = new Anchor();
 		anchor1.setPath(anchorPath);
+		Anchor anchor2 = new Anchor();
+		anchor2.setExternality(Externality.EXTERNAL);
 		expectedAnchors.add(anchor1);
+		expectedAnchors.add(anchor2);
 		/************************/
 		images = pgReader.scanForImages(path4);
 		styles = pgReader.scanForStyles(path4);

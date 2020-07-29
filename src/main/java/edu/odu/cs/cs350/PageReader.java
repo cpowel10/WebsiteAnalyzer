@@ -129,6 +129,7 @@ public class PageReader {
 			}
 			else {
 				tempAnchor.setExternality(Externality.EXTERNAL);
+				anchorList.add(tempAnchor);
 			}
 		}
 		//return updated LinkedList of Anchors from given page
