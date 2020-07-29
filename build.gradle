@@ -6,6 +6,8 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     implementation 'org.jsoup:jsoup:1.12.1'
     implementation 'com.cedarsoftware:json-io:4.10.1'
+    implementation 'org.apache.poi:poi-ooxml:3.12'
+    implementation 'org.apache.poi:poi:3.12'
 }
 
 repositories {
