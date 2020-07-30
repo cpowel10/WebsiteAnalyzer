@@ -20,6 +20,7 @@ import org.apache.poi.*;
 import org.apache.poi.xssf.usermodel.*;
 import java.util.List;
 import java.util.Vector;
+import java.util.function.ObjLongConsumer;
 import java.util.HashMap;
 
 
@@ -28,25 +29,28 @@ public class ReportGenerator {
 	 * writes collected data to a .json file
 	 */
 	public void generateJson(Website web) {
+		try {
+		//Still a mess but getting there!
 		Map<String, Object> customMap = new HashMap<>();
 
-        List<String> paths = new Vector<String>();
-        for (HTMLDocument page : web.getPages()) {
-            paths.add(page.getPath().toString());
-        }
+        //List<String> paths = new Vector<String>();
+        //for (HTMLDocument page : web.getPages()) {
+        //    paths.add(page.getPath().toString());
+        //}
 
-        customMap.put(web.getPath().toString(), paths);
-        customMap.put("totalPaths", String.valueOf(web.getPages().size()));
+        //customMap.put(web.getPath().toString(),paths);// = "pathNotSet":["z","a","b"]
+        //customMap.put("totalPaths", String.valueOf(web.getPages().size())); // = "totalPaths":"3",
 
         Map args = new HashMap<>();
         args.put(JsonWriter.PRETTY_PRINT, true); // Make the output human readable
         args.put(JsonWriter.TYPE, false); // Hide the type metadata (e.g., Student, Roster)
 
-        String json = JsonWriter.objectToJson(customMap, args);
+        //String json = JsonWriter.objectToJson(customMap, args);
 
-        System.out.println(json);
-		/*
-		JsonObject myJson = new JsonObject();
+        //System.out.println(json);
+		
+		
+		//JsonObject myJson = new JsonObject();
 		HTMLDocument page;
 		Iterator<HTMLDocument> docIt = web.getPages().iterator();
 		page = docIt.next(); 
@@ -55,89 +59,118 @@ public class ReportGenerator {
 
 		
 		
-		myJson.put("Basepath", web.getPath());
+		customMap.put("Basepath", web.getPath().toString());
 
 		//json array for urls
-		myJson.put(":urls", web.getURLs()); //every url
+		customMap.put(":urls", web.getURLs()); //every url
 		
 		//json array for pages
-		JsonObject pages = new JsonObject();
-
+		Map<String, Object> pages = new HashMap<>();
 		//{
 		while(docIt.hasNext()) {
+			page = docIt.next();
 			pages.put("path", page.getPath());
 			pages.put("imageCount", page.getImages()); //need a local and an external
 			pages.put("jsCount", page.getScripts()); //local and external
 			pages.put("cssCount", page.getClass());//local and external
 			
 			//json array for image paths
-			JsonObject imagePaths = new JsonObject();
+			List<String> imagePaths = new Vector<String>();
+			for (Image img : page.getImages()) {
+				imagePaths.add(img.getPath().toString());
+			}
 			pages.put("imagePaths", imagePaths); //every image path
 
 			//array for script
-			JsonObject scriptPaths = new JsonObject();
+			List<String> scriptPaths = new Vector<String>();
+			for (Script scpt : page.getScripts()) {
+				scriptPaths.add(scpt.getPath().toString());
+			}
 			pages.put("scriptPaths", scriptPaths); //every script path
 
 			//array for css
-			JsonObject cssPaths = new JsonObject();
+			List<String> cssPaths = new Vector<String>();
+			for (Style styl : page.getStyles()) {
+				cssPaths.add(styl.getPath().toString());
+			}
 			pages.put("cssPaths", cssPaths); //every class path
 
 			//pages.put("linkCount", ); //intrap\intras\ext
 			//}
 			//one such for every page
 			//end pages array
-			myJson.put("pages", pages);
+			customMap.put("pages", pages);
 
 			//array for images
-			JsonObject images = new JsonObject();
-			Iterator<Image> imageIt;
+			Map<String, Object> images = new HashMap<>();
+
+			Iterator<Image> imageIt = page.getImages().iterator();
 			Image image;
 			while(imageIt.hasNext()) {
 				image = imageIt.next();
-				images.put("path", image.getPath().toString(), "pageCount", String.valueOf(image.numPages()), "usedOn", image.getListings().toString());
+				images.put("path", image.getPath().toString());
+				images.put("pageCount", String.valueOf(image.numPages()));
+				images.put("usedOn", image.getListings().toString());
 			}//do ^ for every image
-			myJson.put("images", images);
+			customMap.put("images", images);
 
 		
-			Iterator<ArchiveFile> archiveIt = docIt.getArchiveFiles().iterator;
-			Iterator<VideoFile> videoIt = docIt.getVideoFiles().iterator;
-			Iterator<AudioFile> audioIt = docIt.getAudioFiles().iterator;
-			Iterator<NonCategoryFile> nonCatIt = docIt.getNonCategoryFiles().iterator;
+			Iterator<ArchiveFile> archiveIt = web.getArchiveFiles().iterator();
+			Iterator<VideoFile> videoIt = web.getVideoFiles().iterator();
+			Iterator<AudioFile> audioIt = web.getAudioFiles().iterator();
+			Iterator<NonCategoryFile> nonCatIt = web.getNonCatFiles().iterator();
 
-			JsonObject files = new JsonObject();
+			Map<String, Object> files = new HashMap<>();
 
-			JsonObject archives = new JsonObject();
+			Map<String, Object> archives = new HashMap<>();
+			ArchiveFile archive;
 			while(archiveIt.hasNext()) {
-				archives.put("path", archiveIt.getPath(), "size", archiveIt.getSize());
+				archive = archiveIt.next();
+				archives.put("path", archive.path().toString());
+				archives.put("size", String.valueOf((archive.getSize())));
 			}
 			files.put("archive", archives);
 		
-			JsonObject videos = new JsonObject();
+			Map<String, Object> videos = new HashMap<>();
+			VideoFile video;
 			while(videoIt.hasNext()) {
-				videos.put("path", videoIt.getPath(), "size", videoIt.getSize());
+				video = videoIt.next();
+				videos.put("path", video.path().toString());
+				videos.put("size", String.valueOf(video.getSize()));
 			}
 			files.put("video", videos);
 
-			JsonObject audios = new JsonObject();
+			Map<String, Object> audios = new HashMap<>();
+			AudioFile audio;
 			while(audioIt.hasNext()) {
-				audios.put("path", audioIt.getPath(), "size", audioIt.getSize());
+				audio = audioIt.next();
+				audios.put("path", audio.path().toString());
+				audios.put("size", String.valueOf(audio.getSize()));
 			}
 			files.put("audio", audios);
 
-			JsonObject others = new JsonObject();
+			Map<String, Object> others = new HashMap<>();
+			NonCategoryFile nonCat;
 			while(nonCatIt.hasNext()) {
-				others.put("path", nonCatIt.getPath(), "size", nonCatIt.getSize());
+				nonCat = nonCatIt.next();
+				others.put("path", nonCat.path().toString());
+				others.put("size", String.valueOf(nonCat.getSize()));
 			}
 			files.put("other", others);
 
-			myJson.put("files", files);
-		}	*/
+			customMap.put("files", files);
+			String json = "something went wrong";
+			json = JsonWriter.objectToJson(customMap, args);
+			System.out.println(json);
 
-		
-		try {
-			FileWriter myFile = new FileWriter("output.json");
-	        myFile.write(json);
-	        myFile.close();
+			File myOut = new File("output.json");
+			FileWriter myFile = new FileWriter(myOut);
+			myFile.write(json);
+			myFile.close();
+
+
+		}	
+
 	    } catch (IOException e) {
 	          e.printStackTrace();
 		   }
@@ -211,18 +244,18 @@ public class ReportGenerator {
 	 * writes collected data to a .xls file
 	 */
 	public void generateXls(Website web) {
-		int counter = 0;
+		int counter = 1;
 		Iterator<HTMLDocument> pageIt = web.getPages().iterator();
 
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
 
-		XSSFSheet sheet = workbook.createSheet("Employee Data");
+		XSSFSheet sheet = workbook.createSheet("summary");
 		  
 		Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
-		data.put(1, new Object[] {"Page", "#Images", "#CSS", "Scripts", "#Links(Intra-Page)", "#Links(Internal)", "#Links(External)"});
+		data.put(0, new Object[] {"Page", "#Images", "#CSS", "Scripts", "#Links(Intra-Page)", "#Links(Internal)", "#Links(External)"});
 		while(pageIt.hasNext()){
 			HTMLDocument page = pageIt.next();
-			data.put(counter, new Object[] {page.getPath(), page.getImages().size(), page.getStyles().size(), page.getScripts().size(), page.getIntra(), page.getIntern(), page.getExtern()});
+			data.put(counter, new Object[] {page.getPath().toString(), page.getImages().size(), page.getStyles().size(), page.getScripts().size(), page.getIntra(), page.getIntern(), page.getExtern()});
 			counter++;
 		}
 		  
