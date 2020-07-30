@@ -4,13 +4,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 
+import edu.odu.cs.cs350.Enum.Externality;
+
 public class HTMLDocument implements Comparable<HTMLDocument> {
   	private LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
   	private LinkedList<Anchor> allAnchors;
   	private long totalImageSize;
-  	private Path path;
+	private Path path;
+	private int intraLinks;
+	private int internalLinks;
+	private int externalLinks;
   	
 	public HTMLDocument() {
 		this.path = Paths.get("pathNotSet");
@@ -94,6 +99,24 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	public void addImage(Image img) {
 		allImages.add(img);
 	}
+
+	public void setLinkTypeCounters() {
+		int intra=0, internal=0, external=0;
+		for(Anchor anc : allAnchors) {
+			if(anc.getExternality().equals(Externality.INTRA)) {
+				intra++;
+			}
+			if(anc.getExternality().equals(Externality.INTERNAL)) {
+				internal++;
+			}
+			if(anc.getExternality().equals(Externality.EXTERNAL)) {
+				external++;
+			}
+		}
+		intraLinks = intra;
+		internalLinks = internal;
+		externalLinks = external;
+	}
 	
 	/*
 	 * May go in PageReader class
@@ -138,7 +161,6 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		}
 		return 0; //equal 
 	}
- 
 	
 	/*
 	 * For Testing Only Below
