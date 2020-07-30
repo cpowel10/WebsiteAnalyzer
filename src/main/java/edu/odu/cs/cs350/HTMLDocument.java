@@ -117,6 +117,15 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		internalLinks = internal;
 		externalLinks = external;
 	}
+	public int getIntra(){
+		return this.intraLinks;
+	}
+	public int getIntern(){
+		return this.internalLinks;
+	}
+	public int getExtern(){
+		return this.externalLinks;
+	}
 	
 	/*
 	 * May go in PageReader class
