@@ -6,22 +6,52 @@ import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Set;
+import java.io.FileOutputStream;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.xml.sax.ext.*;
 import com.cedarsoftware.util.io.*;
+import org.apache.poi.*;
+import org.apache.poi.xssf.usermodel.*;
+import java.util.List;
+import java.util.Vector;
+import java.util.HashMap;
+
 
 public class ReportGenerator {
 	/*
 	 * writes collected data to a .json file
 	 */
 	public void generateJson(Website web) {
+		Map<String, Object> customMap = new HashMap<>();
+
+        List<String> paths = new Vector<String>();
+        for (HTMLDocument page : web.getPages()) {
+            paths.add(page.getPath().toString());
+        }
+
+        customMap.put(web.getPath().toString(), paths);
+        customMap.put("totalPaths", String.valueOf(web.getPages().size()));
+
+        Map args = new HashMap<>();
+        args.put(JsonWriter.PRETTY_PRINT, true); // Make the output human readable
+        args.put(JsonWriter.TYPE, false); // Hide the type metadata (e.g., Student, Roster)
+
+        String json = JsonWriter.objectToJson(customMap, args);
+
+        System.out.println(json);
 		/*
-	
 		JsonObject myJson = new JsonObject();
 		HTMLDocument page;
-		Iterator<HTMLDocument> docIt = web.allPages.iterator();
+		Iterator<HTMLDocument> docIt = web.getPages().iterator();
 		page = docIt.next(); 
 		WebsiteFile myWebFile = new WebsiteFile();
-		Iterator<WebsiteFile> fileIt = myWebFile.iterator();
+		//Iterator<WebsiteFile> fileIt = myWebFile.iterator();
 
 		
 		
@@ -61,16 +91,18 @@ public class ReportGenerator {
 			//array for images
 			JsonObject images = new JsonObject();
 			Iterator<Image> imageIt;
+			Image image;
 			while(imageIt.hasNext()) {
-				images.put("path", imageIt.getPath(), "pageCount", imageIt.getPageCount(), "usedOn", imageIt.getUsedOn());
+				image = imageIt.next();
+				images.put("path", image.getPath().toString(), "pageCount", String.valueOf(image.numPages()), "usedOn", image.getListings().toString());
 			}//do ^ for every image
 			myJson.put("images", images);
 
 		
-			Iterator<ArhciveFile> archiveIt = docIt.getArchiveFiles().iterator;
+			Iterator<ArchiveFile> archiveIt = docIt.getArchiveFiles().iterator;
 			Iterator<VideoFile> videoIt = docIt.getVideoFiles().iterator;
 			Iterator<AudioFile> audioIt = docIt.getAudioFiles().iterator;
-			Iterator<nonCategoryFile> nonCatIt = docIt.getNonCategoryFiles().iterator;
+			Iterator<NonCategoryFile> nonCatIt = docIt.getNonCategoryFiles().iterator;
 
 			JsonObject files = new JsonObject();
 
@@ -99,17 +131,17 @@ public class ReportGenerator {
 			files.put("other", others);
 
 			myJson.put("files", files);
+		}	*/
 
-		}
-
+		
 		try {
 			FileWriter myFile = new FileWriter("output.json");
-	       // myFile.write(myJson.toJSONString());
+	        myFile.write(json);
 	        myFile.close();
 	    } catch (IOException e) {
 	          e.printStackTrace();
 		   }
-		   */
+	
 	}
 	
 	/*
@@ -136,7 +168,7 @@ public class ReportGenerator {
 		FileWriter myWrite = new FileWriter(myFile);
 		
 		//Iterator for the different pages of the website
-		Iterator<HTMLDocument> docIt = web.allPages.iterator();
+		Iterator<HTMLDocument> docIt = web.getPages().iterator();
 		
 		//Store the data that will be written
 		LinkedList<HTMLDocument> toWrite = new LinkedList<HTMLDocument>();
@@ -178,8 +210,48 @@ public class ReportGenerator {
 	/*
 	 * writes collected data to a .xls file
 	 */
-	public File generateXls(Website web) {
-		return null;
+	public void generateXls(Website web) {
+		int counter = 0;
+		Iterator<HTMLDocument> pageIt = web.getPages().iterator();
+
+		XSSFWorkbook workbook = new XSSFWorkbook(); 
+
+		XSSFSheet sheet = workbook.createSheet("Employee Data");
+		  
+		Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
+		data.put(1, new Object[] {"Page", "#Images", "#CSS", "Scripts", "#Links(Intra-Page)", "#Links(Internal)", "#Links(External)"});
+		while(pageIt.hasNext()){
+			HTMLDocument page = pageIt.next();
+			data.put(counter, new Object[] {page.getPath(), page.getImages().size(), page.getStyles().size(), page.getScripts().size(), page.getIntra(), page.getIntern(), page.getExtern()});
+			counter++;
+		}
+		  
+		Set<Integer> keySet = data.keySet();
+		int rowNum = 0;
+		for (Integer key : keySet){
+			Row row = sheet.createRow(rowNum++);
+			Object [] objArr = data.get(key);
+			int cellNum = 0;
+			for (Object obj : objArr){
+			   Cell cell = row.createCell(cellNum++);
+			   if(obj instanceof String)
+					cell.setCellValue((String)obj);
+				else if(obj instanceof Integer)
+					cell.setCellValue((Integer)obj);
+			}
+		}
+		try{
+			File myOut = new File("WebsiteAnalysis.xlsx"); //needs to be changed to proper name
+			FileOutputStream out = new FileOutputStream(myOut);
+			workbook.write(out);
+			System.out.println("XLSX File created: " + myOut.getName());
+			out.close();
+			workbook.close();
+			//Inspirtation/Much credit to https://howtodoinjava.com/library/readingwriting-excel-files-in-java-poi-tutorial/#writing_excel_file
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*
