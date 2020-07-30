@@ -5,8 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
 
-import javax.swing.text.html.HTML;
-
 import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.*;
 
@@ -14,6 +12,8 @@ import java.util.Iterator;
 
 public class Analyzer {
 	private Website site = new Website();
+	private PathManager pathManager = new PathManager();
+
 	private LinkedList<Image> analyzedImages = new LinkedList<Image>();
 	private LinkedList<Style> analyzedStyles = new LinkedList<Style>();
 	private LinkedList<Script> analyzedScripts = new LinkedList<Script>();
@@ -29,21 +29,19 @@ public class Analyzer {
 	 */
 	public void analyzeWebsite() {
 		HTMLDocument tempPage;
-		Iterator<HTMLDocument> pageIt = site.allPages.iterator();
+		Iterator<HTMLDocument> pageIt = site.getPages().iterator();
 
 		//Iterate over all pages
 		while(pageIt.hasNext()) {
 			tempPage = pageIt.next();
 
-			//TODO edit below to analyzePageImages(tempPage) to work
 			analyzePageScripts(tempPage);
 			analzyePageStyles(tempPage);
-			//TODO make analyzePageAnchors(tempPage), good luck
 		}
 	}
 
-	/*
-	 * Iterates over the page's script tags and analyzes them
+	/**
+	  * Iterates over the page's script tags and analyzes them
 	 */
 	public void analyzePageScripts(HTMLDocument page) {
 		Script script;
@@ -61,8 +59,22 @@ public class Analyzer {
 				analyzedScripts.add(scrToAdd);
 			}
 			//otherwise add this page's path to the scripts' listings
-			else
+			else {
 				analyzedScripts.get(index).addListing(page.getPath());
+			}
+		}
+	}
+
+	public void analyzePageAnchors(HTMLDocument page) {
+		Anchor href;
+		Path expanded;
+		Iterator<Anchor> anchorIt = page.getAnchors().iterator();
+		while(anchorIt.hasNext()) {
+			href = anchorIt.next();
+			expanded = pathManager.expandPath(href.getPath(), page.getPath());
+			if(expanded.equals(page.getPath())) {
+				href.setExternality(Externality.INTRA);
+			}
 		}
 	}
 
@@ -86,8 +98,9 @@ public class Analyzer {
 				analyzedStyles.add(styToAdd);
 			}
 			//otherwise add this page's path to the styles' listings
-			else
+			else {
 				analyzedStyles.get(index).addListing(page.getPath());
+			}
 		}
 	}
 
@@ -134,12 +147,6 @@ public class Analyzer {
 		//assign total image size to the page and reset tally
 		page.setTotalImageSize(pageTotalImageSize);
 		pageTotalImageSize = 0;
-	}
-	
-	public void analyzePageAnchors(HTMLDocument page) {
-		//Call scanForAnchors(Path) for the given path
-		//which returns a list of anchors found on that path
-		//add all anchors in the recieved list to analyzedAnchors
 	}
 
 	public Website getWebsite() {
