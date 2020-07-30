@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 
+import java.net.URI;
+
 import edu.odu.cs.cs350.Enum.*;
 
 public class Image extends Tag 	implements Comparable<Image> {
@@ -18,8 +20,8 @@ public class Image extends Tag 	implements Comparable<Image> {
 		this.setNumPages(-1);
 	}
 
-	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality) {
-		super(TagType.IMAGE, myPath, myExternality);
+	public Image(Path myPath, long mySize, Path firstListing, Externality myExternality, URI myUri) {
+		super(TagType.IMAGE, myPath, myExternality, myUri);
 		size = mySize;
 		listings = new LinkedList<Path>();
 		listings.add(firstListing);

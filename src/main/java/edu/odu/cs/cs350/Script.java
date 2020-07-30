@@ -6,6 +6,8 @@ import edu.odu.cs.cs350.Enum.TagType;
 import java.nio.file.Path;
 import java.util.LinkedList;
 
+import java.net.URI;
+
 import edu.odu.cs.cs350.Enum.*;
 
 public class Script extends Tag {
@@ -16,13 +18,13 @@ public class Script extends Tag {
 		listings = new LinkedList<Path>();
 	}
 	
-	public Script(Path myPath, Externality myEality) {
-		super(TagType.SCRIPT, myPath, myEality);
+	public Script(Path myPath, Externality myEality, URI myUri) {
+		super(TagType.SCRIPT, myPath, myEality, myUri);
 		listings = new LinkedList<Path>();
 	}
 
-	public Script(Path myPath, Externality myEality, Path firstListing) {
-		super(TagType.SCRIPT, myPath, myEality);
+	public Script(Path myPath, Externality myEality, Path firstListing, URI myUri) {
+		super(TagType.SCRIPT, myPath, myEality, myUri);
 		listings = new LinkedList<Path>();
 		listings.add(firstListing);
 	}

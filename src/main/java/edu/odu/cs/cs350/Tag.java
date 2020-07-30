@@ -3,11 +3,15 @@ package edu.odu.cs.cs350;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.net.URI;
+import java.net.URL;
+
 import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.Enum.TagType;
 
 public class Tag {
 	private Path path;
+	private URI uri;
 	private TagType type;
 	private Externality eality;
 
@@ -23,10 +27,11 @@ public class Tag {
 		eality = Externality.UNDEFINED;
 	}
 
-	public Tag(TagType myType, Path myPath, Externality myEality) {
+	public Tag(TagType myType, Path myPath, Externality myEality, URI myUri) {
 		type = myType;
 		path = myPath;
 		eality = myEality;
+		uri = myUri;
 	}
 
 	public Path getPath() {
