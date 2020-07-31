@@ -16,17 +16,23 @@ import edu.odu.cs.cs350.Enum.TagType;
 
 public class PageReader {
 	LinkedList<Path> sitePages;
+	/*
+	 * default constructor
+	 */
 	public PageReader()
 	{
 		sitePages = new LinkedList<>();
 	}
-
+	/*
+	 * nondefault constructor
+	 * @param pages is a linkedList of paths containing pages of the website
+	 */
 	public PageReader(LinkedList<Path> pages) {
 		sitePages = pages;
 	}
 	
 	/**
-	 * 
+	 * scans path for images
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of images found with only path variable defined
 	 * @throws IOException
@@ -56,7 +62,7 @@ public class PageReader {
 	}
 	
 	/**
-	 * 
+	 * scans path for styles
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of stylesheets found with only path variable defined
 	 * @throws IOException
@@ -87,7 +93,7 @@ public class PageReader {
 	}
 	
 	/**
-	 * 
+	 * scans path for scripts 
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of script files referenced in given path, with only path variable defined
 	 * @throws IOException
@@ -118,7 +124,7 @@ public class PageReader {
 	}
 	
 	/**
-	 * 
+	 * scans path for anchors
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of anchor tags found with only path variable defined,
 	 * unless referencing an external URL with "http:" or "https"
