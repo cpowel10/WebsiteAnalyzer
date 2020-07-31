@@ -50,11 +50,6 @@ public class PathManager {
 		else {
 			Path tagPath = Paths.get(taguri.getPath());
 			tagPath = expandPath(tagPath, pagePath);
-			//relative path that leaves homeDir
-			if(tagPath.startsWith("..")) {
-				tag.setPath(Paths.get(""));
-				return;
-			}
 			tag.setPath(tagPath);
 		}
 	}
@@ -86,6 +81,9 @@ public class PathManager {
 			return Externality.INTRA;
 		}
 		if(tagPath.toString().equals("")) {
+			return Externality.EXTERNAL;
+		}
+		if(tagPath.startsWith("..")) {
 			return Externality.EXTERNAL;
 		}
 		if(Files.exists(tagPath)) {
