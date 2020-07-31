@@ -63,6 +63,12 @@ public class Tag {
 		return this.eality;
 	}
 	/*
+	 * returns URI of tag
+	 */
+	public URI getUri() {
+		return this.uri;
+	}
+	/*
 	 * sets path of tag
 	 * @param path to tag
 	 */
