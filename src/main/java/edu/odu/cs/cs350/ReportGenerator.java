@@ -1,6 +1,6 @@
 package edu.odu.cs.cs350;
 
-import java.util.Collections;
+import java.util.Collections; //
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
@@ -27,6 +27,8 @@ import java.util.HashMap;
 public class ReportGenerator {
 	/*
 	 * writes collected data to a .json file
+	 * @param Website contains data to be reported
+	 * @throws IOexception
 	 */
 	public void generateJson(Website web) {
 		try {
@@ -179,6 +181,8 @@ public class ReportGenerator {
 	
 	/*
 	 * writes collected data to a .txt file
+	 * @param Website contains data to be reported
+	 * @throws IOexception
 	 */
 	public void generateText(Website web) {
 		
@@ -242,6 +246,8 @@ public class ReportGenerator {
 	}
 	/*
 	 * writes collected data to a .xls file
+	 * @param Website contains data to be reported
+	 * @throws IOexception
 	 */
 	public void generateXls(Website web) {
 		int counter = 1;
@@ -285,12 +291,5 @@ public class ReportGenerator {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/*
-	 * writes The names of all output files(one per line) to standard out.
-	 */
-	public File generateDisplay(Website web) {
-		return null; //I think we shouldn't use this and that we should just output filename when generating each file.
 	}
 }
