@@ -13,21 +13,26 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.Iterator;
+
+import edu.odu.cs.cs350.*;
+import edu.odu.cs.cs350.Enum.Externality;
+import edu.odu.cs.cs350.Enum.TagType;
 
 public class TestPathManager {
 
     private PathManager pman;
 
-    private Path homeDir = Paths.get("src/test/data/testWebsite").toAbsolutePath();
+    private Path homeDir = Paths.get("home/web").toAbsolutePath();
     
     private URL[] urls = new URL[2];
-    private URL testurl1;
-    private URL testurl2;
-    private URL testurl3;
-    private URL testurl4;
+    private URI testurl1;
+    private URI testurl2;
+    private URI testurl3;
+    private URI testurl4;
 
     @Before
     public void setUp() throws MalformedURLException {
@@ -49,23 +54,54 @@ public class TestPathManager {
     }
 
     @Test
-    public void testMapUrlToPath() throws MalformedURLException {
+    public void testMapTagURi() throws URISyntaxException{
+        Tag tag = new Tag(new URI("page2.html"));
+        Path pagePath = Paths.get("articles/page.html");
+        pman.mapTagUri(tag, pagePath);
+        assertThat(tag.getPath().toString(), is("articles/page2.html"));
+
+        Tag tag2 = new Tag(new URI("../books/book1.html"));
+        pman.mapTagUri(tag2, pagePath);
+        assertThat(tag2.getPath().toString(), is("books/book1.html"));
+
+        Tag tag3 = new Tag(new URI("../../outside/website"));
+        pman.mapTagUri(tag3, pagePath);
+        assertThat(tag3.getPath().toString(), is("../outside/website"));
+    }
+
+    @Test
+    public void testRemoveSitePathRoot() {
+        Path tagPath = Paths.get("home/web/this/is/a/test").toAbsolutePath();
+        assertThat(pman.removeSitePathRoot(tagPath).toString(), is("this/is/a/test"));
+    }
+
+    @Test
+    public void testClassifyRelativeUriTag() {
+        assertThat(pman.classifyRelativeUriTag(Paths.get(""), Paths.get("this/page.html")), is(Externality.EXTERNAL));
+        assertThat(pman.classifyRelativeUriTag(Paths.get("../outside/website/dir"), Paths.get("this/page.html")), is(Externality.EXTERNAL));
+        assertThat(pman.classifyRelativeUriTag(Paths.get("this/page.html"), Paths.get("this/page.html")), is(Externality.INTRA));
+        assertThat(pman.classifyRelativeUriTag(Paths.get("README.md"), Paths.get("this/page.html")), is(Externality.INTERNAL));
+        assertThat(pman.classifyRelativeUriTag(Paths.get("404error"), Paths.get("this/page.html")), is(Externality.UNDEFINED));
+    }
+
+    @Test
+    public void testMapUrlToPath() throws URISyntaxException {
         Path mappedPath;
 
-        testurl1 = new URL("https://www.example.com/hello/world/this/test/passes");
-        mappedPath = pman.mapUrlToPath(testurl1);
+        testurl1 = new URI("https://www.example.com/hello/world/this/test/passes");
+        mappedPath = pman.uriToPath(testurl1);
         assertThat(mappedPath.toString(), is("this/test/passes"));
 
-        testurl2 = new URL("https://www.febreze.example.com/hello/world/passing/test");
-        mappedPath = pman.mapUrlToPath(testurl2);
+        testurl2 = new URI("https://www.febreze.example.com/hello/world/passing/test");
+        mappedPath = pman.uriToPath(testurl2);
         assertThat(mappedPath.toString(), is("passing/test"));
-        
-        testurl3 = new URL("https://www.example.com/world");
-        mappedPath = pman.mapUrlToPath(testurl3);
+
+        testurl3 = new URI("https://www.example.com/world");
+        mappedPath = pman.uriToPath(testurl3);
         assertThat(mappedPath.toString(), is(""));
-        
-        testurl4 = new URL("https://www.bad.example.com/my/test");
-        mappedPath = pman.mapUrlToPath(testurl4);
+
+        testurl4 = new URI("https://www.bad.example.com/my/test");
+        mappedPath = pman.uriToPath(testurl4);
         assertThat(mappedPath.toString(), is(""));
     }
 }
