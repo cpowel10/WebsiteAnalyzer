@@ -66,10 +66,9 @@ public class PathManager {
             System.out.println((tagPath.subpath(0,1).equals(p)));
 			if(tagPath.subpath(0,1).equals(p)) {
                 tagPath = tagPath.subpath(1, tagPath.getNameCount());
-                System.out.println(tagPath+"gethere?");
 			}
         }
-		return tagPath;
+		return Paths.get("");
 	}
 	/*
 	 * classifies the URI as its externality (intrapage, iternal, external)
