@@ -45,6 +45,16 @@ public class Tag {
 		uri = myUri;
 	}
 	/*
+	 * nondefault constructor that PageReader uses to make Raw tags
+	 * @param myUri is the URI of the tag
+	 */
+	public Tag(URI myUri) {
+		path = Paths.get("");
+		type = TagType.UNDEFINED; 
+		eality = Externality.UNDEFINED;
+		uri = myUri;
+	}
+	/*
 	 * returns path of tag
 	 */
 	public Path getPath() {
