@@ -2,10 +2,14 @@ package edu.odu.cs.cs350;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import java.net.URL;
+import java.net.URI;
 
 import java.util.Iterator;
+
+import edu.odu.cs.cs350.Enum.Externality;
 
 public class PathManager {
 	private Path homeDir;
@@ -15,47 +19,73 @@ public class PathManager {
 	}
 	
 	public PathManager(Path home, URL[] theurls) {
-		homeDir = home;
+		
+		homeDir = home.toAbsolutePath();
 		urls = theurls;
 	}
 
-	/*
-	 * Checks a url against the provided urls to be analyzed
-	 * if internal url, the site root is removed and remaining path returned
-	 * if external, returns an empty path
-	 */
-	public Path mapUrlToPath (URL toMap) {
-		Path mappedPath = Paths.get("");
-
-		Path internalPath = matchHost(toMap);
-		Path toMapPath = Paths.get(toMap.getPath());
-		
-		//Iterate over name elements of the internalURL
-		Iterator<Path> it = internalPath.iterator();
-		while(it.hasNext()&&toMapPath.getNameCount()>0)
-		{
-			//remove the leading element if they match
-			if(toMapPath.subpath(0, 1).equals(it.next()))
-			{
-				toMapPath = toMapPath.subpath(1, toMapPath.getNameCount());
-				mappedPath = toMapPath;
+	public void mapTagUri(Tag tag, Path pagePath) {
+		URI taguri = tag.getUri();
+		if(taguri.isAbsolute()) {
+			//check if URI matches any of our URL's hosts
+			if(isExternalHost(taguri)) {
+				tag.setPath(Paths.get(""));
+				return;
 			}
-			//as soon as an element doesn't match, root removal is complete
-			else
-				return mappedPath;
+			//if absolute URI that does match one of our hosts, remove siteroot from path
+			else {
+				tag.setPath(removeSitePathRoot(Paths.get(taguri.getPath())));
+			}
 		}
-		return mappedPath;
+		else {
+			Path tagPath = Paths.get(taguri.getPath());
+			tagPath = expandPath(tagPath, pagePath);
+			//relative path that leaves homeDir
+			if(tagPath.startsWith("..")) {
+				tag.setPath(Paths.get(""));
+				return;
+			}
+			tag.setPath(tagPath);
+		}
+	}
+
+	public Path removeSitePathRoot(Path tagPath) {
+		Iterator<Path> it = homeDir.iterator();
+        Path p;
+		while(it.hasNext()&&tagPath.getNameCount()>1) {
+            p = it.next();
+            System.out.println((tagPath.subpath(0,1).equals(p)));
+			if(tagPath.subpath(0,1).equals(p)) {
+                tagPath = tagPath.subpath(1, tagPath.getNameCount());
+                System.out.println(tagPath+"gethere?");
+			}
+        }
+		return tagPath;
+	}
+
+	public Externality classifyRelativeUriTag(Path tagPath, Path pagePath) {
+		if(tagPath.equals(pagePath)) {
+			return Externality.INTRA;
+		}
+		if(tagPath.toString().equals("")) {
+			return Externality.EXTERNAL;
+		}
+		if(Files.exists(tagPath)) {
+			return Externality.INTERNAL;
+		}
+		return Externality.UNDEFINED;
 	}
 
 	/* 
 	 * Grabs the Path portion of whatever URL we match to for mapping
 	 */ 
-	public Path matchHost (URL toMap) {
-		Path matchedPath = Paths.get("");
-		for(URL internalURL : urls)
-			if(internalURL.getHost().equals(toMap.getHost()))
-				matchedPath = Paths.get(internalURL.getPath());
-		return matchedPath;
+	public boolean isExternalHost(URI toCheck) {
+		for(int i = 0; i < urls.length; i++) {
+			if(urls[i].getHost().equals(toCheck.getHost())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/*
@@ -64,12 +94,12 @@ public class PathManager {
 	 */
 	public Path expandPath(Path toExpand, Path src) {
 		Path expanded;
-		expanded = src.resolve(toExpand.normalize()).normalize();
+		expanded = src.resolveSibling(toExpand.normalize()).normalize();
 		return expanded;
 	}
 
-	public Path urlToPath(URL url) {
-		Path thepath = Paths.get(url.getPath());
+	public Path uriToPath(URI uri) {
+		Path thepath = Paths.get(uri.getPath());
 		return thepath;
 	}
 }
