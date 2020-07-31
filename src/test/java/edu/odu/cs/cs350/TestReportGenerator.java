@@ -68,7 +68,7 @@ public class TestReportGenerator {
 		myDocs.add(doc);
 		
 		Website webs = new Website();
-		webs.allPages = myDocs;
+		webs.setPages(myDocs);
 	}
 	
 	@Test
