@@ -76,12 +76,14 @@ public class Main {
         Analyzer ana = new Analyzer(site);
 
         //Begins Image analysis
-        ana.analyzeImages();
+        //ana.analyzeImages(ana.getWebsite());
 
         //ReportGenerator that makes our reports
         ReportGenerator generate = new ReportGenerator();
 
-        //Give it the website and for now it only makes the text file output with total image size per page
+        //Give it the website and generate reports
         generate.generateText(ana.getWebsite());
+        generate.generateXls(ana.getWebsite());
+        generate.generateJson(ana.getWebsite());
     }
 }
