@@ -163,7 +163,7 @@ public class ReportGenerator {
 			customMap.put("files", files);
 			String json = "something went wrong";
 			json = JsonWriter.objectToJson(customMap, args);
-			System.out.println(json);
+			//System.out.println(json);
 
 			File myOut = new File("output.json");
 			FileWriter myFile = new FileWriter(myOut);
