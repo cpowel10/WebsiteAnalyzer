@@ -14,16 +14,26 @@ import edu.odu.cs.cs350.Enum.Externality;
 public class PathManager {
 	private Path homeDir;
 	private URL[] urls;
-
+	/*
+	 * default contructor
+	 */
 	public PathManager() {
 	}
-	
-	public PathManager(Path home, URL[] theurls) {
+	/*
+	 * nondefault constructor
+	 * @param home contains home path 
+	 * @param theUrls contains the collection of Urls
+	 */
+	public PathManager(Path home, URL[] theUrls) {
 		
 		homeDir = home.toAbsolutePath();
-		urls = theurls;
+		urls = theUrls;
 	}
-
+	/*
+	 * maps the tag to the uri
+	 * @param tag contains the tag to be mapped
+	 * @param pagePath contains the path of the page (HTMLDocument)
+	 */
 	public void mapTagUri(Tag tag, Path pagePath) {
 		URI taguri = tag.getUri();
 		if(taguri.isAbsolute()) {
@@ -48,7 +58,11 @@ public class PathManager {
 			tag.setPath(tagPath);
 		}
 	}
-
+	/*
+	 * removes the site root from the path
+	 * @param tagPath is the path to be manipulated
+	 * returns the manipulated path
+	 */
 	public Path removeSitePathRoot(Path tagPath) {
 		Iterator<Path> it = homeDir.iterator();
         Path p;
@@ -62,7 +76,11 @@ public class PathManager {
         }
 		return tagPath;
 	}
-
+	/*
+	 * classifies the URI as its externality (intrapage, iternal, external)
+	 * @param tagPath contains the path to the tag
+	 * @param pagePath contains the path to the page(HTMLDocument)
+	 */
 	public Externality classifyRelativeUriTag(Path tagPath, Path pagePath) {
 		if(tagPath.equals(pagePath)) {
 			return Externality.INTRA;
@@ -75,9 +93,9 @@ public class PathManager {
 		}
 		return Externality.UNDEFINED;
 	}
-
 	/* 
 	 * Grabs the Path portion of whatever URL we match to for mapping
+	 * @param toCheck contains the URI to be checked 
 	 */ 
 	public boolean isExternalHost(URI toCheck) {
 		for(int i = 0; i < urls.length; i++) {
@@ -87,17 +105,21 @@ public class PathManager {
 		}
 		return true;
 	}
-
 	/*
 	 * 'Expands' a relative path by resolving against src path and removing
-	 *  redundant name elements, effectively returns a CanonicalPath
+	 * redundant name elements, effectively returns a CanonicalPath
+	 * @param toExpand contains the path to be expanded
+	 * @param src contains the source path
 	 */
 	public Path expandPath(Path toExpand, Path src) {
 		Path expanded;
 		expanded = src.resolveSibling(toExpand.normalize()).normalize();
 		return expanded;
 	}
-
+	/*
+	 * converts URI to a path
+	 * @param uri contains to URI to be converted
+	 */
 	public Path uriToPath(URI uri) {
 		Path thepath = Paths.get(uri.getPath());
 		return thepath;
