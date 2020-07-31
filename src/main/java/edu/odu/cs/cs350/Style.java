@@ -19,6 +19,9 @@ public class Style extends Tag {
 	}
 	/*
 	 * nondefault constructor
+	 * @param myPath contains path to Style Tag
+	 * @param myEality contains externality of style tag (internal, intrapage, external)
+	 * @param myUri contains URI of style tag
 	 */
 	public Style(Path myPath, Externality myEality, URI myUri) {
 		super(TagType.STYLE, myPath, myEality, myUri);
@@ -26,6 +29,10 @@ public class Style extends Tag {
 	}
 	/*
 	 * second nondefault constructor
+	 * @param myPath contains path to style tag
+	 * @param myEality contains externality of style tag (internal, ...)
+	 * @param firstListing contains path to be added to collection of listings
+	 * @param myUri contains URI of style tag
 	 */
 	public Style(Path myPath, Externality myEality, Path firstListing, URI myUri) {
 		super(TagType.STYLE, myPath, myEality, myUri);
