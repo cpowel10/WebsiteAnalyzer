@@ -2,6 +2,7 @@ package edu.odu.cs.cs350;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
@@ -145,12 +146,10 @@ public class PageReader {
 		for (Element a : anchors) {
 			Anchor tempAnchor = new Anchor();
 			String anchorString = a.attr("href");
-			int colonIndex = anchorString.indexOf(":");
-			if (colonIndex != 4 && colonIndex != 5) {
+			try {
 				tempAnchor.setPath(Paths.get(anchorString));
 				anchorList.add(tempAnchor);
-			}
-			else {
+			}catch(InvalidPathException e) {
 				tempAnchor.setExternality(Externality.EXTERNAL);
 				anchorList.add(tempAnchor);
 			}
