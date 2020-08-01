@@ -53,10 +53,14 @@ public class PageReader {
 		for (Element i : images) {
 			Image tempImage = new Image();
 			//set the path to image Path list
-			Path imgPath = Paths.get(i.attr("src"));
-			LinkedList<Path> imgPaths = new LinkedList<Path>();
-			imgPaths.add(imgPath);
-			imgList.add(tempImage);
+			String imgString = i.attr("src");
+			try {
+				tempImage.setPath(Paths.get(imgString));
+				imgList.add(tempImage);
+			}catch(InvalidPathException e) {
+				tempImage.setExternality(Externality.EXTERNAL);
+				imgList.add(tempImage);
+			}
 		}
 		//return updated LinkedList of Images from given page
 		return imgList;
@@ -83,9 +87,14 @@ public class PageReader {
 		for (Element s : links) {
 			if (s.attr("rel") == "stylesheet") {
 				Style tempStyle = new Style();
-				Path stylePath = Paths.get(s.attr("href"));
-				tempStyle.setPath(stylePath);
-				styleList.add(tempStyle);
+				String styleString = s.attr("href");
+				try {
+					tempStyle.setPath(Paths.get(styleString));
+					styleList.add(tempStyle);
+				}catch(InvalidPathException e) {
+					tempStyle.setExternality(Externality.EXTERNAL);
+					styleList.add(tempStyle);
+				}
 			}
 		}
 		//return updated LinkedList of Styles from given page
@@ -114,9 +123,14 @@ public class PageReader {
 		for (Element s : scripts) {
 			if (s.hasAttr("src")) {
 				Script tempScript = new Script();
-				Path scriptPath = Paths.get(s.attr("src"));
-				tempScript.setPath(scriptPath);
-				scriptList.add(tempScript);
+				String scriptString = s.attr("src");
+				try {
+					tempScript.setPath(Paths.get(scriptString));
+					scriptList.add(tempScript);
+				}catch(InvalidPathException e) {
+					tempScript.setExternality(Externality.EXTERNAL);
+					scriptList.add(tempScript);
+				}
 			}
 		}
 		//return updated LinkedList of Scripts from given page
