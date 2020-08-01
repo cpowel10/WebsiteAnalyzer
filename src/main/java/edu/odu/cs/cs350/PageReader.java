@@ -2,6 +2,7 @@ package edu.odu.cs.cs350;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -164,7 +165,9 @@ public class PageReader {
 				tempAnchor.setPath(Paths.get(anchorString));
 				anchorList.add(tempAnchor);
 			}catch(InvalidPathException e) {
-				tempAnchor.setExternality(Externality.EXTERNAL);
+				URL url = new URL(anchorString);
+				Path anchorPath = Paths.get(url.getPath());
+				tempAnchor.setPath(anchorPath);
 				anchorList.add(tempAnchor);
 			}
 		}

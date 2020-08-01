@@ -125,7 +125,8 @@ public class TestPageReader {
 		Anchor anchor1 = new Anchor();
 		anchor1.setPath(anchorPath);
 		Anchor anchor2 = new Anchor();
-		anchor2.setExternality(Externality.EXTERNAL);
+		//anchor2.setExternality(Externality.EXTERNAL);
+		anchor2.setPath(Paths.get("/~tkennedy/cs350/sum20/Protected/websiteAnalysis/index.html"));
 		expectedAnchors.add(anchor1);
 		expectedAnchors.add(anchor2);
 		/************************/
