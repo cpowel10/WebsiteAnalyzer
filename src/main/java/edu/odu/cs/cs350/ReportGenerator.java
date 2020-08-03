@@ -4,6 +4,7 @@ import java.util.Collections; //
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Vector;
 import java.util.function.ObjLongConsumer;
 import java.util.HashMap;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
 
 public class ReportGenerator {
@@ -61,47 +64,65 @@ public class ReportGenerator {
 
 		
 		
-		customMap.put("Basepath(A single path)", web.getPath().toString());
+		customMap.put("Basepath", web.getPath().toString());
 
 		//json array for urls
-		customMap.put(":urls(should be every url)", web.getURLs()); //every url
+		customMap.put(":urls", web.getURLs()); //every url
 		
 		//json array for pages
 		Map<String, Object> pages = new HashMap<>();
 		//{
 		while(docIt.hasNext()) {
 			page = docIt.next();
-			pages.put("path(single path)", page.getPath());
-			pages.put("imageCount(local : 2, external : 4)", page.getImages()); //need a local and an external
-			pages.put("jsCount(local : 2, external : 4)", page.getScripts()); //local and external
-			pages.put("cssCount(local : 2, external : 4)", page.getClass());//local and external
+			pages.put("path", page.getPath().toString());
+
+			Map<String, Object> counts = new HashMap<>();
+			//counts.put("local", page.getImages().getIntra() + page.getImages().getIntern());
+			//counts.put("external", page.getImages().getExtern());
+			counts.put("local", String.valueOf(3));
+			counts.put("external", String.valueOf(1));
+			pages.put("imageCount", counts); //need a local and an external
+
+			counts = new HashMap<>();
+			//counts.put("local", page.getScripts().getIntra() + page.getScripts().getIntern());
+			//counts.put("external", page.getScripts().getExtern());
+			counts.put("local", String.valueOf(3));
+			counts.put("external", String.valueOf(1));
+			pages.put("jsCount", counts); //local and external
+
+			counts = new HashMap<>();
+			//counts.put("local", page.getClass().getIntra() + page.getClass().getIntern());
+			//counts.put("external", page.getClass().getExtern());
+			counts.put("local", String.valueOf(3));
+			counts.put("external", String.valueOf(1));
+			pages.put("cssCount", counts);//local and external
 			
 			//json array for image paths
 			List<String> imagePaths = new Vector<String>();
 			for (Image img : page.getImages()) {
 				imagePaths.add(img.getPath().toString());
 			}
-			pages.put("imagePaths (every image path)", imagePaths); //every image path
+			pages.put("imagePaths", imagePaths); //every image path
 
 			//array for script
 			List<String> scriptPaths = new Vector<String>();
 			for (Script scpt : page.getScripts()) {
 				scriptPaths.add(scpt.getPath().toString());
 			}
-			pages.put("scriptPaths(every script path)", scriptPaths); //every script path
+			pages.put("scriptPaths", scriptPaths); //every script path
 
 			//array for css
 			List<String> cssPaths = new Vector<String>();
 			for (Style styl : page.getStyles()) {
 				cssPaths.add(styl.getPath().toString());
 			}
-			pages.put("cssPaths(every class path)", cssPaths); //every class path
+			pages.put("cssPaths", cssPaths); //every class path
 
 			//pages.put("linkCount", ); //intrap\intras\ext
 			//}
 			//one such for every page
 			//end pages array
-			customMap.put("pages(upload info for a page)", pages);
+			customMap.put("pages", pages);
 
 			//array for images
 			Map<String, Object> images = new HashMap<>();
@@ -110,9 +131,14 @@ public class ReportGenerator {
 			Image image;
 			while(imageIt.hasNext()) {
 				image = imageIt.next();
-				images.put("path(single path)", image.getPath().toString());
-				images.put("pageCount(number)", String.valueOf(image.numPages()));
-				images.put("usedOn(paths used on)", image.getListings());
+				images.put("path", image.getPath().toString());
+				images.put("pageCount", String.valueOf(image.numPages()));
+
+				List<String> usedOn = new Vector<String>();
+				for (Path path : image.getListings()) {
+					usedOn.add(path.toString());
+				}
+				images.put("usedOn", usedOn);
 			}//do ^ for every image
 			customMap.put("images", images);
 
@@ -128,7 +154,7 @@ public class ReportGenerator {
 			ArchiveFile archive;
 			while(archiveIt.hasNext()) {
 				archive = archiveIt.next();
-				archives.put("path(single path)", archive.path().toString());
+				archives.put("path", archive.path().toString());
 				archives.put("size", String.valueOf((archive.getSize())));
 			}
 			files.put("archive", archives);
