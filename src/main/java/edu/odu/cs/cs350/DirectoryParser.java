@@ -2,11 +2,10 @@ package edu.odu.cs.cs350;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.IOException;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -14,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 import edu.odu.cs.cs350.*;
 import edu.odu.cs.cs350.Enum.*;
@@ -60,27 +60,42 @@ public class DirectoryParser {
 	}
 
 	/*
-	 * Classifies the files by extension for desired file types.
-	 * Heuristically decides that leftover text files with valid HTML tags
-	 * are to be analyzed by analyzer later
+	 * Goes over the list of files we found while parsing, grabs their extension/size
+	 * to be sorted
 	 */
-	public void categorizeFiles() {
-		String extension = "";
-		long size = 0;
-
-		for(Path p : foundFiles)
-		{
-			extension = getExtension(p);
-			if(archiveExtensions.contains(extension)) {
-				foundArchives.add(new ArchiveFile(size, p));
-			}
-			if(videoExtensions.contains(extension)) {
-				foundVideos.add(new VideoFile(size, p));
-			}
-			if(audioExtensions.contains(extension)) {
-				foundAudios.add(new AudioFile(size, p));
-			}
+	public void categorizeFiles()  throws IOException {
+		for(Path p : foundFiles) {
+			sortFile(p);
 		}
+	}
+
+	/*
+	 * Given a particular file will 'sort' it by generating an instance of the correct
+	 * file type for analysis OR if heuristically determined to be an HTML document
+	 * (for having text and valid html tags) to be parsed by jsoup in analyzer
+	 */
+	public void sortFile(Path p) throws IOException {
+		String extension = getExtension(p);
+		long size = Files.size(p);
+		if(archiveExtensions.contains(extension)) {
+			foundArchives.add(new ArchiveFile(size, p));
+			return;
+		}
+		if(videoExtensions.contains(extension)) {
+			foundVideos.add(new VideoFile(size, p));
+			return;
+		}
+		if(audioExtensions.contains(extension)) {
+			foundAudios.add(new AudioFile(size, p));
+			return;
+		}
+		//*maaaaaybe* this will be okay? checks MIME type for text
+		//TODO check for html tags
+		if(Files.probeContentType(p).startsWith("text")) {
+			htmlPaths.add(p);
+			return;
+		}
+		foundNonCats.add(new NonCategoryFile(size, p));
 	}
 
 	/*
