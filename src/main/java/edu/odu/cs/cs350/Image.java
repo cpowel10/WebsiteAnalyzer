@@ -59,11 +59,6 @@ public class Image extends Tag 	implements Comparable<Image> {
 	 */
 	public void addListing(Path listing) {
 		listings.add(listing);
-	}
-	/*
-	 * increments the number of pages the image is found on
-	 */
-	public void incrementListings() {
 		numPages++;
 	}
 	/*
