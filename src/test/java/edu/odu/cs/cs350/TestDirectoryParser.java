@@ -68,4 +68,15 @@ public class TestDirectoryParser {
         //no path should be leftover
         assertThat(parsedPaths.isEmpty(), is(true));
     }
+    @Test
+    public void testGetExtension() {
+        Path p = Paths.get("this/is/a/path.html");
+        assertThat(dparser.getExtension(p), is("html"));
+        
+        p = Paths.get("video.mp4");
+        assertThat(dparser.getExtension(p), is("mp4"));
+
+        p = Paths.get("noExtension");
+        assertThat(dparser.getExtension(p), is("noExtension"));
+    }
 }
