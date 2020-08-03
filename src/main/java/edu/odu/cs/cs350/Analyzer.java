@@ -40,8 +40,9 @@ public class Analyzer {
 		}
 	}
 
-	/**
-	  * Iterates over the page's script tags and analyzes them
+	/*
+	 * Iterates over the page's script tags and analyzes them.
+	 * @pre Page to analyze
 	 */
 	public void analyzePageScripts(HTMLDocument page) {
 		Script script;
@@ -65,6 +66,10 @@ public class Analyzer {
 		}
 	}
 
+	/*
+	 * Iterates over the page's Anchor tags and analyzes them.
+	 * @pre Page to analyze
+	 */
 	public void analyzePageAnchors(HTMLDocument page) {
 		Anchor href;
 		Path expanded;
@@ -79,7 +84,8 @@ public class Analyzer {
 	}
 
 	/*
-	 * Iterates over the page's style tags and analyzes them
+	 * Iterates over the page's style tags and analyzes them.
+	 * @pre Page to analyze
 	 */
 	public void analzyePageStyles(HTMLDocument page) {
 		Style style;
@@ -105,7 +111,8 @@ public class Analyzer {
 	}
 
 	/*
-	 * Iterates over the page's image tags and analyzes them
+	 * Iterates over the page's image tags and analyzes them.
+	 * @pre Page to analyze
 	 */
 	public void analyzeImages(HTMLDocument page) throws IOException {
 		Image imgToAdd;
@@ -137,7 +144,6 @@ public class Analyzer {
 			}
 			//otherwise ++ the images' listing count and add this page's path to listings
 			else {
-				analyzedImages.get(index).incrementListings();
 				analyzedImages.get(index).addListing(page.getPath());
 			}
 			//Tally the size of internal images
@@ -149,6 +155,7 @@ public class Analyzer {
 		pageTotalImageSize = 0;
 	}
 
+	//Returns the website
 	public Website getWebsite() {
 		return site;
 	}
