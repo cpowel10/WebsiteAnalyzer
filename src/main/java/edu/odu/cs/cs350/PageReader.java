@@ -2,6 +2,8 @@ package edu.odu.cs.cs350;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
@@ -52,10 +54,16 @@ public class PageReader {
 		for (Element i : images) {
 			Image tempImage = new Image();
 			//set the path to image Path list
-			Path imgPath = Paths.get(i.attr("src"));
-			LinkedList<Path> imgPaths = new LinkedList<Path>();
-			imgPaths.add(imgPath);
-			imgList.add(tempImage);
+			String imgString = i.attr("src");
+			try {
+				tempImage.setPath(Paths.get(imgString));
+				imgList.add(tempImage);
+			}catch(InvalidPathException e) {
+				URL url = new URL(imgString);
+				Path imagePath = Paths.get(url.getPath());
+				tempImage.setPath(imagePath);
+				imgList.add(tempImage);
+			}
 		}
 		//return updated LinkedList of Images from given page
 		return imgList;
@@ -82,9 +90,16 @@ public class PageReader {
 		for (Element s : links) {
 			if (s.attr("rel") == "stylesheet") {
 				Style tempStyle = new Style();
-				Path stylePath = Paths.get(s.attr("href"));
-				tempStyle.setPath(stylePath);
-				styleList.add(tempStyle);
+				String styleString = s.attr("href");
+				try {
+					tempStyle.setPath(Paths.get(styleString));
+					styleList.add(tempStyle);
+				}catch(InvalidPathException e) {
+					URL url = new URL(styleString);
+					Path stylePath = Paths.get(url.getPath());
+					tempStyle.setPath(stylePath);
+					styleList.add(tempStyle);
+				}
 			}
 		}
 		//return updated LinkedList of Styles from given page
@@ -113,9 +128,16 @@ public class PageReader {
 		for (Element s : scripts) {
 			if (s.hasAttr("src")) {
 				Script tempScript = new Script();
-				Path scriptPath = Paths.get(s.attr("src"));
-				tempScript.setPath(scriptPath);
-				scriptList.add(tempScript);
+				String scriptString = s.attr("src");
+				try {
+					tempScript.setPath(Paths.get(scriptString));
+					scriptList.add(tempScript);
+				}catch(InvalidPathException e) {
+					URL url = new URL(scriptString);
+					Path scriptPath = Paths.get(url.getPath());
+					tempScript.setPath(scriptPath);
+					scriptList.add(tempScript);
+				}
 			}
 		}
 		//return updated LinkedList of Scripts from given page
@@ -145,13 +167,13 @@ public class PageReader {
 		for (Element a : anchors) {
 			Anchor tempAnchor = new Anchor();
 			String anchorString = a.attr("href");
-			int colonIndex = anchorString.indexOf(":");
-			if (colonIndex != 4 && colonIndex != 5) {
+			try {
 				tempAnchor.setPath(Paths.get(anchorString));
 				anchorList.add(tempAnchor);
-			}
-			else {
-				tempAnchor.setExternality(Externality.EXTERNAL);
+			}catch(InvalidPathException e) {
+				URL url = new URL(anchorString);
+				Path anchorPath = Paths.get(url.getPath());
+				tempAnchor.setPath(anchorPath);
 				anchorList.add(tempAnchor);
 			}
 		}
