@@ -46,17 +46,24 @@ public class DirectoryParser {
 		homeDir = pman.sanitizePath(home);
 		urls = theurls;
 	}*/
-
 	public DirectoryParser(Path home) {
 		homeDir = home;
 	}
 
+	/* Simple file walk for the homeDirectory and stores a list of files
+	 * (excluding directories)
+	 */
 	public void parseWebsiteDirectory() throws IOException {
 		foundFiles = Files.walk(homeDir)
 						.filter(Files::isRegularFile)
 						.collect(Collectors.toCollection(LinkedList::new));
 	}
 
+	/*
+	 * Classifies the files by extension for desired file types.
+	 * Heuristically decides that leftover text files with valid HTML tags
+	 * are to be analyzed by analyzer later
+	 */
 	public void categorizeFiles() {
 		String extension = "";
 		long size = 0;
@@ -76,6 +83,10 @@ public class DirectoryParser {
 		}
 	}
 
+	/*
+	 * Get the extension of a file simply
+	 * @pre Path to parse for file extension
+	 */
 	public String getExtension(Path p) {
 		int i = 0;
 		i = p.getFileName().toString().lastIndexOf(".");
