@@ -61,47 +61,47 @@ public class ReportGenerator {
 
 		
 		
-		customMap.put("Basepath", web.getPath().toString());
+		customMap.put("Basepath(A single path)", web.getPath().toString());
 
 		//json array for urls
-		customMap.put(":urls", web.getURLs()); //every url
+		customMap.put(":urls(should be every url)", web.getURLs()); //every url
 		
 		//json array for pages
 		Map<String, Object> pages = new HashMap<>();
 		//{
 		while(docIt.hasNext()) {
 			page = docIt.next();
-			pages.put("path", page.getPath());
-			pages.put("imageCount", page.getImages()); //need a local and an external
-			pages.put("jsCount", page.getScripts()); //local and external
-			pages.put("cssCount", page.getClass());//local and external
+			pages.put("path(single path)", page.getPath());
+			pages.put("imageCount(local : 2, external : 4)", page.getImages()); //need a local and an external
+			pages.put("jsCount(local : 2, external : 4)", page.getScripts()); //local and external
+			pages.put("cssCount(local : 2, external : 4)", page.getClass());//local and external
 			
 			//json array for image paths
 			List<String> imagePaths = new Vector<String>();
 			for (Image img : page.getImages()) {
 				imagePaths.add(img.getPath().toString());
 			}
-			pages.put("imagePaths", imagePaths); //every image path
+			pages.put("imagePaths (every image path)", imagePaths); //every image path
 
 			//array for script
 			List<String> scriptPaths = new Vector<String>();
 			for (Script scpt : page.getScripts()) {
 				scriptPaths.add(scpt.getPath().toString());
 			}
-			pages.put("scriptPaths", scriptPaths); //every script path
+			pages.put("scriptPaths(every script path)", scriptPaths); //every script path
 
 			//array for css
 			List<String> cssPaths = new Vector<String>();
 			for (Style styl : page.getStyles()) {
 				cssPaths.add(styl.getPath().toString());
 			}
-			pages.put("cssPaths", cssPaths); //every class path
+			pages.put("cssPaths(every class path)", cssPaths); //every class path
 
 			//pages.put("linkCount", ); //intrap\intras\ext
 			//}
 			//one such for every page
 			//end pages array
-			customMap.put("pages", pages);
+			customMap.put("pages(upload info for a page)", pages);
 
 			//array for images
 			Map<String, Object> images = new HashMap<>();
@@ -110,9 +110,9 @@ public class ReportGenerator {
 			Image image;
 			while(imageIt.hasNext()) {
 				image = imageIt.next();
-				images.put("path", image.getPath().toString());
-				images.put("pageCount", String.valueOf(image.numPages()));
-				images.put("usedOn", image.getListings().toString());
+				images.put("path(single path)", image.getPath().toString());
+				images.put("pageCount(number)", String.valueOf(image.numPages()));
+				images.put("usedOn(paths used on)", image.getListings());
 			}//do ^ for every image
 			customMap.put("images", images);
 
@@ -128,7 +128,7 @@ public class ReportGenerator {
 			ArchiveFile archive;
 			while(archiveIt.hasNext()) {
 				archive = archiveIt.next();
-				archives.put("path", archive.path().toString());
+				archives.put("path(single path)", archive.path().toString());
 				archives.put("size", String.valueOf((archive.getSize())));
 			}
 			files.put("archive", archives);
@@ -161,17 +161,16 @@ public class ReportGenerator {
 			files.put("other", others);
 
 			customMap.put("files", files);
+		}
 			String json = "something went wrong";
 			json = JsonWriter.objectToJson(customMap, args);
 			//System.out.println(json);
 
 			File myOut = new File("output.json");
 			FileWriter myFile = new FileWriter(myOut);
+			System.out.println("JSON file created: " + myOut.getName());
 			myFile.write(json);
-			myFile.close();
-
-
-		}	
+			myFile.close();	
 
 	    } catch (IOException e) {
 	          e.printStackTrace();
