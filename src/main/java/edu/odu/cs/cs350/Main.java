@@ -123,6 +123,7 @@ public class Main {
                 htmldoc.addElement(anc2);
                 htmldoc.addElement(scr2);
             }
+            htmldoc.setLinkTypeCounters();
         }
         site.setPages(pages);
         ArchiveFile arc0 = new ArchiveFile(1000000, Paths.get("src/test/data/img0.png"));
