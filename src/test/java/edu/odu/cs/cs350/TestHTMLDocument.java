@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-
+import java.net.URI;
 import org.junit.Test;
 
 import edu.odu.cs.cs350.Enum.Externality;
@@ -27,14 +27,14 @@ public class TestHTMLDocument {
 	LinkedList<Anchor> anchors = new LinkedList<Anchor>();
 	Path test1 = Paths.get("fake/path");
 	Path test2 = Paths.get("fake/path2");
-
-	Image img1 = new Image(test1,1,test2,Externality.INTERNAL);
-	Image img2 = new Image(test1,2,test2,Externality.EXTERNAL);
-	Image img3 = new Image(test1,3,test2,Externality.INTERNAL);
-	Style sty1 = new Style(test1, Externality.INTERNAL);
-	Style sty2 = new Style(test2, Externality.EXTERNAL);
-	Script script1 = new Script(test1, Externality.INTRA);
-	Anchor anch1 = new Anchor(test2, Externality.INTERNAL);
+  
+	Image img1 = new Image(test1,1,test2,Externality.INTERNAL, URI.create("fakeURI"));
+	Image img2 = new Image(test1,2,test2,Externality.EXTERNAL, URI.create("fakeURI"));
+	Image img3 = new Image(test1,3,test2,Externality.INTERNAL, URI.create("fakeURI"));
+	Style sty1 = new Style(test1, Externality.INTERNAL, URI.create("fakeURI"));
+	Style sty2 = new Style(test2, Externality.EXTERNAL, URI.create("fakeURI"));
+	Script script1 = new Script(test1, Externality.INTRA, URI.create("fakeURI"));
+	Anchor anch1 = new Anchor(test2, Externality.INTERNAL, URI.create("fakeURI"));
 	HTMLDocument page1 = new HTMLDocument(path1);
 
 	@Test
