@@ -1,6 +1,7 @@
 package edu.odu.cs.cs350;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -134,11 +135,11 @@ public class Analyzer {
 				if(tempImage.getExternality() == Externality.INTERNAL) {
 					imgToAdd = new Image(tempImage.getPath(), 
 										Files.size(tempImage.getPath()),
-										page.getPath(), Externality.INTERNAL);
+										page.getPath(), Externality.INTERNAL, URI.create(page.getPath().toString())); //likely a better way
 				}
 				else {
 					imgToAdd = new Image(tempImage.getPath(), 0,
-										page.getPath(), Externality.EXTERNAL);
+										page.getPath(), Externality.EXTERNAL, URI.create(page.getPath().toString())); //likely a better way
 				}
 				analyzedImages.add(imgToAdd);
 			}
