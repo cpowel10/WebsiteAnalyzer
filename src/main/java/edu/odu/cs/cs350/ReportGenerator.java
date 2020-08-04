@@ -64,10 +64,10 @@ public class ReportGenerator {
 
 		
 		
-		customMap.put("Basepath", web.getPath().toString());
+		customMap.put("basepath", web.getPath().toString());
 
 		//json array for urls
-		customMap.put(":urls", web.getURLs()); //every url
+		customMap.put("urls", web.getURLs()); //every url
 		
 		//json array for pages
 		Map<String, Object> pages = new HashMap<>();
