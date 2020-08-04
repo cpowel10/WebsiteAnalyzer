@@ -40,60 +40,60 @@ public class TestHTMLDocument {
 
 	@Test
 	public void testConstructorEmpty() {
-		assertTrue(page1.getPath().equals(path1));
-		assertTrue(page1.getImages().equals(images));
-		assertTrue(page1.getStyles().equals(styles));
-		assertTrue(page1.getScripts().equals(scripts));
-		assertTrue(page1.getAnchors().equals(anchors));
-		assertTrue(page1.toString().equals("\\c\\Users\\chris\\Downloads 0 0 0 0 0"));
+		assertThat(page1.getPath(), is(path1));
+		assertThat(page1.getImages(), is(images));
+		assertThat(page1.getStyles(), is(styles));
+		assertThat(page1.getScripts(), is(scripts));
+		assertThat(page1.getAnchors(), is(anchors));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 0 0 0 0 0"));
 	}
 	
 	@Test
 	public void testAddImage() {
 		page1.addElement(img1);
 		images.add(img1);
-		assertTrue(page1.getPath().equals(path1));
-		assertTrue(page1.getImages().equals(images));
-		assertTrue(page1.getStyles().equals(styles));
-		assertTrue(page1.getScripts().equals(scripts));
-		assertTrue(page1.getAnchors().equals(anchors));
-		assertTrue(page1.toString().equals("\\c\\Users\\chris\\Downloads 1 0 0 0 1"));
+		assertThat(page1.getPath(), is(path1));
+		assertThat(page1.getImages(), is(images));
+		assertThat(page1.getStyles(), is(styles));
+		assertThat(page1.getScripts(), is(scripts));
+		assertThat(page1.getAnchors(), is(anchors));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 1 0 0 0 1"));
 	}
 	
 	@Test
 	public void testAddScript() {
 		page1.addElement(script1);
 		scripts.add(script1);
-		assertTrue(page1.getPath().equals(path1));
-		assertTrue(page1.getImages().equals(images));
-		assertTrue(page1.getStyles().equals(styles));
-		assertTrue(page1.getScripts().equals(scripts));
-		assertTrue(page1.getAnchors().equals(anchors));
-		assertTrue(page1.toString().equals("\\c\\Users\\chris\\Downloads 0 0 1 0 0"));
+		assertThat(page1.getPath(), is(path1));
+		assertThat(page1.getImages(), is(images));
+		assertThat(page1.getStyles(), is(styles));
+		assertThat(page1.getScripts(), is(scripts));
+		assertThat(page1.getAnchors(), is(anchors));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 0 0 1 0 0"));
 	}
 	
 	@Test
 	public void testAddStyle() {
 		page1.addElement(sty1);
 		styles.add(sty1);
-		assertTrue(page1.getPath().equals(path1));
-		assertTrue(page1.getImages().equals(images));
-		assertTrue(page1.getStyles().equals(styles));
-		assertTrue(page1.getScripts().equals(scripts));
-		assertTrue(page1.getAnchors().equals(anchors));
-		assertTrue(page1.toString().equals("\\c\\Users\\chris\\Downloads 0 1 0 0 0"));
+		assertThat(page1.getPath(), is(path1));
+		assertThat(page1.getImages(), is(images));
+		assertThat(page1.getStyles(), is(styles));
+		assertThat(page1.getScripts(), is(scripts));
+		assertThat(page1.getAnchors(), is(anchors));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 0 1 0 0 0"));
 	}
 
 	@Test
 	public void testAddAnchor() {
 		page1.addElement(anch1);
 		anchors.add(anch1);
-		assertTrue(page1.getPath().equals(path1));
-		assertTrue(page1.getImages().equals(images));
-		assertTrue(page1.getStyles().equals(styles));
-		assertTrue(page1.getScripts().equals(scripts));
-		assertTrue(page1.getAnchors().equals(anchors));
-		assertTrue(page1.toString().equals("\\c\\Users\\chris\\Downloads 0 0 0 1 0"));
+		assertThat(page1.getPath(), is(path1));
+		assertThat(page1.getImages(), is(images));
+		assertThat(page1.getStyles(), is(styles));
+		assertThat(page1.getScripts(), is(scripts));
+		assertThat(page1.getAnchors(), is(anchors));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 0 0 0 1 0"));
 	}
 	
 	@Test
@@ -112,11 +112,11 @@ public class TestHTMLDocument {
 		styles.add(sty2);
 		page1.addElement(anch1);
 		anchors.add(anch1);
-		assertTrue(page1.getPath().equals(path1));
-		assertTrue(page1.getImages().equals(images));
-		assertTrue(page1.getStyles().equals(styles));
-		assertTrue(page1.getScripts().equals(scripts));
-		assertTrue(page1.getAnchors().equals(anchors));
-		assertTrue(page1.toString().equals("\\c\\Users\\chris\\Downloads 3 2 1 1 6"));
+		assertThat(page1.getPath(), is(path1));
+		assertThat(page1.getImages(), is(images));
+		assertThat(page1.getStyles(), is(styles));
+		assertThat(page1.getScripts(), is(scripts));
+		assertThat(page1.getAnchors(), is(anchors));
+		assertThat(page1.toString(), is("\\c\\Users\\chris\\Downloads 3 2 1 1 6"));
 	}
 }
