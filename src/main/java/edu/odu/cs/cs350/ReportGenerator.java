@@ -1,5 +1,6 @@
 package edu.odu.cs.cs350;
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;  
 import java.util.Collections; //
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.File;  // Import the File class
@@ -28,6 +29,16 @@ import java.nio.file.Path;
 
 
 public class ReportGenerator {
+	private String myTime;
+	public void setTime(){
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");  
+		LocalDateTime now = LocalDateTime.now();  
+		myTime = dtf.format(now);  
+		//Inspiration/much credit to https://www.javatpoint.com/java-get-current-date
+	}
+	public String getTime(){
+		return myTime;
+	}
 	/*
 	 * writes collected data to a .json file
 	 * @param Website contains data to be reported
@@ -64,11 +75,9 @@ public class ReportGenerator {
 
 		
 		
-		customMap.put("basepath", web.getPath().toString());
-
+		customMap.put("basepath", web.getPath().toString()); //Have tried moving this almost everywhere to get it to work
 		//json array for urls
 		customMap.put("urls", web.getURLs()); //every url
-		
 		//json array for pages
 		Map<String, Object> pages = new HashMap<>();
 		//{
@@ -185,8 +194,8 @@ public class ReportGenerator {
 			String json = "something went wrong";
 			json = JsonWriter.objectToJson(customMap, args);
 			//System.out.println(json);
-
-			File myOut = new File("output.json");
+			String fileName = getTime() + "-summary.json";
+			File myOut = new File(fileName);
 			FileWriter myFile = new FileWriter(myOut);
 			System.out.println("JSON file created: " + myOut.getName());
 			myFile.write(json);
@@ -208,8 +217,9 @@ public class ReportGenerator {
 		//Stores the total size to be outputted on the final line
 		long total = 0; 
 		
+		String fileName = getTime() + "-summary.txt";
 		//Make a file
-		File myFile = new File("WebsiteAnalysis.txt"); 
+		File myFile = new File(fileName); 
 		
 		//If the file was created output that it was and its name
 		try {   
@@ -299,7 +309,8 @@ public class ReportGenerator {
 			}
 		}
 		try{
-			File myOut = new File("WebsiteAnalysis.xlsx"); //needs to be changed to proper name
+			String fileName = getTime() + "-summary.xlsx";
+			File myOut = new File(fileName); 
 			FileOutputStream out = new FileOutputStream(myOut);
 			workbook.write(out);
 			System.out.println("XLSX File created: " + myOut.getName());
