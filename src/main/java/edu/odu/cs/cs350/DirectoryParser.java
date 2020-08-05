@@ -2,9 +2,11 @@ package edu.odu.cs.cs350;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.io.IOException;
 
 import java.net.URL;
@@ -28,6 +30,7 @@ public class DirectoryParser {
 	private LinkedList<Path> htmlPaths;
 
 	private PathManager pman;
+	Scanner scanner;
 
 	private List<String> archiveExtensions = 
 		Arrays.asList("zip", "gz", "tar", "7z");
@@ -90,17 +93,41 @@ public class DirectoryParser {
 			return;
 		}
 		//*maaaaaybe* this will be okay? checks MIME type for text
-		//TODO check for html tags
 		if(Files.probeContentType(p).startsWith("text")) {
-			htmlPaths.add(p);
-			return;
+			if(hasHtml(p)) {
+				htmlPaths.add(p);
+				return;
+			}
 		}
 		foundNonCats.add(new NonCategoryFile(size, p));
 	}
 
+	/* Returns true if the given path to a text file contains an html doctype declaration
+	 * otherwise returns false
+	 *  @param file path to check
+	 *  @pre given path is to a text file
+	 */
+	public boolean hasHtml(Path p) throws IOException{
+		//Grab list of Strings for each line of file
+		try {
+			List<String> lines = Files.readAllLines(p);
+			//consider a file with a valid html doctype declaration tag an html doc
+			for(String line : lines) {
+				if(line.toLowerCase().matches("\\s<!doctype html.*>")) {
+					return true;
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Error reading what should be a text file.");
+		}
+		return false;
+	}
+
 	/*
 	 * Get the extension of a file simply
-	 * @pre Path to parse for file extension
+	 * @param  p Path to parse for file extension
+	 * @pre path contains at least 1 element
+	 * @returns the file extension
 	 */
 	public String getExtension(Path p) {
 		int i = 0;
