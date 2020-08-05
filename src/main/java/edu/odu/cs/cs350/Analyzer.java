@@ -29,22 +29,17 @@ public class Analyzer {
 	 * type of tag that we care about
 	 */
 	public void analyzeWebsite() {
-		HTMLDocument tempPage;
-		Iterator<HTMLDocument> pageIt = site.getPages().iterator();
+		for(HTMLDocument page : site.getPages()) {
 
-		//Iterate over all pages
-		while(pageIt.hasNext()) {
-			tempPage = pageIt.next();
-
-			analyzePageScripts(tempPage);
-			analzyePageStyles(tempPage);
+			analyzePageScripts(page);
+			analzyePageStyles(page);
 			
 			//Call the page to count and set its external/internal/intra counters
 	 		//for each of the tag types
-			tempPage.setAnchorTypeCounters();
-			tempPage.setImageTypeCounters();
-			tempPage.setStyleTypeCounters();
-			tempPage.setScriptTypeCounters();
+			page.setAnchorTypeCounters();
+			page.setImageTypeCounters();
+			page.setStyleTypeCounters();
+			page.setScriptTypeCounters();
 		}
 	}
 
@@ -53,15 +48,11 @@ public class Analyzer {
 	 * @pre Page to analyze
 	 */
 	public void analyzePageScripts(HTMLDocument page) {
-		Script script;
 		Script scrToAdd;
 		int index;
-		Iterator<Script> scriptIt = page.getScripts().iterator();
-		while(scriptIt.hasNext()) {
-			script = scriptIt.next();
+		for(Script script : page.getScripts()) {
 			index = analyzedScripts.indexOf(script);
-
-			//if script hasn't been analyzed, make a new one with its firstListing
+			//if script hasn't been analyzed, add unique entry to analyzedScripts
 			if(index==-1) {
 				scrToAdd = script;
 				scrToAdd.addListing(page.getPath());
@@ -79,14 +70,11 @@ public class Analyzer {
 	 * @pre Page to analyze
 	 */
 	public void analyzePageAnchors(HTMLDocument page) {
-		Anchor href;
 		Path expanded;
-		Iterator<Anchor> anchorIt = page.getAnchors().iterator();
-		while(anchorIt.hasNext()) {
-			href = anchorIt.next();
-			expanded = pathManager.expandPath(href.getPath(), page.getPath());
+		for(Anchor link : page.getAnchors()) {
+			expanded = pathManager.expandPath(link.getPath(), page.getPath());
 			if(expanded.equals(page.getPath())) {
-				href.setExternality(Externality.INTRA);
+				link.setExternality(Externality.INTRA);
 			}
 		}
 	}
@@ -96,16 +84,11 @@ public class Analyzer {
 	 * @pre Page to analyze
 	 */
 	public void analzyePageStyles(HTMLDocument page) {
-		Style style;
 		Style styToAdd;
 		int index;
-
-		Iterator<Style> styleIt = page.getStyles().iterator();
-		while(styleIt.hasNext()) {
-			style = styleIt.next();
+		for(Style style : page.getStyles()) {
 			index = analyzedStyles.indexOf(style);
-
-			//if style hasn't been analyzed, make a new one with this page firstListing
+			//if style hasn't been analyzed, add unique entry to analyzedStyles
 			if(index==-1) {
 				styToAdd = style;
 				styToAdd.addListing(page.getPath());
