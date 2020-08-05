@@ -13,6 +13,10 @@ import edu.odu.cs.cs350.Enum.Externality;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        //ReportGenerator that makes our reports
+        ReportGenerator generate = new ReportGenerator();
+        generate.setTime(); //This needs to be done at the start 
+        
         //First InputHandler will check arguments for errors and otherwise prepare/sanitize inputs
         //Passes to DirectoryParser to begin populating list of file paths
 
@@ -123,7 +127,7 @@ public class Main {
                 htmldoc.addElement(anc2);
                 htmldoc.addElement(scr2);
             }
-            htmldoc.setLinkTypeCounters();
+            htmldoc.setAnchorTypeCounters();
         }
         site.setPages(pages);
         ArchiveFile arc0 = new ArchiveFile(1000000, Paths.get("src/test/data/img0.png"));
@@ -164,12 +168,11 @@ public class Main {
         //Begins Image analysis
         //ana.analyzeImages(ana.getWebsite());
 
-        //ReportGenerator that makes our reports
-        ReportGenerator generate = new ReportGenerator();
 
         //Give it the website and generate reports
         //generate.generateText(ana.getWebsite());
-        //generate.generateXls(ana.getWebsite());
+        generate.generateText(site);
+        generate.generateXls(site);
         generate.generateJson(site);
     }
 }
