@@ -38,6 +38,13 @@ public class Analyzer {
 
 			analyzePageScripts(tempPage);
 			analzyePageStyles(tempPage);
+			
+			//Call the page to count and set its external/internal/intra counters
+	 		//for each of the tag types
+			tempPage.setAnchorTypeCounters();
+			tempPage.setImageTypeCounters();
+			tempPage.setStyleTypeCounters();
+			tempPage.setScriptTypeCounters();
 		}
 	}
 
