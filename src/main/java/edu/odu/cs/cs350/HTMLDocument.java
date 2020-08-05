@@ -16,6 +16,12 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	private int intraLinks;
 	private int internalLinks;
 	private int externalLinks;
+	private int internalScripts;
+	private int externalScripts;
+	private int internalStyles;
+	private int externalStyles;
+	private int internalImages;
+	private int externalImages;
   	/*
 	 * defualt constructor
 	 */
@@ -140,7 +146,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	/*
 	 * sets internal, intra, and external link counts
 	 */
-	public void setLinkTypeCounters() {
+	public void setAnchorTypeCounters() {
 		int intra=0, internal=0, external=0;
 		for(Anchor anc : allAnchors) {
 			if(anc.getExternality().equals(Externality.INTRA)) {
@@ -157,6 +163,58 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		internalLinks = internal;
 		externalLinks = external;
 	}
+
+	/* 
+	 * Sets counts for number of internal and external Images
+	 */
+	public void setImageTypeCounters() {
+		int internal=0, external=0;
+		for(Image img : allImages) {
+			if(img.getExternality().equals(Externality.INTERNAL)) {
+				internal++;
+			}
+			if(img.getExternality().equals(Externality.EXTERNAL)) {
+				external++;
+			}
+		}
+		internalImages = internal;
+		externalImages = external;
+	}
+
+	/* 
+	 * Sets counts for number of internal and external Scripts
+	 */
+	public void setStyleTypeCounters() {
+		int internal=0, external=0;
+		for(Script scr : allScripts) {
+			if(scr.getExternality().equals(Externality.INTERNAL)) {
+				internal++;
+			}
+			if(scr.getExternality().equals(Externality.EXTERNAL)) {
+				external++;
+			}
+		}
+		internalScripts = internal;
+		externalScripts = external;
+	}
+
+	/* 
+	 * Sets counts for number of internal and external Styles
+	 */
+	public void setScriptTypeCounters() {
+		int internal=0, external=0;
+		for(Style sty : allStyles) {
+			if(sty.getExternality().equals(Externality.INTERNAL)) {
+				internal++;
+			}
+			if(sty.getExternality().equals(Externality.EXTERNAL)) {
+				external++;
+			}
+		}
+		internalStyles = internal;
+		externalStyles = external;
+	}
+
 	/*
 	 * returns count of intrapage links
 	 */
