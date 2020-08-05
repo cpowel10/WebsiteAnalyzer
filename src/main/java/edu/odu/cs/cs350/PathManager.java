@@ -31,28 +31,42 @@ public class PathManager {
 	}
 	/*
 	 * maps the tag to the uri
-	 * @param tag contains the tag to be mapped
-	 * @param pagePath contains the path of the page (HTMLDocument)
+	 * @param tag to be mapped
+	 * @param pageSrc of the page (HTMLDocument)
 	 */
-	public void mapTagUri(Tag tag, Path pagePath) {
+	public void mapAndClassifyTag(Tag tag, Path pageSrc) {
 		URI taguri = tag.getUri();
+		Path tagLocalPath;
+		//Absolute URIs that don't match any of our hosts must be external
+		//therefore local path is set to empty
 		if(taguri.isAbsolute()) {
-			//check if URI matches any of our URL's hosts
 			if(isExternalHost(taguri)) {
+				tag.setExternality(Externality.EXTERNAL);
 				tag.setPath(Paths.get(""));
 				return;
 			}
-			//if absolute URI that does match one of our hosts, remove siteroot from path
+			//if absolute URI matches a host strip the root to get its local path
 			else {
-				tag.setPath(removeSitePathRoot(Paths.get(taguri.getPath())));
+				tagLocalPath = removeSitePathRoot(Paths.get(taguri.getPath()));
+				tag.setPath(tagLocalPath);
+				mapLocalTag(tag, pageSrc);
+				return;
 			}
 		}
+		//Resolve and normalize relative URIs
+		tagLocalPath = Paths.get(taguri.getPath());
+		tagLocalPath = expandPath(tagLocalPath, pageSrc);
+		//special case for intra-page anchors whose path matches the page
+		if(tagLocalPath.equals(pageSrc)) {
+			tag.setPath(tagLocalPath);
+			tag.setExternality(Externality.INTRA);
+			return;
+		}
+		//See if the tag's local path is local or external to the website
 		else {
-			Path tagPath = Paths.get(taguri.getPath());
-			tagPath = expandPath(tagPath, pagePath);
-			tag.setPath(tagPath);
 		}
 	}
+
 	/*
 	 * removes the site root from the path
 	 * @param tagPath is the path to be manipulated
@@ -75,8 +89,8 @@ public class PathManager {
 	 * @param tagPath contains the path to the tag
 	 * @param pagePath contains the path to the page(HTMLDocument)
 	 */
-	public Externality classifyRelativeUriTag(Path tagPath, Path pagePath) {
-		if(tagPath.equals(pagePath)) {
+	public void mapLocalTag(Tag tag, Path pageSrc) {
+		/*if(tagPath.equals(pagePath)) {
 			return Externality.INTRA;
 		}
 		if(tagPath.toString().equals("")) {
@@ -88,7 +102,7 @@ public class PathManager {
 		if(Files.exists(tagPath)) {
 			return Externality.INTERNAL;
 		}
-		return Externality.UNDEFINED;
+		return Externality.UNDEFINED;*/
 	}
 	/* 
 	 * Grabs the Path portion of whatever URL we match to for mapping
