@@ -23,7 +23,7 @@ public class PageReader {
 	 */
 	public PageReader()
 	{
-		sitePages = new LinkedList<>();
+		sitePages = new LinkedList<Path>();
 	}
 	/*
 	 * nondefault constructor
@@ -31,6 +31,10 @@ public class PageReader {
 	 */
 	public PageReader(LinkedList<Path> pages) {
 		sitePages = pages;
+	}
+	
+	public LinkedList<Path> getPages(){
+		return sitePages;
 	}
 	
 	/**
@@ -41,9 +45,8 @@ public class PageReader {
 	 */
 	public LinkedList<Image> scanForImages(Path path) throws IOException{
 		//get Path of HTMLDocument
-		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Image> imgList = new LinkedList<Image>();
-		pathList.add(path);
+		sitePages.add(path);
 		//use jsoup library to find image tags
 		File pathFile = path.toFile();
 		Document doc = Jsoup.parse(pathFile, "UTF-8");
@@ -76,9 +79,8 @@ public class PageReader {
 	 * @throws IOException
 	 */
 	public LinkedList<Style> scanForStyles(Path path) throws IOException{
-		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Style> styleList = new LinkedList<Style>();
-		pathList.add(path);
+		sitePages.add(path);
 		//use jsoup library to find style tags
 		File pathFile = path.toFile();
 		Document doc = Jsoup.parse(pathFile, "UTF-8");
@@ -114,9 +116,8 @@ public class PageReader {
 	 * @throws IOException
 	 */
 	public LinkedList<Script> scanForScripts(Path path) throws IOException{
-		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Script> scriptList = new LinkedList<Script>();
-		pathList.add(path);
+		sitePages.add(path);
 		//use jsoup library to find image tags
 		File pathFile = path.toFile();
 		Document doc = Jsoup.parse(pathFile, "UTF-8");
@@ -153,9 +154,8 @@ public class PageReader {
 	 * @throws IOException
 	 */
 	public LinkedList<Anchor> scanForAnchors(Path path) throws IOException{
-		LinkedList<Path> pathList = new LinkedList<Path>();
 		LinkedList<Anchor> anchorList = new LinkedList<Anchor>();
-		pathList.add(path);
+		sitePages.add(path);
 		//use jsoup library to find anchor tags
 		File pathFile = path.toFile();
 		Document doc = Jsoup.parse(pathFile, "UTF-8");
