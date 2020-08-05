@@ -4,7 +4,7 @@ import java.util.Collections; //
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
-import java.nio.file.Paths;
+//import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -15,15 +15,15 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.xml.sax.ext.*;
+//import org.xml.sax.ext.*;
 import com.cedarsoftware.util.io.*;
-import org.apache.poi.*;
-import org.apache.poi.xssf.usermodel.*;
+//import org.apache.poi.*;
+//import org.apache.poi.xssf.usermodel.*;
 import java.util.List;
 import java.util.Vector;
-import java.util.function.ObjLongConsumer;
+//import java.util.function.ObjLongConsumer;
 import java.util.HashMap;
-import java.nio.file.Paths;
+//import java.nio.file.Paths;
 import java.nio.file.Path;
 
 
@@ -48,7 +48,7 @@ public class ReportGenerator {
 
         Map args = new HashMap<>();
         args.put(JsonWriter.PRETTY_PRINT, true); // Make the output human readable
-        args.put(JsonWriter.TYPE, false); // Hide the type metadata (e.g., Student, Roster)
+        args.put(JsonWriter.TYPE, false); // Hide the type metadata 
 
         //String json = JsonWriter.objectToJson(customMap, args);
 
@@ -77,24 +77,18 @@ public class ReportGenerator {
 			pages.put("path", page.getPath().toString());
 
 			Map<String, Object> counts = new HashMap<>();
-			//counts.put("local", page.getImages().getIntra() + page.getImages().getIntern());
-			//counts.put("external", page.getImages().getExtern());
-			counts.put("local", String.valueOf(3));
-			counts.put("external", String.valueOf(1));
+			counts.put("local", String.valueOf(page.getLocalImages(page.getImages())));
+			counts.put("external", String.valueOf(page.getExternalImages(page.getImages())));
 			pages.put("imageCount", counts); //need a local and an external
 
 			counts = new HashMap<>();
-			//counts.put("local", page.getScripts().getIntra() + page.getScripts().getIntern());
-			//counts.put("external", page.getScripts().getExtern());
-			counts.put("local", String.valueOf(3));
-			counts.put("external", String.valueOf(1));
+			counts.put("local",String.valueOf(page.getLocalScripts(page.getScripts())));
+			counts.put("external", String.valueOf(page.getExternalScripts(page.getScripts())));
 			pages.put("jsCount", counts); //local and external
 
 			counts = new HashMap<>();
-			//counts.put("local", page.getClass().getIntra() + page.getClass().getIntern());
-			//counts.put("external", page.getClass().getExtern());
-			counts.put("local", String.valueOf(3));
-			counts.put("external", String.valueOf(1));
+			counts.put("local", String.valueOf(page.getLocalStyles(page.getStyles())));
+			counts.put("external", String.valueOf(page.getExternalStyles(page.getStyles())));
 			pages.put("cssCount", counts);//local and external
 			
 			//json array for image paths
