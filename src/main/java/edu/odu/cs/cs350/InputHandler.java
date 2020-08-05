@@ -17,8 +17,9 @@ public class InputHandler {
 		try {
 			directory = Paths.get(args[0]);
 		}catch(InvalidPathException e) {
-			System.out.println("Invalid directory provided. Unable to perform analysis");
-			throw e;
+			throw new InvalidPathException(null,"Invalid directory provided. Unable to perform analysis");
+		}catch(ArrayIndexOutOfBoundsException e) {
+			throw new ArrayIndexOutOfBoundsException("No arguments provided");
 		}
 		
 		for (int i = 1 ; i < (args.length) ; i++) {
