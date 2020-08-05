@@ -3,11 +3,12 @@ package edu.odu.cs.cs350;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Iterator;
 
 import edu.odu.cs.cs350.Enum.Externality;
 
 public class HTMLDocument implements Comparable<HTMLDocument> {
-  	private LinkedList<Image> allImages; //we need setters as well (I think) so I made public for now...
+  	private LinkedList<Image> allImages; 
   	private LinkedList<Style> allStyles;
   	private LinkedList<Script> allScripts;
   	private LinkedList<Anchor> allAnchors;
@@ -298,4 +299,77 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		str += String.valueOf(totalImageSize);
 		return str;
 	}
+	public int getLocalImages(LinkedList<Image> list){
+		int localCount = 0;
+		Image temp;
+		Iterator<Image> it = list.iterator();
+		while(it.hasNext()){
+			temp = it.next();
+			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
+				localCount++;
+			}
+		}
+		return localCount;
+	}
+	public int getLocalScripts(LinkedList<Script> list){
+		int localCount = 0;
+		Script temp;
+		Iterator<Script> it = list.iterator();
+		while(it.hasNext()){
+			temp = it.next();
+			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
+				localCount++;
+			}
+		}
+		return localCount;
+	}
+	public int getLocalStyles(LinkedList<Style> list){
+		int localCount = 0;
+		Style temp;
+		Iterator<Style> it = list.iterator();
+		while(it.hasNext()){
+			temp = it.next();
+			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
+				localCount++;
+			}
+		}
+		return localCount;
+	}
+	public int getExternalImages(LinkedList<Image> list){
+		int extCount = 0;
+		Image temp;
+		Iterator<Image> it = list.iterator();
+		while(it.hasNext()){
+			temp = it.next();
+			if(temp.getExternality() == Externality.EXTERNAL){
+				extCount++;
+			}
+		}
+		return extCount;
+	}
+	public int getExternalScripts(LinkedList<Script> list){
+		int extCount = 0;
+		Script temp;
+		Iterator<Script> it = list.iterator();
+		while(it.hasNext()){
+			temp = it.next();
+			if(temp.getExternality() == Externality.EXTERNAL){
+				extCount++;
+			}
+		}
+		return extCount;
+	}
+	public int getExternalStyles(LinkedList<Style> list){
+		int extCount = 0;
+		Style temp;
+		Iterator<Style> it = list.iterator();
+		while(it.hasNext()){
+			temp = it.next();
+			if(temp.getExternality() == Externality.EXTERNAL){
+				extCount++;
+			}
+		}
+		return extCount;
+	}
+	
 }
