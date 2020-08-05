@@ -30,12 +30,19 @@ import java.nio.file.Path;
 
 public class ReportGenerator {
 	private String myTime;
+	/*
+	 * sets the current date and time in YYYYMMDD-HHMMSS format
+	 */
 	public void setTime(){
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");  
 		LocalDateTime now = LocalDateTime.now();  
 		myTime = dtf.format(now);  
 		//Inspiration/much credit to https://www.javatpoint.com/java-get-current-date
 	}
+	/*
+	 * gets the private String myTime
+	 * @returns string myTime
+	 */
 	public String getTime(){
 		return myTime;
 	}
@@ -46,154 +53,136 @@ public class ReportGenerator {
 	 */
 	public void generateJson(Website web) {
 		try {
-		//Still a mess but getting there!
-		Map<String, Object> customMap = new HashMap<>();
+			Map<String, Object> customMap = new HashMap<>();
 
-        //List<String> paths = new Vector<String>();
-        //for (HTMLDocument page : web.getPages()) {
-        //    paths.add(page.getPath().toString());
-        //}
+	        //List<String> paths = new Vector<String>();
+    	    //for (HTMLDocument page : web.getPages()) {
+        	//    paths.add(page.getPath().toString());
+        	//}
 
-        //customMap.put(web.getPath().toString(),paths);// = "pathNotSet":["z","a","b"]
-        //customMap.put("totalPaths", String.valueOf(web.getPages().size())); // = "totalPaths":"3",
-
-        Map args = new HashMap<>();
-        args.put(JsonWriter.PRETTY_PRINT, true); // Make the output human readable
-        args.put(JsonWriter.TYPE, false); // Hide the type metadata 
-
-        //String json = JsonWriter.objectToJson(customMap, args);
-
-        //System.out.println(json);
+			Map args = new HashMap<>();
+			args.put(JsonWriter.PRETTY_PRINT, true); // Make the output human readable
+			args.put(JsonWriter.TYPE, false); // Hide the type metadata 		
 		
-		
-		//JsonObject myJson = new JsonObject();
-		HTMLDocument page;
-		Iterator<HTMLDocument> docIt = web.getPages().iterator();
-		page = docIt.next(); 
-		WebsiteFile myWebFile = new WebsiteFile();
-		//Iterator<WebsiteFile> fileIt = myWebFile.iterator();
-
-		
-		
-		customMap.put("basepath", web.getPath().toString()); //Have tried moving this almost everywhere to get it to work
-		//json array for urls
-		customMap.put("urls", web.getURLs()); //every url
-		//json array for pages
-		Map<String, Object> pages = new HashMap<>();
-		//{
-		while(docIt.hasNext()) {
-			page = docIt.next();
-			pages.put("path", page.getPath().toString());
-
-			Map<String, Object> counts = new HashMap<>();
-			counts.put("local", String.valueOf(page.getLocalImages(page.getImages())));
-			counts.put("external", String.valueOf(page.getExternalImages(page.getImages())));
-			pages.put("imageCount", counts); //need a local and an external
-
-			counts = new HashMap<>();
-			counts.put("local",String.valueOf(page.getLocalScripts(page.getScripts())));
-			counts.put("external", String.valueOf(page.getExternalScripts(page.getScripts())));
-			pages.put("jsCount", counts); //local and external
-
-			counts = new HashMap<>();
-			counts.put("local", String.valueOf(page.getLocalStyles(page.getStyles())));
-			counts.put("external", String.valueOf(page.getExternalStyles(page.getStyles())));
-			pages.put("cssCount", counts);//local and external
+			HTMLDocument page;
+			Iterator<HTMLDocument> docIt = web.getPages().iterator();
+			page = docIt.next(); 
 			
-			//json array for image paths
-			List<String> imagePaths = new Vector<String>();
-			for (Image img : page.getImages()) {
-				imagePaths.add(img.getPath().toString());
-			}
-			pages.put("imagePaths", imagePaths); //every image path
+			customMap.put("basepath", web.getPath().toString()); //Have tried moving this almost everywhere to get it to work
+			//json array for urls
+			customMap.put("urls", web.getURLs()); //every url
+			//json array for pages
+			Map<String, Object> pages = new HashMap<>();
+			while(docIt.hasNext()) {
+				page = docIt.next();
+				pages.put("path", page.getPath().toString());
 
-			//array for script
-			List<String> scriptPaths = new Vector<String>();
-			for (Script scpt : page.getScripts()) {
-				scriptPaths.add(scpt.getPath().toString());
-			}
-			pages.put("scriptPaths", scriptPaths); //every script path
+				Map<String, Object> counts = new HashMap<>();
+				counts.put("local", String.valueOf(page.getLocalImages(page.getImages())));
+				counts.put("external", String.valueOf(page.getExternalImages(page.getImages())));
+				pages.put("imageCount", counts); //need a local and an external
 
-			//array for css
-			List<String> cssPaths = new Vector<String>();
-			for (Style styl : page.getStyles()) {
-				cssPaths.add(styl.getPath().toString());
-			}
-			pages.put("cssPaths", cssPaths); //every class path
+				counts = new HashMap<>();
+				counts.put("local",String.valueOf(page.getLocalScripts(page.getScripts())));
+				counts.put("external", String.valueOf(page.getExternalScripts(page.getScripts())));
+				pages.put("jsCount", counts); //local and external
 
-			//pages.put("linkCount", ); //intrap\intras\ext
-			//}
-			//one such for every page
-			//end pages array
-			customMap.put("pages", pages);
-
-			//array for images
-			Map<String, Object> images = new HashMap<>();
-
-			Iterator<Image> imageIt = page.getImages().iterator();
-			Image image;
-			while(imageIt.hasNext()) {
-				image = imageIt.next();
-				images.put("path", image.getPath().toString());
-				images.put("pageCount", String.valueOf(image.numPages()));
-
-				List<String> usedOn = new Vector<String>();
-				for (Path path : image.getListings()) {
-					usedOn.add(path.toString());
+				counts = new HashMap<>();
+				counts.put("local", String.valueOf(page.getLocalStyles(page.getStyles())));
+				counts.put("external", String.valueOf(page.getExternalStyles(page.getStyles())));
+				pages.put("cssCount", counts);//local and external
+				
+				//json array for image paths
+				List<String> imagePaths = new Vector<String>();
+				for (Image img : page.getImages()) {
+					imagePaths.add(img.getPath().toString());
 				}
-				images.put("usedOn", usedOn);
-			}//do ^ for every image
-			customMap.put("images", images);
+				pages.put("imagePaths", imagePaths); //every image path
 
-		
-			Iterator<ArchiveFile> archiveIt = web.getArchiveFiles().iterator();
-			Iterator<VideoFile> videoIt = web.getVideoFiles().iterator();
-			Iterator<AudioFile> audioIt = web.getAudioFiles().iterator();
-			Iterator<NonCategoryFile> nonCatIt = web.getNonCatFiles().iterator();
+				//array for script
+				List<String> scriptPaths = new Vector<String>();
+				for (Script scpt : page.getScripts()) {
+					scriptPaths.add(scpt.getPath().toString());
+				}
+				pages.put("scriptPaths", scriptPaths); //every script path
 
-			Map<String, Object> files = new HashMap<>();
+				//array for css
+				List<String> cssPaths = new Vector<String>();
+				for (Style styl : page.getStyles()) {
+					cssPaths.add(styl.getPath().toString());
+				}
+				pages.put("cssPaths", cssPaths); //every class path
 
-			Map<String, Object> archives = new HashMap<>();
-			ArchiveFile archive;
-			while(archiveIt.hasNext()) {
-				archive = archiveIt.next();
-				archives.put("path", archive.path().toString());
-				archives.put("size", String.valueOf((archive.getSize())));
+				//pages.put("linkCount", ); //intrap\intras\ext
+				//one such for every page
+				//end pages array
+				customMap.put("pages", pages);
+
+				//array for images
+				Map<String, Object> images = new HashMap<>();
+
+				Iterator<Image> imageIt = page.getImages().iterator();
+				Image image;
+				while(imageIt.hasNext()) {
+					image = imageIt.next();
+					images.put("path", image.getPath().toString());
+					images.put("pageCount", String.valueOf(image.numPages()));
+
+					List<String> usedOn = new Vector<String>();
+					for (Path path : image.getListings()) {
+						usedOn.add(path.toString());
+					}
+					images.put("usedOn", usedOn);
+				}//do ^ for every image
+				customMap.put("images", images);
+
+				Iterator<ArchiveFile> archiveIt = web.getArchiveFiles().iterator();
+				Iterator<VideoFile> videoIt = web.getVideoFiles().iterator();
+				Iterator<AudioFile> audioIt = web.getAudioFiles().iterator();
+				Iterator<NonCategoryFile> nonCatIt = web.getNonCatFiles().iterator();
+
+				Map<String, Object> files = new HashMap<>();
+
+				Map<String, Object> archives = new HashMap<>();
+				ArchiveFile archive;
+				while(archiveIt.hasNext()) {
+					archive = archiveIt.next();
+					archives.put("path", archive.path().toString());
+					archives.put("size", String.valueOf((archive.getSize())));
+				}
+				files.put("archive", archives);
+			
+				Map<String, Object> videos = new HashMap<>();
+				VideoFile video;
+				while(videoIt.hasNext()) {
+					video = videoIt.next();
+					videos.put("path", video.path().toString());
+					videos.put("size", String.valueOf(video.getSize()));
+				}
+				files.put("video", videos);
+
+				Map<String, Object> audios = new HashMap<>();
+				AudioFile audio;
+				while(audioIt.hasNext()) {
+					audio = audioIt.next();
+					audios.put("path", audio.path().toString());
+					audios.put("size", String.valueOf(audio.getSize()));
+				}
+				files.put("audio", audios);
+
+				Map<String, Object> others = new HashMap<>();
+				NonCategoryFile nonCat;
+				while(nonCatIt.hasNext()) {
+					nonCat = nonCatIt.next();
+					others.put("path", nonCat.path().toString());
+					others.put("size", String.valueOf(nonCat.getSize()));
+				}
+				files.put("other", others);
+
+				customMap.put("files", files);
 			}
-			files.put("archive", archives);
-		
-			Map<String, Object> videos = new HashMap<>();
-			VideoFile video;
-			while(videoIt.hasNext()) {
-				video = videoIt.next();
-				videos.put("path", video.path().toString());
-				videos.put("size", String.valueOf(video.getSize()));
-			}
-			files.put("video", videos);
-
-			Map<String, Object> audios = new HashMap<>();
-			AudioFile audio;
-			while(audioIt.hasNext()) {
-				audio = audioIt.next();
-				audios.put("path", audio.path().toString());
-				audios.put("size", String.valueOf(audio.getSize()));
-			}
-			files.put("audio", audios);
-
-			Map<String, Object> others = new HashMap<>();
-			NonCategoryFile nonCat;
-			while(nonCatIt.hasNext()) {
-				nonCat = nonCatIt.next();
-				others.put("path", nonCat.path().toString());
-				others.put("size", String.valueOf(nonCat.getSize()));
-			}
-			files.put("other", others);
-
-			customMap.put("files", files);
-		}
 			String json = "something went wrong";
 			json = JsonWriter.objectToJson(customMap, args);
-			//System.out.println(json);
 			String fileName = getTime() + "-summary.json";
 			File myOut = new File(fileName);
 			FileWriter myFile = new FileWriter(myOut);
@@ -201,10 +190,10 @@ public class ReportGenerator {
 			myFile.write(json);
 			myFile.close();	
 
-	    } catch (IOException e) {
-	          e.printStackTrace();
-		   }
-	
+		} 
+		catch (IOException e) {
+	        e.printStackTrace();
+		}
 	}
 	
 	/*
@@ -227,50 +216,51 @@ public class ReportGenerator {
 				System.out.println("Text File created: " + myFile.getName());
 			}
 		 
-		//holds data between iterator 
-		HTMLDocument tempDoc;
+			//holds data between iterator 
+			HTMLDocument tempDoc;
 		
-		//make a fileWriter to write to the file
-		FileWriter myWrite = new FileWriter(myFile);
+			//make a fileWriter to write to the file
+			FileWriter myWrite = new FileWriter(myFile);
 		
-		//Iterator for the different pages of the website
-		Iterator<HTMLDocument> docIt = web.getPages().iterator();
+			//Iterator for the different pages of the website
+			Iterator<HTMLDocument> docIt = web.getPages().iterator();
 		
-		//Store the data that will be written
-		LinkedList<HTMLDocument> toWrite = new LinkedList<HTMLDocument>();
+			//Store the data that will be written
+			LinkedList<HTMLDocument> toWrite = new LinkedList<HTMLDocument>();
 		
-		//Iterate over all pages, find the total sum of image sizes, write data to toWrite
-		while(docIt.hasNext())		{
-			tempDoc = docIt.next();
-			total += tempDoc.getTotalImageSize();
-			toWrite.add(tempDoc);			
-		}
+			//Iterate over all pages, find the total sum of image sizes, write data to toWrite
+			while(docIt.hasNext())		{
+				tempDoc = docIt.next();
+				total += tempDoc.getTotalImageSize();
+				toWrite.add(tempDoc);			
+			}
 
-		//Sorts toWrite with my overridden comparison (lexiconographical order of paths/pages)
-		Collections.sort(toWrite);
+			//Sorts toWrite with my overridden comparison (lexiconographical order of paths/pages)
+			Collections.sort(toWrite);
 
-		//iterate for toWrite
-		docIt = toWrite.iterator();
+			//iterate for toWrite
+			docIt = toWrite.iterator();
 		
-		//Iterate over toWrite, print(to file), first the total image size of the page,
-		//a couple spaces, then the path all on one line. Then add line break for the next. 
-		while(docIt.hasNext()) {
-			tempDoc = docIt.next();
-			myWrite.write((String.valueOf(tempDoc.getTotalImageSize())));
-			myWrite.write("   "); //will need to be a setWidth equivalent for final product
-			myWrite.write((tempDoc.getPath()).toString());
-			myWrite.write("\n");
-		}
+			//Iterate over toWrite, print(to file), first the total image size of the page,
+			//a couple spaces, then the path all on one line. Then add line break for the next. 
+			while(docIt.hasNext()) {
+				tempDoc = docIt.next();
+				myWrite.write((String.valueOf(tempDoc.getTotalImageSize())));
+				myWrite.write("   "); //will need to be a setWidth equivalent for final product
+				myWrite.write((tempDoc.getPath()).toString());
+				myWrite.write("\n");
+			}
 		
-		//Print the total image size of all pages combined in proper form (same as before but with "." as path)
-		myWrite.write(String.valueOf(total));
-		myWrite.write("  ."); //will need a setWidth equivalent for final product
-		myWrite.close();
+			//Print the total image size of all pages combined in proper form (same as before but with "." as path)
+			myWrite.write(String.valueOf(total));
+			myWrite.write("  ."); //will need a setWidth equivalent for final product
+			myWrite.close();
 	
 	
-    } catch(IOException ie) {
-        ie.printStackTrace();
-	}
+		} 
+		catch(IOException ie) {
+			ie.printStackTrace();
+		}
 	 
 	}
 	/*
@@ -280,22 +270,35 @@ public class ReportGenerator {
 	 */
 	public void generateXls(Website web) {
 		int counter = 1;
+
+		//Iterate over the pages of the website
 		Iterator<HTMLDocument> pageIt = web.getPages().iterator();
 
+		//Create a workbook
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
 
+		//Create a sheet of the workbook titled summary
 		XSSFSheet sheet = workbook.createSheet("summary");
-		  
+		
+		//Map for data, int for row number, object for data
 		Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
+		
+		//Sets up column headers (row 0)
 		data.put(0, new Object[] {"Page", "#Images", "#CSS", "Scripts", "#Links(Intra-Page)", "#Links(Internal)", "#Links(External)"});
+
+		//collect data for each page
 		while(pageIt.hasNext()){
 			HTMLDocument page = pageIt.next();
 			data.put(counter, new Object[] {page.getPath().toString(), page.getImages().size(), page.getStyles().size(), page.getScripts().size(), page.getIntra(), page.getIntern(), page.getExtern()});
+			
+			//Increase row number
 			counter++;
 		}
 		  
 		Set<Integer> keySet = data.keySet();
 		int rowNum = 0;
+
+		//Works through each cell of the sheet outputting the collected data
 		for (Integer key : keySet){
 			Row row = sheet.createRow(rowNum++);
 			Object [] objArr = data.get(key);
