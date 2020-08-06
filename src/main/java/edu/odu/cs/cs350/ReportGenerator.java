@@ -64,130 +64,194 @@ public class ReportGenerator {
 			args.put(JsonWriter.PRETTY_PRINT, true); // Make the output human readable
 			args.put(JsonWriter.TYPE, false); // Hide the type metadata 		
 		
+			//Temp page
 			HTMLDocument page;
+			//Page iterator
 			Iterator<HTMLDocument> docIt = web.getPages().iterator();
-			page = docIt.next(); 
-			
+
 			customMap.put("basepath", web.getPath().toString()); //Have tried moving this almost everywhere to get it to work
-			//json array for urls
 			customMap.put("urls", web.getURLs()); //every url
-			//json array for pages
+			//collection for pages
 			Map<String, Object> pages = new HashMap<>();
+			//Iterate over all of the pages
 			while(docIt.hasNext()) {
+				//assign
 				page = docIt.next();
+
 				pages.put("path", page.getPath().toString());
 
+				//collection for a single line similar to imageCount: Local: 3, External: 4
 				Map<String, Object> counts = new HashMap<>();
 				counts.put("local", String.valueOf(page.getLocalImages(page.getImages())));
 				counts.put("external", String.valueOf(page.getExternalImages(page.getImages())));
 				pages.put("imageCount", counts); //need a local and an external
 
+				//Collection for jsCount of page
 				counts = new HashMap<>();
 				counts.put("local",String.valueOf(page.getLocalScripts(page.getScripts())));
 				counts.put("external", String.valueOf(page.getExternalScripts(page.getScripts())));
 				pages.put("jsCount", counts); //local and external
 
+				//Collection for cssCount of page
 				counts = new HashMap<>();
 				counts.put("local", String.valueOf(page.getLocalStyles(page.getStyles())));
 				counts.put("external", String.valueOf(page.getExternalStyles(page.getStyles())));
 				pages.put("cssCount", counts);//local and external
 				
-				//json array for image paths
+				//Collection for image paths of page
 				List<String> imagePaths = new Vector<String>();
 				for (Image img : page.getImages()) {
 					imagePaths.add(img.getPath().toString());
 				}
 				pages.put("imagePaths", imagePaths); //every image path
 
-				//array for script
+				//Collection for script paths of page
 				List<String> scriptPaths = new Vector<String>();
 				for (Script scpt : page.getScripts()) {
 					scriptPaths.add(scpt.getPath().toString());
 				}
 				pages.put("scriptPaths", scriptPaths); //every script path
 
-				//array for css
+				//Collection for style paths of page
 				List<String> cssPaths = new Vector<String>();
 				for (Style styl : page.getStyles()) {
 					cssPaths.add(styl.getPath().toString());
 				}
 				pages.put("cssPaths", cssPaths); //every class path
 
-				//pages.put("linkCount", ); //intrap\intras\ext
+				//Collection for linkCount of page
+				counts = new HashMap<>();
+				counts.put("intra-page", String.valueOf(page.getIntra()));
+				counts.put("intra-site", String.valueOf(page.getIntern()));
+				counts.put("external", String.valueOf(page.getExtern()));
+				//add collection to pages collection
+				pages.put("linkCount", counts); 
+
 				//one such for every page
 				//end pages array
+				
+				//put the data on the final collection
 				customMap.put("pages", pages);
 
-				//array for images
+				//collection for images
 				Map<String, Object> images = new HashMap<>();
-
+				//Iterator for images
 				Iterator<Image> imageIt = page.getImages().iterator();
+				//temp for images
 				Image image;
+				//Iterate over all images on page
 				while(imageIt.hasNext()) {
+					//assign
 					image = imageIt.next();
+					
 					images.put("path", image.getPath().toString());
 					images.put("pageCount", String.valueOf(image.numPages()));
 
+					//Collection for usedOn
 					List<String> usedOn = new Vector<String>();
 					for (Path path : image.getListings()) {
 						usedOn.add(path.toString());
 					}
 					images.put("usedOn", usedOn);
-				}//do ^ for every image
+
+				}
+				//Add collection of all image data of page to final
 				customMap.put("images", images);
 
+				//Iterators for all
 				Iterator<ArchiveFile> archiveIt = web.getArchiveFiles().iterator();
 				Iterator<VideoFile> videoIt = web.getVideoFiles().iterator();
 				Iterator<AudioFile> audioIt = web.getAudioFiles().iterator();
 				Iterator<NonCategoryFile> nonCatIt = web.getNonCatFiles().iterator();
 
+				//Collection for all kinds of files
 				Map<String, Object> files = new HashMap<>();
-
+				//Collection for archive files
 				Map<String, Object> archives = new HashMap<>();
+				//temp archive
 				ArchiveFile archive;
+				//go over all archive files
 				while(archiveIt.hasNext()) {
+					//assign
 					archive = archiveIt.next();
+					//add data to collection
 					archives.put("path", archive.path().toString());
 					archives.put("size", String.valueOf((archive.getSize())));
 				}
+				//add collection to files collection
 				files.put("archive", archives);
-			
+				
+				//Collection
 				Map<String, Object> videos = new HashMap<>();
+				//Temp
 				VideoFile video;
+				//Iterate over all video files
 				while(videoIt.hasNext()) {
+					//assign
 					video = videoIt.next();
+					//add data to collection
 					videos.put("path", video.path().toString());
 					videos.put("size", String.valueOf(video.getSize()));
 				}
+				//add collection to files collection
 				files.put("video", videos);
 
+				//collection
 				Map<String, Object> audios = new HashMap<>();
+				//temp
 				AudioFile audio;
+				//Iterate over all audio files
 				while(audioIt.hasNext()) {
+					//assign
 					audio = audioIt.next();
+					//add data to collection
 					audios.put("path", audio.path().toString());
 					audios.put("size", String.valueOf(audio.getSize()));
 				}
+				//add collection to files collection
 				files.put("audio", audios);
 
+				//collection
 				Map<String, Object> others = new HashMap<>();
+				//temp
 				NonCategoryFile nonCat;
+				//Iterate over all nonCategory Files
 				while(nonCatIt.hasNext()) {
+					//assign
 					nonCat = nonCatIt.next();
+					//add data to collection
 					others.put("path", nonCat.path().toString());
 					others.put("size", String.valueOf(nonCat.getSize()));
 				}
+				//add collection to files collection
 				files.put("other", others);
 
+				//add files collection to final collection
 				customMap.put("files", files);
 			}
+
+			//initialize while also error flagging
 			String json = "something went wrong";
+
+			//assign proper data
 			json = JsonWriter.objectToJson(customMap, args);
+
+			//create file name
 			String fileName = getTime() + "-summary.json";
+
+			//create file
 			File myOut = new File(fileName);
+
+			//create file writer for file
 			FileWriter myFile = new FileWriter(myOut);
+			
+			//display filename to terminal
 			System.out.println("JSON file created: " + myOut.getName());
+			
+			//write data
 			myFile.write(json);
+			
+			//close file
 			myFile.close();	
 
 		} 
