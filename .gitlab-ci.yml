@@ -8,9 +8,14 @@ build-job:
   stage: build
   script:
     - ./gradlew build
+    - eval $(ssh-agent -t 5m -s)
+    - ssh-add <(echo "$RSYNC_KEY")
+    - rsync -auvz -e "ssh" build/reports/tests rpeabody@linux.cs.odu.edu:tangerine-2/
+    - ssh-agent -k
   only:
     - master
   artifacts:
     paths:
       - README.md
       - build/libs/tangerine-2.jar
+      
