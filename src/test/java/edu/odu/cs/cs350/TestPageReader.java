@@ -20,13 +20,17 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestPageReader {
 
 	PageReader pgReader = new PageReader();
-	String pathStr1 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html";
+	String pathStr1 = "C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+			+ "\\src\\test\\data\\SampleHTML\\page1.html";
 	Path path1 = Paths.get(pathStr1);
-	String pathStr2 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page2.html";
+	String pathStr2 = "C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+			+ "\\src\\test\\data\\SampleHTML\\page2.html";
 	Path path2 = Paths.get(pathStr2);
-	String pathStr3 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page3.html";
+	String pathStr3 = "C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+			+ "\\src\\test\\data\\SampleHTML\\page3.html";
 	Path path3 = Paths.get(pathStr3);
-	String pathStr4 = "C:\\Users\\chris\\Desktop\\SampleHTML\\page4.html";
+	String pathStr4 = "C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+			+ "\\src\\test\\data\\SampleHTML\\page4.html";
 	Path path4 = Paths.get(pathStr4);
 	LinkedList<Image> expectedImages = new LinkedList<Image>();
 	LinkedList<Image> images;
@@ -45,7 +49,8 @@ public class TestPageReader {
 	
 	@Test
 	public void testPageReaderImages() throws IOException {
-		String imgString = "C:\\Users\\chris\\Desktop\\SampleHTML\\Images\\Image1.jpg";
+		String imgString = "C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+				+ "\\src\\test\\data\\SampleHTML\\Images\\Image1.jpg";
 		imgPaths.add(Paths.get(imgString));
 		Image img1 = new Image(); //~235 KB (240,698 bytes)
 		img1.setPath(Paths.get(imgString));
@@ -71,7 +76,8 @@ public class TestPageReader {
 	
 	@Test
 	public void testPageReaderStyles() throws IOException {
-		Path stylePath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Styles\\Style.css");
+		Path stylePath = Paths.get("C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+				+ "\\src\\test\\data\\SampleHTML\\Styles\\Style.css");
 		Style style1 = new Style();
 		style1.setPath(stylePath);
 		expectedStyles.add(style1);
@@ -96,7 +102,8 @@ public class TestPageReader {
 	
 	@Test
 	public void testPageReaderScripts() throws IOException {
-		Path scriptPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\Scripts\\JavaScript.js");
+		Path scriptPath = Paths.get("C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+				+ "\\src\\test\\data\\SampleHTML\\Scripts\\JavaScript.js");
 		Script script1 = new Script();
 		script1.setPath(scriptPath);
 		expectedScripts.add(script1);
