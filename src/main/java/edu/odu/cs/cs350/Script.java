@@ -8,8 +8,6 @@ import java.util.LinkedList;
 
 import java.net.URI;
 
-import edu.odu.cs.cs350.Enum.*;
-
 public class Script extends Tag {
 	private LinkedList<Path> listings;
 	/*
@@ -47,5 +45,11 @@ public class Script extends Tag {
 	 */
 	public void addListing(Path listing) {
 		listings.add(listing);
+	}
+	/*
+	 * returns listings
+	 */
+	public LinkedList<Path> getListings(){
+		return this.listings;
 	}
 }
