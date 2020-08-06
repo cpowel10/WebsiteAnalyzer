@@ -1,5 +1,6 @@
 plugins {
    id 'java'
+   id 'jacoco'
 }
 
 dependencies {
@@ -15,5 +16,20 @@ repositories {
 }
 
 test {
+    finalizedBy jacocoTestReport
     ignoreFailures = true
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("$buildDir/reports/tests/test/jacocoHtml")
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/reports/tests/test")
 }
