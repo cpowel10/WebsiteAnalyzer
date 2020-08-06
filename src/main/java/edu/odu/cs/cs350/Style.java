@@ -46,4 +46,10 @@ public class Style extends Tag {
 	public void addListing(Path listing) {
 		listings.add(listing);
 	}
+	/*
+	 * returns listings
+	 */
+	public LinkedList<Path> getListings(){
+		return this.listings;
+	}
 }
