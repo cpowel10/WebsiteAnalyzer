@@ -10,7 +10,7 @@ build-job:
     - ./gradlew build
     - eval $(ssh-agent -t 5m -s)
     - ssh-add <(echo "$RSYNC_KEY")
-    - rsync -auvz -e "ssh" build/reports/tests rpeabody@linux.cs.odu.edu:tangerine-2/
+    - rsync -auvz -e "ssh" build/reports/tests/ rpeabody@atria.cs.odu.edu:tangerine-2/
     - ssh-agent -k
   only:
     - master
@@ -18,4 +18,3 @@ build-job:
     paths:
       - README.md
       - build/libs/tangerine-2.jar
-      
