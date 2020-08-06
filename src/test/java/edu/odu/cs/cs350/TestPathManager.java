@@ -54,34 +54,45 @@ public class TestPathManager {
     }
 
     @Test
-    public void testMapTagURi() throws URISyntaxException{
+    public void testMapAndClassifyTag() throws URISyntaxException{
         Tag tag = new Tag(new URI("page2.html"));
         Path pagePath = Paths.get("articles/page.html");
-        pman.mapTagUri(tag, pagePath);
+        pman.mapAndClassifyTag(tag, pagePath);
         assertThat(tag.getPath().toString(), is("articles/page2.html"));
+        assertThat(tag.getExternality(), is(Externality.INTERNAL));
 
         Tag tag2 = new Tag(new URI("../books/book1.html"));
-        pman.mapTagUri(tag2, pagePath);
+        pman.mapAndClassifyTag(tag2, pagePath);
         assertThat(tag2.getPath().toString(), is("books/book1.html"));
+        assertThat(tag2.getExternality(), is(Externality.INTERNAL));
 
         Tag tag3 = new Tag(new URI("../../outside/website"));
-        pman.mapTagUri(tag3, pagePath);
+        pman.mapAndClassifyTag(tag3, pagePath);
         assertThat(tag3.getPath().toString(), is("../outside/website"));
+        assertThat(tag3.getExternality(), is(Externality.EXTERNAL));
+
+        Tag tag4 = new Tag(new URI("articles/page.html#intraLink"));
+        pman.mapAndClassifyTag(tag4, pagePath);
+        assertThat(tag4.getPath().toString(), is("articles/page.html"));
+        assertThat(tag4.getExternality(), is(Externality.INTRA));
     }
 
     @Test
     public void testRemoveSitePathRoot() {
         Path tagPath = Paths.get("home/web/this/is/a/test").toAbsolutePath();
         assertThat(pman.removeSitePathRoot(tagPath).toString(), is("this/is/a/test"));
+
+        tagPath = Paths.get("home/external/this/is/a/test").toAbsolutePath();
+        assertThat(pman.removeSitePathRoot(tagPath).toString(), is(""));
     }
 
     @Test
     public void testClassifyRelativeUriTag() {
-        assertThat(pman.classifyRelativeUriTag(Paths.get(""), Paths.get("this/page.html")), is(Externality.EXTERNAL));
-        assertThat(pman.classifyRelativeUriTag(Paths.get("../outside/website/dir"), Paths.get("this/page.html")), is(Externality.EXTERNAL));
-        assertThat(pman.classifyRelativeUriTag(Paths.get("this/page.html"), Paths.get("this/page.html")), is(Externality.INTRA));
-        assertThat(pman.classifyRelativeUriTag(Paths.get("README.md"), Paths.get("this/page.html")), is(Externality.INTERNAL));
-        assertThat(pman.classifyRelativeUriTag(Paths.get("404error"), Paths.get("this/page.html")), is(Externality.UNDEFINED));
+        //assertThat(pman.classifyRelativeUriTag(Paths.get(""), Paths.get("this/page.html")), is(Externality.EXTERNAL));
+        //assertThat(pman.classifyRelativeUriTag(Paths.get("../outside/website/dir"), Paths.get("this/page.html")), is(Externality.EXTERNAL));
+        //assertThat(pman.classifyRelativeUriTag(Paths.get("this/page.html"), Paths.get("this/page.html")), is(Externality.INTRA));
+        //assertThat(pman.classifyRelativeUriTag(Paths.get("README.md"), Paths.get("this/page.html")), is(Externality.INTERNAL));
+        //assertThat(pman.classifyRelativeUriTag(Paths.get("404error"), Paths.get("this/page.html")), is(Externality.UNDEFINED));
     }
 
     @Test

@@ -48,61 +48,62 @@ public class PathManager {
 			//if absolute URI matches a host strip the root to get its local path
 			else {
 				tagLocalPath = removeSitePathRoot(Paths.get(taguri.getPath()));
-				tag.setPath(tagLocalPath);
-				mapLocalTag(tag, pageSrc);
+				//Use localPath to determine externality
+				tag.setExternality(mapLocalTag(tag, tagLocalPath, pageSrc));
 				return;
 			}
 		}
 		//Resolve and normalize relative URIs
 		tagLocalPath = Paths.get(taguri.getPath());
 		tagLocalPath = expandPath(tagLocalPath, pageSrc);
-		//special case for intra-page anchors whose path matches the page
-		if(tagLocalPath.equals(pageSrc)) {
-			tag.setPath(tagLocalPath);
-			tag.setExternality(Externality.INTRA);
-			return;
-		}
-		//See if the tag's local path is local or external to the website
-		else {
-		}
+		System.out.println(tagLocalPath);
+		//Use localPath to determine externality
+		tag.setExternality(mapLocalTag(tag, tagLocalPath, pageSrc));
 	}
-
 	/*
 	 * removes the site root from the path
 	 * @param tagPath is the path to be manipulated
-	 * returns the manipulated path
+	 * returns the manipulated path or an empty path if it doesn't contain the site root
 	 */
 	public Path removeSitePathRoot(Path tagPath) {
-		Iterator<Path> it = homeDir.iterator();
-        Path p;
-		while(it.hasNext()&&tagPath.getNameCount()>1) {
-            p = it.next();
-            System.out.println((tagPath.subpath(0,1).equals(p)));
-			if(tagPath.subpath(0,1).equals(p)) {
-                tagPath = tagPath.subpath(1, tagPath.getNameCount());
+		//first check if path starts with site root
+		tagPath = tagPath.toAbsolutePath();
+		if(tagPath.startsWith(homeDir)) {
+			//iterate over name elements in homeDir
+			Iterator<Path> it = homeDir.iterator();
+			Path p = Paths.get("");
+			while(it.hasNext()&&tagPath.getNameCount()>1) {
+				p = it.next();
+				//remove leading element from tagPath if it matches appropriate homeDir name
+				if(tagPath.subpath(0,1).equals(p)) {
+					tagPath = tagPath.subpath(1, tagPath.getNameCount());
+				}
 			}
-        }
+			//return tagpath with root removed
+			return tagPath;
+		}
 		return Paths.get("");
 	}
 	/*
-	 * classifies the URI as its externality (intrapage, iternal, external)
-	 * @param tagPath contains the path to the tag
-	 * @param pagePath contains the path to the page(HTMLDocument)
+	 * classifies a tag and localPath as intra/internal/external to the srcPage/website
+	 * while also assigning the tag's path if it is intra/internal
+	 * @param tag whose path to check as internal/external
+	 * @param pageSrc path to the htmldoc this tag came from
 	 */
-	public void mapLocalTag(Tag tag, Path pageSrc) {
-		/*if(tagPath.equals(pagePath)) {
+	public Externality mapLocalTag(Tag tag, Path tagLocalPath, Path pageSrc) {
+		//special case for intra-page anchors whose path matches the page
+		if(tagLocalPath.equals(pageSrc)) {
+			tag.setPath(tagLocalPath);
 			return Externality.INTRA;
 		}
-		if(tagPath.toString().equals("")) {
-			return Externality.EXTERNAL;
-		}
-		if(tagPath.startsWith("..")) {
-			return Externality.EXTERNAL;
-		}
-		if(Files.exists(tagPath)) {
+		//Compare tag's path to homeDir to determine if Internal/External
+		if(tag.getPath().toAbsolutePath().startsWith(homeDir)) {
+			tag.setPath(tagLocalPath);
 			return Externality.INTERNAL;
 		}
-		return Externality.UNDEFINED;*/
+		//Empty path for external resources (URI is used even for local resources)
+		tag.setPath(Paths.get(""));
+		return Externality.EXTERNAL;
 	}
 	/* 
 	 * Grabs the Path portion of whatever URL we match to for mapping
@@ -134,5 +135,8 @@ public class PathManager {
 	public Path uriToPath(URI uri) {
 		Path thepath = Paths.get(uri.getPath());
 		return thepath;
+	}
+	public void setHome(Path home) {
+		homeDir = home.toAbsolutePath();
 	}
 }
