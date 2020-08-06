@@ -16,7 +16,7 @@ public class TestWebsiteFile {
 
     WebsiteFile webF = new WebsiteFile();
     Path path = Paths.get("noAssignedPath");
-    int size = -1;
+    long size = -1;
     FileType type = FileType.UNDEFINED; 
 
 	@Test
@@ -28,7 +28,7 @@ public class TestWebsiteFile {
 
     @Test
     public final void testNonDefaultConstructor(){
-        int size =  3;
+        long size =  3;
         Path path = Paths.get("fakePath");
         FileType type = FileType.AUDIO;
         WebsiteFile webF = new WebsiteFile(size, path, type);
@@ -38,7 +38,7 @@ public class TestWebsiteFile {
     }
     @Test
 	public final void testSetSize(){
-        int newSize = 100;
+        long newSize = 100;
 
         webF.setSize(newSize);
 
