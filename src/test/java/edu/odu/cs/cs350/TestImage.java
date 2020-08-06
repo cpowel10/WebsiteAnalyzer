@@ -42,7 +42,7 @@ public class TestImage {
 	@Test
 	public final void testDefaultConstructor() {	
 		assertThat(firstImage.getType(), is(TagType.IMAGE));
-		assertThat(firstImage.getSize(), is(0));
+		assertThat(firstImage.getSize(), is((long)0));
 		assertThat(firstImage.getListings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
 	}
@@ -117,6 +117,6 @@ public class TestImage {
 		
 		//No other changes
 		assertThat(firstImage.getType(), is(myType));
-		assertThat(firstImage.getSize(), is(0));
+		assertThat(firstImage.getSize(), is((long)0));
 	}
 }
