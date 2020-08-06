@@ -34,7 +34,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 		size = mySize;
 		listings = new LinkedList<Path>();
 		this.setNumPages(0);
-		listings.add(firstListing);
+		this.addListing(firstListing);
 	}
 	/*
 	 * returns the image size
