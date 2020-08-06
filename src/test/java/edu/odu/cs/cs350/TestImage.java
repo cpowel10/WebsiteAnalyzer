@@ -54,7 +54,7 @@ public class TestImage {
 		TagType myType = TagType.IMAGE;
 		long mySize = 2;
 		LinkedList<Path> myListings = new LinkedList<Path>();
-		myListings.add(Paths.get("fakePath3"));
+		myListings.add(Paths.get("fakePath1"));
 		URI myUri = URI.create("fakeURI");
 
 		//Change
