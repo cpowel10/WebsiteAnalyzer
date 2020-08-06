@@ -1,7 +1,7 @@
 package edu.odu.cs.cs350;
 
 import java.util.LinkedList;
-import java.nio.file.Paths;
+//import java.nio.file.Paths;
 import java.nio.file.Path;
 
 import java.net.URI;
@@ -19,7 +19,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 		super(TagType.IMAGE);
 		size = 0;
 		listings = new LinkedList<Path>();
-		this.setNumPages(-1);
+		this.setNumPages(0);
 	}
 	/*
 	 * nondefault constructor
