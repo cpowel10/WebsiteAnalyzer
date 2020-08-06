@@ -1,0 +1,12 @@
+stages:
+  - build
+  - deploy
+
+build-job:
+  tags:
+    - ddbb8a73
+  stage: build
+  script:
+    - ./gradlew build
+  only:
+    - master
