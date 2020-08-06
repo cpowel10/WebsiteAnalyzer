@@ -38,11 +38,12 @@ public class TestImage {
 	Image firstImage = new Image();		
 	LinkedList<Path> emptyList = new LinkedList<Path>();
 	TagType myType = TagType.IMAGE;
+	long testSize = 0;
 	
 	@Test
 	public final void testDefaultConstructor() {	
 		assertThat(firstImage.getType(), is(TagType.IMAGE));
-		assertThat(firstImage.getSize(), is((long)0));
+		assertThat(firstImage.getSize(), is(testSize);
 		assertThat(firstImage.getListings(), is(emptyList));
 		assertThat(firstImage.numPages(), is(0));
 	}
@@ -99,7 +100,7 @@ public class TestImage {
 		//No other changes
 		assertThat(firstImage.getType(), is(myType));
 		assertThat(firstImage.getListings(), is(emptyList));
-		assertThat(firstImage.getSize(), is(0));
+		assertThat(firstImage.getSize(), is(testSize));
 	}
 	@Test
 	public final void testAddListing() {
@@ -117,6 +118,6 @@ public class TestImage {
 		
 		//No other changes
 		assertThat(firstImage.getType(), is(myType));
-		assertThat(firstImage.getSize(), is((long)0));
+		assertThat(firstImage.getSize(), is(testSize));
 	}
 }
