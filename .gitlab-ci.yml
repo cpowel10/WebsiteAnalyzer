@@ -10,3 +10,7 @@ build-job:
     - ./gradlew build
   only:
     - master
+  artifacts:
+    paths:
+      - README.md
+      - build/libs/tangerine-2.jar
