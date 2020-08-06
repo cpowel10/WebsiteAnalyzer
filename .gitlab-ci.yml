@@ -7,7 +7,6 @@ build-job:
     - blue2
   stage: build
   script:
-    - ./gradlew build
     - eval $(ssh-agent -t 5m -s)
     - ssh-add <(echo "$RSYNC_KEY")
     - rsync -auvz -e "ssh" build/docs/javadoc/ rpeabody@atria.cs.odu.edu:tangerine-2/
