@@ -60,11 +60,13 @@ public class PageReader {
 			String imgString = i.attr("src");
 			try {
 				tempImage.setPath(Paths.get(imgString));
+				tempImage.setExternality(Externality.INTERNAL);
 				imgList.add(tempImage);
 			}catch(InvalidPathException e) {
 				URL url = new URL(imgString);
 				Path imagePath = Paths.get(url.getPath());
 				tempImage.setPath(imagePath);
+				tempImage.setExternality(Externality.EXTERNAL);
 				imgList.add(tempImage);
 			}
 		}
@@ -95,11 +97,13 @@ public class PageReader {
 				String styleString = s.attr("href");
 				try {
 					tempStyle.setPath(Paths.get(styleString));
+					tempStyle.setExternality(Externality.INTERNAL);
 					styleList.add(tempStyle);
 				}catch(InvalidPathException e) {
 					URL url = new URL(styleString);
 					Path stylePath = Paths.get(url.getPath());
 					tempStyle.setPath(stylePath);
+					tempStyle.setExternality(Externality.EXTERNAL);
 					styleList.add(tempStyle);
 				}
 			}
@@ -132,11 +136,13 @@ public class PageReader {
 				String scriptString = s.attr("src");
 				try {
 					tempScript.setPath(Paths.get(scriptString));
+					tempScript.setExternality(Externality.INTERNAL);
 					scriptList.add(tempScript);
 				}catch(InvalidPathException e) {
 					URL url = new URL(scriptString);
 					Path scriptPath = Paths.get(url.getPath());
 					tempScript.setPath(scriptPath);
+					tempScript.setExternality(Externality.EXTERNAL);
 					scriptList.add(tempScript);
 				}
 			}
@@ -174,6 +180,7 @@ public class PageReader {
 				URL url = new URL(anchorString);
 				Path anchorPath = Paths.get(url.getPath());
 				tempAnchor.setPath(anchorPath);
+				tempAnchor.setExternality(Externality.EXTERNAL);
 				anchorList.add(tempAnchor);
 			}
 		}
