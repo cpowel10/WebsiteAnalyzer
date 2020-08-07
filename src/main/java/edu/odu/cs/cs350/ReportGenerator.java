@@ -30,7 +30,7 @@ import java.nio.file.Path;
 
 public class ReportGenerator {
 	private String myTime;
-	/*
+	/**
 	 * sets the current date and time in YYYYMMDD-HHMMSS format
 	 */
 	public void setTime(){
@@ -39,14 +39,14 @@ public class ReportGenerator {
 		myTime = dtf.format(now);  
 		//Inspiration/much credit to https://www.javatpoint.com/java-get-current-date
 	}
-	/*
+	/**
 	 * gets the private String myTime
 	 * @returns string myTime
 	 */
 	public String getTime(){
 		return myTime;
 	}
-	/*
+	/**
 	 * writes collected data to a .json file
 	 * @param Website contains data to be reported
 	 * @throws IOexception
@@ -260,7 +260,7 @@ public class ReportGenerator {
 		}
 	}
 	
-	/*
+	/**
 	 * writes collected data to a .txt file
 	 * @param Website contains data to be reported
 	 * @throws IOexception
@@ -327,7 +327,7 @@ public class ReportGenerator {
 		}
 	 
 	}
-	/*
+	/**
 	 * writes collected data to a .xls file
 	 * @param Website contains data to be reported
 	 * @throws IOexception

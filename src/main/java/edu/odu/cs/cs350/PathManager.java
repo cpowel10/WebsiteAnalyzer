@@ -14,12 +14,12 @@ import edu.odu.cs.cs350.Enum.Externality;
 public class PathManager {
 	private Path homeDir;
 	private URL[] urls;
-	/*
+	/**
 	 * default contructor
 	 */
 	public PathManager() {
 	}
-	/*
+	/**
 	 * nondefault constructor
 	 * @param home contains home path 
 	 * @param theUrls contains the collection of Urls
@@ -29,7 +29,7 @@ public class PathManager {
 		homeDir = home.toAbsolutePath();
 		urls = theUrls;
 	}
-	/*
+	/**
 	 * maps the tag to the uri
 	 * @param tag to be mapped
 	 * @param pageSrc of the page (HTMLDocument)
@@ -60,7 +60,7 @@ public class PathManager {
 		//Use localPath to determine externality
 		tag.setExternality(mapLocalTag(tag, tagLocalPath, pageSrc));
 	}
-	/*
+	/**
 	 * removes the site root from the path
 	 * @param tagPath is the path to be manipulated
 	 * returns the manipulated path or an empty path if it doesn't contain the site root
@@ -84,7 +84,7 @@ public class PathManager {
 		}
 		return Paths.get("");
 	}
-	/*
+	/**
 	 * classifies a tag and localPath as intra/internal/external to the srcPage/website
 	 * while also assigning the tag's path if it is intra/internal
 	 * @param tag whose path to check as internal/external
@@ -105,7 +105,7 @@ public class PathManager {
 		tag.setPath(Paths.get(""));
 		return Externality.EXTERNAL;
 	}
-	/* 
+	/** 
 	 * Grabs the Path portion of whatever URL we match to for mapping
 	 * @param toCheck contains the URI to be checked 
 	 */ 
@@ -117,7 +117,7 @@ public class PathManager {
 		}
 		return true;
 	}
-	/*
+	/**
 	 * 'Expands' a relative path by resolving against src path and removing
 	 * redundant name elements, effectively returns a CanonicalPath
 	 * @param toExpand contains the path to be expanded
@@ -128,7 +128,7 @@ public class PathManager {
 		expanded = src.resolveSibling(toExpand.normalize()).normalize();
 		return expanded;
 	}
-	/*
+	/**
 	 * converts URI to a path
 	 * @param uri contains to URI to be converted
 	 */

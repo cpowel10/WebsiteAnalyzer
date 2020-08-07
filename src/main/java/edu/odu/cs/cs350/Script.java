@@ -10,14 +10,14 @@ import java.net.URI;
 
 public class Script extends Tag {
 	private LinkedList<Path> listings;
-	/*
+	/**
 	 * default constructor
 	 */
 	public Script() {
 		super(TagType.SCRIPT);
 		listings = new LinkedList<Path>();
 	}
-	/*
+	/**
 	 * nondefault constructor
 	 * @param myPath contains path to script tag
 	 * @param myEality contains externality of script tag
@@ -27,7 +27,7 @@ public class Script extends Tag {
 		super(TagType.SCRIPT, myPath, myEality, myUri);
 		listings = new LinkedList<Path>();
 	}
-	/*
+	/**
 	 * second nondefault constructor
 	 * @param myPath contains path to script tag
 	 * @param myEality contains externality of script tag
@@ -39,14 +39,14 @@ public class Script extends Tag {
 		listings = new LinkedList<Path>();
 		listings.add(firstListing);
 	}
-	/*
+	/**
 	 * adds path to collection of paths leading to script tag
 	 * @param listing contains path to be added
 	 */
 	public void addListing(Path listing) {
 		listings.add(listing);
 	}
-	/*
+	/**
 	 * returns listings
 	 */
 	public LinkedList<Path> getListings(){

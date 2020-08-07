@@ -42,7 +42,7 @@ public class DirectoryParser {
 	private Path homeDir;
 	private URL[] urls;
 
-	/* //This constructor once we incororate the URLS
+	/** //This constructor once we incororate the URLS
 		
 	    public DirectoryParser(Path home, URL[] theurls) {
 		pman = new PathManager();
@@ -53,7 +53,7 @@ public class DirectoryParser {
 		homeDir = home;
 	}
 
-	/* Simple file walk for the homeDirectory and stores a list of files
+	/** Simple file walk for the homeDirectory and stores a list of files
 	 * (excluding directories)
 	 */
 	public void parseWebsiteDirectory() throws IOException {
@@ -62,7 +62,7 @@ public class DirectoryParser {
 						.collect(Collectors.toCollection(LinkedList::new));
 	}
 
-	/*
+	/**
 	 * Goes over the list of files we found while parsing, grabs their extension/size
 	 * to be sorted
 	 */
@@ -72,7 +72,7 @@ public class DirectoryParser {
 		}
 	}
 
-	/*
+	/**
 	 * Given a particular file will 'sort' it by generating an instance of the correct
 	 * file type for analysis OR if heuristically determined to be an HTML document
 	 * (for having text and valid html tags) to be parsed by jsoup in analyzer
@@ -92,7 +92,7 @@ public class DirectoryParser {
 			foundAudios.add(new AudioFile(size, p));
 			return;
 		}
-		//*maaaaaybe* this will be okay? checks MIME type for text
+		//**maaaaaybe* this will be okay? checks MIME type for text
 		if(Files.probeContentType(p).startsWith("text")) {
 			if(hasHtml(p)) {
 				htmlPaths.add(p);
@@ -102,7 +102,7 @@ public class DirectoryParser {
 		foundNonCats.add(new NonCategoryFile(size, p));
 	}
 
-	/* Returns true if the given path to a text file contains an html doctype declaration
+	/** Returns true if the given path to a text file contains an html doctype declaration
 	 * otherwise returns false
 	 *  @param file path to check
 	 *  @pre given path is to a text file
@@ -123,7 +123,7 @@ public class DirectoryParser {
 		return false;
 	}
 
-	/*
+	/**
 	 * Get the extension of a file simply
 	 * @param  p Path to parse for file extension
 	 * @pre path contains at least 1 element

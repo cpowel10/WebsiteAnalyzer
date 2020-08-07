@@ -23,7 +23,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	private int externalStyles;
 	private int internalImages;
 	private int externalImages;
-  	/*
+  	/**
 	 * defualt constructor
 	 */
 	public HTMLDocument() {
@@ -34,7 +34,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		allAnchors = new LinkedList<Anchor>();
 		totalImageSize = 0;
 	}
-  	/*
+  	/**
   	 * nondefault contructor
 	 * @param userPath contains path to HTMLDocument (page)
   	 */
@@ -47,7 +47,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		totalImageSize = 0;
 	}
 	
-	/*
+	/**
 	 * adds sizes of all Image objects in
 	 * allImages and returns the totalImageSize
 	 * for the current HTMLDocument
@@ -55,79 +55,79 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	public long getTotalImageSize() {
 		return totalImageSize;
 	}
-	/*
+	/**
 	 * returns path to HTMLDocument
 	 */
 	public Path getPath() {
 		return path;
 	}
-	/*
+	/**
 	 * returns linked list of images containing all images
 	 */
 	public LinkedList<Image> getImages(){
 		return allImages;
 	}
-	/*
+	/**
 	 * returns linked list of scripts containing all scripts
 	 */
 	public LinkedList<Script> getScripts(){
 		return allScripts;
 	}
-	/*
+	/**
 	 * returns linked list of styles containing all styles
 	 */
 	public LinkedList<Style> getStyles(){
 		return allStyles;
 	}
-	/*
+	/**
 	 * returns linked list of anchors containing all anchors
 	 */
 	public LinkedList<Anchor> getAnchors(){
 		return allAnchors;
 	}
-	/*
+	/**
 	 * sets total image size
 	 * @param size of total image size
 	 */
 	public void setTotalImageSize(long size) {
 		totalImageSize = size;
 	}
-	/*
+	/**
 	 * sets path of HTMLDocument
 	 * @param pth contains path to HTMLDocument (page) 
 	 */
 	public void setPath(Path pth) {
 		this.path = pth;
 	}
-	/*
+	/**
 	 * sets linked list of images 
 	 * @param linked list of images to be set
 	 */
 	public void setImages(LinkedList<Image> images){
 		this.allImages = images;
 	}
-	/*
+	/**
 	 * sets linked list of scripts
 	 * @param linked list of sripts to be set
 	 */
 	public void setScripts(LinkedList<Script> scripts){
 		this.allScripts = scripts;
 	}
-	/*
+	/**
 	 * sets linked list of styles
 	 * @param linked list of styles to be set
 	 */	
 	public void setStyles(LinkedList<Style> styles){
 		this.allStyles = styles;
 	}
-	/*
+	/**
 	 * sets linked list of anchors
 	 * @param linked list of anchors to be set
 	 */
 	public void setAnchors(LinkedList<Anchor> anchors){
 		this.allAnchors = anchors;
 	}
-	/*
+	/**
 	 * adds image size to total
 	 * @param imageSize contains long to be added to total size of images
 	 */
@@ -137,14 +137,14 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		size += imageSize;
 		this.totalImageSize = size; 
 	}
-	/*
+	/**
 	 * adds image to collection of images
 	 * @param img contains image to be added to collection of images
 	 */
 	public void addImage(Image img) {
 		allImages.add(img);
 	}
-	/*
+	/**
 	 * sets internal, intra, and external link counts
 	 */
 	public void setAnchorTypeCounters() {
@@ -165,7 +165,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		externalLinks = external;
 	}
 
-	/* 
+	/** 
 	 * Sets counts for number of internal and external Images
 	 */
 	public void setImageTypeCounters() {
@@ -182,7 +182,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		externalImages = external;
 	}
 
-	/* 
+	/** 
 	 * Sets counts for number of internal and external Scripts
 	 */
 	public void setStyleTypeCounters() {
@@ -199,7 +199,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		externalScripts = external;
 	}
 
-	/* 
+	/** 
 	 * Sets counts for number of internal and external Styles
 	 */
 	public void setScriptTypeCounters() {
@@ -216,26 +216,26 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		externalStyles = external;
 	}
 
-	/*
+	/**
 	 * returns count of intrapage links
 	 */
 	public int getIntra(){
 		return this.intraLinks;
 	}
-	/*
+	/**
 	 * returns count of internal links
 	 */
 	public int getIntern(){
 		return this.internalLinks;
 	}
-	/*
+	/**
 	 * returns count of external links
 	 */
 	public int getExtern(){
 		return this.externalLinks;
 	}
 	
-	/*
+	/**
 	 * (May go in PageReader class)
 	 * adds tag to its proper collection
 	 * @param tag contains tag to be sorted into its collection depending on its tag type 
@@ -255,7 +255,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 			totalImageSize += ((Image) tag).getSize();
 		}
 	}
-	/*
+	/**
 	 * Override for comparison, used in GenerateReport for Collections.sort(List)
 	 * compares two HTMLDocuments lexiconographically 
 	 * @param doc contains HTMLDocument to be compared 
@@ -285,7 +285,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		return 0; //equal 
 	}
 	
-	/*
+	/**
 	 * For Testing Only Below
 	 * To string collection of variables for testing
 	 * <path> <num_img> <num_style> <num_script> <num_anchor> <totalImageSize>

@@ -12,7 +12,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 	private long size;
 	private int numPages;
 	private LinkedList<Path> listings;
-	/*
+	/**
 	 * default constructor
 	 */
 	public Image() {
@@ -21,7 +21,7 @@ public class Image extends Tag 	implements Comparable<Image> {
 		listings = new LinkedList<Path>();
 		this.setNumPages(0);
 	}
-	/*
+	/**
 	 * nondefault constructor
 	 * @param myPath contains a path to the image
 	 * @param mySize contains a long of the image size
@@ -36,25 +36,25 @@ public class Image extends Tag 	implements Comparable<Image> {
 		this.setNumPages(0);
 		this.addListing(firstListing);
 	}
-	/*
+	/**
 	 * returns the image size
 	 */
 	public long getSize() {
 		return this.size;
 	}
-	/*
+	/**
 	 * returns the linked list of paths that lead to the image
 	 */
 	public LinkedList<Path> getListings() {
 		 return this.listings;
 	}
-	/*
+	/**
 	 * returns the number of pages the image was on
 	 */
 	public int numPages() {
 		return this.numPages;
 	}
-	/*
+	/**
 	 * adds a path to the collection of paths leading to the image
 	 * @param path to image to be added to listings
 	 */
@@ -62,21 +62,21 @@ public class Image extends Tag 	implements Comparable<Image> {
 		listings.add(listing);
 		numPages++;
 	}
-	/*
+	/**
 	 * set the number of pages image is found on
 	 * @param number(integer) to set number of pages to
 	 */
 	public void setNumPages(int num) {
 		numPages = num;
 	}
-	/*
+	/**
 	 * set the size of the image
 	 * @param mySize contains size of image
 	 */
 	public void setSize(long mySize) {
 		size = mySize;
 	}
-	/*
+	/**
 	 * override comparison operator to compare images
 	 * @param image to compare 
 	 */
