@@ -43,7 +43,7 @@ public class Analyzer {
 		}
 	}
 
-	/*
+	/**
 	 * Iterates over the page's script tags and analyzes them.
 	 * @pre Page to analyze
 	 */
@@ -145,8 +145,9 @@ public class Analyzer {
 		page.setTotalImageSize(pageTotalImageSize);
 		pageTotalImageSize = 0;
 	}
-
-	//Returns the website
+	/**
+     * Excel file being manipulated.
+     */
 	public Website getWebsite() {
 		return site;
 	}

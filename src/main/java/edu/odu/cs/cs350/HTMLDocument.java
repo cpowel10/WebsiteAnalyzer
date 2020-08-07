@@ -327,7 +327,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		int localCount = 0;
 		Style temp;
 		Iterator<Style> it = list.iterator();
-		while(it.hasNext()){
+		while(it.hasNext()) {
 			temp = it.next();
 			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
 				localCount++;
