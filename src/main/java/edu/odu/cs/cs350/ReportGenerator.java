@@ -76,20 +76,20 @@ public class ReportGenerator {
 
 				//collection for a single line similar to imageCount: Local: 3, External: 4
 				Map<String, Object> counts = new HashMap<>();
-				counts.put("local", String.valueOf(page.getLocalImages(page.getImages())));
-				counts.put("external", String.valueOf(page.getExternalImages(page.getImages())));
+				counts.put("local", String.valueOf(page.getNumInternalImages()));
+				counts.put("external", String.valueOf(page.getNumExternalImages()));
 				pages.put("imageCount", counts); //need a local and an external
 
 				//Collection for jsCount of page
 				counts = new HashMap<>();
-				counts.put("local",String.valueOf(page.getLocalScripts(page.getScripts())));
-				counts.put("external", String.valueOf(page.getExternalScripts(page.getScripts())));
+				counts.put("local", String.valueOf(page.getNumInternalScripts()));
+				counts.put("external", String.valueOf(page.getNumExternalScripts()));
 				pages.put("jsCount", counts); //local and external
 
 				//Collection for cssCount of page
 				counts = new HashMap<>();
-				counts.put("local", String.valueOf(page.getLocalStyles(page.getStyles())));
-				counts.put("external", String.valueOf(page.getExternalStyles(page.getStyles())));
+				counts.put("local", String.valueOf(page.getNumInternalStyles()));
+				counts.put("external", String.valueOf(page.getNumExternalStyles()));
 				pages.put("cssCount", counts);//local and external
 				
 				//Collection for image paths of page
@@ -115,9 +115,9 @@ public class ReportGenerator {
 
 				//Collection for linkCount of page
 				counts = new HashMap<>();
-				counts.put("intra-page", String.valueOf(page.getIntra()));
-				counts.put("intra-site", String.valueOf(page.getIntern()));
-				counts.put("external", String.valueOf(page.getExtern()));
+				counts.put("intra-page", String.valueOf(page.getNumIntraLinks()));
+				counts.put("intra-site", String.valueOf(page.getNumInternalLinks()));
+				counts.put("external", String.valueOf(page.getNumExternalLinks()));
 				//add collection to pages collection
 				pages.put("linkCount", counts); 
 
@@ -347,7 +347,10 @@ public class ReportGenerator {
 		//collect data for each page
 		while(pageIt.hasNext()){
 			HTMLDocument page = pageIt.next();
-			data.put(counter, new Object[] {page.getPath().toString(), page.getImages().size(), page.getStyles().size(), page.getScripts().size(), page.getIntra(), page.getIntern(), page.getExtern()});
+			data.put(counter, new Object[] {page.getPath().toString(),
+				 page.getImages().size(), page.getStyles().size(),
+				  page.getScripts().size(), page.getNumIntraLinks(),
+				   page.getNumInternalLinks(), page.getNumExternalLinks()});
 			
 			//Increase row number
 			counter++;
