@@ -12,6 +12,7 @@ build-job:
     - ssh-add <(echo "$RSYNC_KEY")
     - rsync -auvz -e "ssh" build/docs/javadoc/ rpeabody@atria.cs.odu.edu:tangerine-2/javadoc/
     - rsync -auvz -e "ssh" build/reports/ rpeabody@atria.cs.odu.edu:tangerine-2/
+    - ./gradlew deployWebsite
     - ssh-agent -k
   only:
     - master
