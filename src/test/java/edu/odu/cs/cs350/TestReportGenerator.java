@@ -1,30 +1,12 @@
 package edu.odu.cs.cs350;
 
-import java.io.File;  // Import the File class
-import java.io.IOException;  // Import the IOException class to handle errors
-import org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.*;
 import java.util.LinkedList;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import org.junit.Before;
-import org.hamcrest.core.IsNull;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
-import java.util.Collection;
-
-
-import edu.odu.cs.cs350.Enum.TagType;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-
-import java.util.stream.Stream;
-import static java.util.stream.Collectors.toList;
 
 public class TestReportGenerator {
 
@@ -80,7 +62,7 @@ public class TestReportGenerator {
 	public final void testTxt() {
 
 		//generateText(webs);//Cannot figure this out >:(
-		File myFile = new File("notSure.txt"); 
+		//File myFile = new File("notSure.txt"); 
 
 		//assertThat(generateText(webs), is("10KB /path/0 /n 100KB /path/1 /n 1000KB /n /path/2")); //There is certainly a better way
 		assertThat(true, is(false));
