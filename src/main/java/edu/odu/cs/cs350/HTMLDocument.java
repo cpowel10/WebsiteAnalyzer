@@ -371,5 +371,4 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		}
 		return extCount;
 	}
-	
 }
