@@ -51,6 +51,10 @@ public class Main {
         	tempHTML.setStyles(tempStyles);
         	LinkedList<Anchor> tempAnchors = reader.scanForAnchors(p);
         	tempHTML.setAnchors(tempAnchors);
+        	tempHTML.setAnchorTypeCounters();
+        	tempHTML.setImageTypeCounters();
+        	tempHTML.setScriptTypeCounters();
+        	tempHTML.setStyleTypeCounters();
         	htmlDocs.add(tempHTML);
         }
         site.setPages(htmlDocs);

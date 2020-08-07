@@ -41,7 +41,7 @@ public class DirectoryParser {
 	private List<String> htmlExtension =
 			Arrays.asList("html");
 	private List<String> ignoreExtensions =
-		Arrays.asList("jpeg", "png", ".css", ".js");
+		Arrays.asList("jpg", "png", "css", "js");
 
 	private Path homeDir;
 	private URL[] urls;
