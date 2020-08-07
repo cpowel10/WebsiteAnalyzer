@@ -3,8 +3,6 @@ package edu.odu.cs.cs350;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-import java.util.Iterator;
-
 import edu.odu.cs.cs350.Enum.Externality;
 
 public class HTMLDocument implements Comparable<HTMLDocument> {

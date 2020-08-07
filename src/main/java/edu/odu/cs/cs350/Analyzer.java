@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 
 import edu.odu.cs.cs350.Enum.Externality;
-import edu.odu.cs.cs350.*;
 
 import java.util.Iterator;
 
@@ -24,7 +23,7 @@ public class Analyzer {
 		site = mysite;
 	}
 	
-	/* 
+	/** 
 	 * Iterates over site's pages and performs the relevant analysis on each individual
 	 * type of tag that we care about
 	 */

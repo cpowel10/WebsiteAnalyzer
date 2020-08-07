@@ -7,25 +7,23 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.Enum.TagType;
 
 public class PageReader {
 	LinkedList<Path> sitePages;
-	/*
+	/**
 	 * default constructor
 	 */
 	public PageReader()
 	{
 		sitePages = new LinkedList<Path>();
 	}
-	/*
+	/**
 	 * nondefault constructor
 	 * @param pages is a linkedList of paths containing pages of the website
 	 */
@@ -37,7 +35,7 @@ public class PageReader {
 		return sitePages;
 	}
 	
-	/**
+	/***
 	 * scans path for images
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of images found with only path variable defined
@@ -74,7 +72,7 @@ public class PageReader {
 		return imgList;
 	}
 	
-	/**
+	/***
 	 * scans path for styles
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of stylesheets found with only path variable defined
@@ -113,7 +111,7 @@ public class PageReader {
 		
 	}
 	
-	/**
+	/***
 	 * scans path for scripts 
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of script files referenced in given path, with only path variable defined
@@ -152,7 +150,7 @@ public class PageReader {
 		
 	}
 	
-	/**
+	/***
 	 * scans path for anchors
 	 * @param path : Path to HTML file to be scanned
 	 * @return list of anchor tags found with only path variable defined,
