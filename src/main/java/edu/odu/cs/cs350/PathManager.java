@@ -132,6 +132,10 @@ public class PathManager {
 		Path thepath = Paths.get(uri.getPath());
 		return thepath;
 	}
+	/**
+	 * sets home directory
+	 * @param home contains path to home directory
+	 */
 	public void setHome(Path home) {
 		homeDir = home.toAbsolutePath();
 	}

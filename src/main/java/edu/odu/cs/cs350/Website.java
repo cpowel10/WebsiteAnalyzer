@@ -27,43 +27,43 @@ public class Website {
 		this.allNonCategoryFiles = new LinkedList<NonCategoryFile>();
 	}
 	/**
-	 * returns the Path of the website
+	 * @return the Path of the website
 	 */
 	public Path getPath() {
 		return this.localPath;
 	}
 	/**
-	 * returns the LinkedList of URLS(of type string)
+	 * @return the LinkedList of URLS(of type string)
 	 */
 	public LinkedList<String> getURLs(){
 		return this.urls;
 	}
 	/**
-	 * returns the LinkedList of pages(of type HTMLDocument)
+	 * @return the LinkedList of pages(of type HTMLDocument)
 	 */
 	public LinkedList<HTMLDocument> getPages(){
 		return this.allPages;
 	}
 	/**
-	 * returns the LinkedList of audioFiles
+	 * @return the LinkedList of audioFiles
 	 */
 	public LinkedList<AudioFile> getAudioFiles(){
 		return this.allAudioFiles;
 	}
 	/**
-	 * returns the LinkedList of videoFiles
+	 * @return the LinkedList of videoFiles
 	 */
 	public LinkedList<VideoFile> getVideoFiles(){
 		return this.allVideoFiles;
 	}
 	/**
-	 * returns the LinkedList of archiveFiles
+	 * @return the LinkedList of archiveFiles
 	 */
 	public LinkedList<ArchiveFile> getArchiveFiles(){
 		return this.allArchiveFiles;
 	}
 	/**
-	 * returns the LinkedList of nonCategoryFiles
+	 * @return the LinkedList of nonCategoryFiles
 	 */
 	public LinkedList<NonCategoryFile> getNonCatFiles(){
 		return this.allNonCategoryFiles;
