@@ -23,10 +23,10 @@ import edu.odu.cs.cs350.Enum.*;
 public class DirectoryParser {
 
 	private LinkedList<Path> foundFiles;
-	private LinkedList<VideoFile> foundVideos;
-	private LinkedList<AudioFile> foundAudios;
-	private LinkedList<ArchiveFile> foundArchives;
-	private LinkedList<NonCategoryFile> foundNonCats;
+	private LinkedList<VideoFile> foundVideos = new LinkedList<VideoFile>();
+	private LinkedList<AudioFile> foundAudios = new LinkedList<AudioFile>();
+	private LinkedList<ArchiveFile> foundArchives = new LinkedList<ArchiveFile>();
+	private LinkedList<NonCategoryFile> foundNonCats = new LinkedList<NonCategoryFile>();
 	private LinkedList<Path> htmlPaths;
 
 	private PathManager pman;
