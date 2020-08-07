@@ -3,7 +3,6 @@ package edu.odu.cs.cs350;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-import java.util.Iterator;
 
 public class Website {
 	private Path localPath;
@@ -68,12 +67,6 @@ public class Website {
 		return this.allNonCategoryFiles;
 	}
 	/**
-	 * reads all of its pages
-	 */
-	public void readPages() {
-
-	}
-	/**
 	 * sets the Path
 	 * @param path contains path to website
 	 */
@@ -121,41 +114,5 @@ public class Website {
 	 */
 	public void setNonCatFiles(LinkedList<NonCategoryFile> files){
 		this.allNonCategoryFiles = files;
-	}
-	/**
-	 * returns the number of Images from the website that 
-	 * are marked as internal
-	 */
-	public int numInternalImages() {
-		int count = 0;
-		//for each HTMLDoc
-		//	for eachImage
-		//		if( x.externality == externality.INTERNAL)
-		//			count++;
-		return count;
-	}
-	/**
-	 * returns an iterator over the videoFiles
-	 */
-	public Iterator<VideoFile> getVideoIterator() {
-		return allVideoFiles.iterator();
-	}
-	/**
-	 * returns an iterator over the audioFiles
-	 */
-	public Iterator<AudioFile> getAudioIterator() {
-		return allAudioFiles.iterator();
-	}
-	/**
-	 * returns an iterator over the archiveFiles
-	 */
-	public Iterator<ArchiveFile> gEtaRChiVeiteRATOR() {
-		return allArchiveFiles.iterator();
-	}
-	/**
-	 * returns an iterator over the nonCategoryFiles
-	 */
-	public Iterator<NonCategoryFile> getNonCategoryIteraotr() {
-		return allNonCategoryFiles.iterator();
 	}
 }
