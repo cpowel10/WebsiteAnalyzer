@@ -69,19 +69,194 @@ public class TestHTMLDocument {
 		assertThat(doc.getAnchors(), is(anchors));
 		assertThat(doc.getTotalImageSize(), is(size));
 	}
-	/*
 	@Test
-	public void testAddImage() {
-		doc.addElement(img1);
-		images.add(img1);
-		assertThat(doc.getPath(), is(path1));
+	public final void testSetImageSize(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 20;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		doc.setTotalImageSize(size);
+
+		assertThat(doc.getPath(), is(path));
 		assertThat(doc.getImages(), is(images));
 		assertThat(doc.getStyles(), is(styles));
 		assertThat(doc.getScripts(), is(scripts));
 		assertThat(doc.getAnchors(), is(anchors));
-		assertThat(doc.toString(), is("\\c\\Users\\chris\\Downloads 1 0 0 0 1"));
+		assertThat(doc.getTotalImageSize(), is(size));
 	}
-	
+	@Test
+	public final void testSetPath(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+		
+		path = Paths.get("newPath");
+
+		doc.setPath(path);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size));
+	}
+	@Test
+	public final void testSetImages(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		Image img0 = new Image();
+		Image img1 = new Image();
+		images.add(img0);
+		images.add(img1);
+		
+		doc.setImages(images);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size));
+	}
+	@Test
+	public final void testSetScripts(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		Script scr0 = new Script();
+		Script scr1 = new Script();
+		scripts.add(scr0);
+		scripts.add(scr1);
+		
+		doc.setScripts(scripts);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size));
+	}
+	@Test
+	public final void testSetStyles(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		Style sty0 = new Style();
+		Style sty1 = new Style();
+		styles.add(sty0);
+		styles.add(sty1);
+		
+		doc.setStyles(styles);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size));
+	}
+	@Test
+	public final void testSetAnchors(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		Anchor anc0 = new Anchor();
+		Anchor anc1 = new Anchor();
+		anchors.add(anc0);
+		anchors.add(anc1);
+		
+		doc.setAnchors(anchors);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size));
+	}
+	@Test
+	public final void testAddToImageSize(){
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		long imgSize = 182;
+		
+		doc.addToImageSize(imgSize);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size+imgSize));
+
+		doc.addToImageSize(imgSize);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size+imgSize+imgSize));
+	}
+	@Test
+	public void testAddImage() {
+		Path path = Paths.get("pathSet");
+		LinkedList<Image> images = new LinkedList<Image>();
+		LinkedList<Style> styles = new LinkedList<Style>();
+		LinkedList<Script> scripts = new LinkedList<Script>();
+		LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+		long size = 0;
+		HTMLDocument doc = new HTMLDocument(path);
+
+		Image img = new Image();
+		images.add(img);
+		doc.addImage(img);
+
+		assertThat(doc.getPath(), is(path));
+		assertThat(doc.getImages(), is(images));
+		assertThat(doc.getStyles(), is(styles));
+		assertThat(doc.getScripts(), is(scripts));
+		assertThat(doc.getAnchors(), is(anchors));
+		assertThat(doc.getTotalImageSize(), is(size));
+	}
+	/*
 	@Test
 	public void testAddScript() {
 		doc.addElement(script1);
@@ -142,4 +317,5 @@ public class TestHTMLDocument {
 		assertThat(doc.toString(), is("\\c\\Users\\chris\\Downloads 3 2 1 1 6"));
 	}
 	*/
+	
 }
