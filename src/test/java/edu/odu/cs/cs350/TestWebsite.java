@@ -21,11 +21,10 @@ public class TestWebsite {
     public final void testDefaultConstructor(){
         assertThat(web.getPath(), is(path));
         assertThat(web.getURLs(), is(urls));
-		assertThat(web.getURLs(), is(pages));
-		assertThat(web.getPages(), is(audios));
-		assertThat(web.getAudioFiles(), is(videos));
-		assertThat(web.getVideoFiles(), is(archives));
-		assertThat(web.getNonCatFiles(), is(nons));
+		assertThat(web.getPages(), is(pages));
+		assertThat(web.getAudioFiles(), is(audios));
+		assertThat(web.getVideoFiles(), is(videos));
+		assertThat(web.getNonCatFiles(), is(nons));   
     }
     @Test 
     public final void testSetPath(){
@@ -35,11 +34,10 @@ public class TestWebsite {
 
         assertThat(web.getPath(), is(newPath));
         assertThat(web.getURLs(), is(urls));
-		assertThat(web.getURLs(), is(pages));
-		assertThat(web.getPages(), is(audios));
-		assertThat(web.getAudioFiles(), is(videos));
-		assertThat(web.getVideoFiles(), is(archives));
-		assertThat(web.getNonCatFiles(), is(nons));
+		assertThat(web.getPages(), is(pages));
+		assertThat(web.getAudioFiles(), is(audios));
+		assertThat(web.getVideoFiles(), is(videos));
+		assertThat(web.getNonCatFiles(), is(nons));   
     }
     @Test 
     public final void testSetURLS(){
