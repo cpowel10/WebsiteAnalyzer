@@ -75,7 +75,6 @@ public class Main {
 
 
         //Give it the website and generate reports
-        //generate.generateText(ana.getWebsite());
         generate.generateText(ana.getWebsite());
         generate.generateXls(ana.getWebsite());
         generate.generateJson(ana.getWebsite());
