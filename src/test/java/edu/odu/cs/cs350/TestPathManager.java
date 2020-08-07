@@ -2,25 +2,16 @@ package edu.odu.cs.cs350;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.*;
-
 import org.junit.Test;
 import org.junit.Before;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.Iterator;
-
-import edu.odu.cs.cs350.*;
 import edu.odu.cs.cs350.Enum.Externality;
-import edu.odu.cs.cs350.Enum.TagType;
 
 public class TestPathManager {
 

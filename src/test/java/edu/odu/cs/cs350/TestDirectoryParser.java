@@ -5,18 +5,13 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 import org.junit.Before;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Iterator;
 
 public class TestDirectoryParser {
 

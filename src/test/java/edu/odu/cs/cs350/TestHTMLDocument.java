@@ -5,10 +5,6 @@ import static org.hamcrest.CoreMatchers.*;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import org.junit.Test;
-import java.net.URI;
-
-import edu.odu.cs.cs350.Enum.Externality;
-import edu.odu.cs.cs350.Enum.TagType;
 import java.util.LinkedList;
 
 

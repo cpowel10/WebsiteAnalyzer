@@ -1,20 +1,13 @@
 package edu.odu.cs.cs350;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertThat;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-
-import org.junit.Before;
 import org.junit.Test;
-
 import edu.odu.cs.cs350.Enum.Externality;
 import edu.odu.cs.cs350.Enum.TagType;
-
 import static org.hamcrest.CoreMatchers.*;
 
 public class TestPageReader {
