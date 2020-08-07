@@ -27,7 +27,7 @@ public class DirectoryParser {
 	private LinkedList<AudioFile> foundAudios = new LinkedList<AudioFile>();
 	private LinkedList<ArchiveFile> foundArchives = new LinkedList<ArchiveFile>();
 	private LinkedList<NonCategoryFile> foundNonCats = new LinkedList<NonCategoryFile>();
-	private LinkedList<Path> htmlPaths;
+	private LinkedList<Path> htmlPaths = new LinkedList<Path>();
 
 	private PathManager pman;
 	Scanner scanner;
