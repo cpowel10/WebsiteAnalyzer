@@ -46,6 +46,9 @@ jar {
 
 javadoc {
     failOnError false
+    options.with {
+        links 'https://docs.oracle.com/javase/8/docs/api/', 'gradle/javadocs/jdk'
+    }
 }
 
 test {
@@ -91,4 +94,5 @@ pmd {
     ]
 }
 
+build.dependsOn javadoc
 spotbugsTest.enabled = false
