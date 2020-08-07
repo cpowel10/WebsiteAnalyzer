@@ -30,7 +30,10 @@ public class PageReader {
 	public PageReader(LinkedList<Path> pages) {
 		sitePages = pages;
 	}
-	
+	/**
+	 * 
+	 * @return list of paths to pages
+	 */
 	public LinkedList<Path> getPages(){
 		return sitePages;
 	}
