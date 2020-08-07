@@ -138,4 +138,20 @@ public class DirectoryParser {
 	public List<Path> getPages() {
 		return htmlPaths;
 	}
+	
+	public LinkedList<VideoFile> getVideos(){
+		return foundVideos;
+	}
+	
+	public LinkedList<AudioFile> getAudios(){
+		return foundAudios;
+	}
+	
+	public LinkedList<ArchiveFile> getArchives(){
+		return foundArchives;
+	}
+	
+	public LinkedList<NonCategoryFile> getNonCats(){
+		return foundNonCats;
+	}
 }

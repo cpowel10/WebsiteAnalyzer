@@ -22,8 +22,10 @@ public class InputHandler {
 			throw new ArrayIndexOutOfBoundsException("No arguments provided");
 		}
 		
-		for (int i = 1 ; i < (args.length) ; i++) {
-			urls.add(args[i]);
+		if (args.length > 1) {
+			for (int i = 1 ; i < (args.length) ; i++) {
+				urls.add(args[i]);
+			}
 		}
 	}
 	  

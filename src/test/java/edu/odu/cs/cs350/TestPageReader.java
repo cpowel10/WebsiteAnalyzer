@@ -128,7 +128,8 @@ public class TestPageReader {
 	
 	@Test
 	public void testPageReaderAnchors() throws IOException {
-		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html");
+		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
+				+ "\\src\\test\\data\\SampleHTML\\page1.html");
 		Anchor anchor1 = new Anchor();
 		anchor1.setPath(anchorPath);
 		Anchor anchor2 = new Anchor();
