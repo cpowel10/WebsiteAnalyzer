@@ -50,19 +50,19 @@ public class WebsiteFile {
 		this.type = type;
 	}
 	/**
-	 * returns size of website file
+	 * @return size of website file
 	 */
 	public long getSize() {
 		return this.size;
 	}
 	/**
-	 * returns path of website file
+	 * @return path of website file
 	 */
 	public Path path() {
 		return this.path;
 	}
 	/**
-	 * returns file type of website file
+	 * @return file type of website file
 	 */
 	public FileType type() {
 		return this.type;

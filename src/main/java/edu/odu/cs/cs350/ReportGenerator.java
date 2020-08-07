@@ -23,25 +23,26 @@ import java.nio.file.Path;
 
 
 public class ReportGenerator {
-	private String myTime;
+	private String startTime;
 	/**
 	 * sets the current date and time in YYYYMMDD-HHMMSS format
 	 */
 	public void setTime(){
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");  
 		LocalDateTime now = LocalDateTime.now();  
-		myTime = dtf.format(now);  
+		startTime = dtf.format(now);  
 		//Inspiration/much credit to https://www.javatpoint.com/java-get-current-date
 	}
 	/**
 	 * gets the private String myTime
-	 * @returns string myTime
+	 * @return string with YYYYMMDD-HHMMSS
 	 */
 	public String getTime(){
-		return myTime;
+		return startTime;
 	}
 	/**
 	 * writes collected data to a .json file
+	 * also outputs name of file created
 	 * @param Website contains data to be reported
 	 * @throws IOexception
 	 */
@@ -256,6 +257,7 @@ public class ReportGenerator {
 	
 	/**
 	 * writes collected data to a .txt file
+	 * also outputs name of file written
 	 * @param Website contains data to be reported
 	 * @throws IOexception
 	 */
@@ -323,6 +325,7 @@ public class ReportGenerator {
 	}
 	/**
 	 * writes collected data to a .xls file
+	 * also outputs name of file written
 	 * @param Website contains data to be reported
 	 * @throws IOexception
 	 */

@@ -46,6 +46,7 @@ public class Script extends Tag {
 	}
 	/**
 	 * returns listings
+	 * @return linked list of paths that the script was listed on
 	 */
 	public LinkedList<Path> getListings(){
 		return this.listings;

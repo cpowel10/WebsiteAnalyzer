@@ -2,13 +2,9 @@ package edu.odu.cs.cs350;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-
 import java.net.URL;
 import java.net.URI;
-
 import java.util.Iterator;
-
 import edu.odu.cs.cs350.Enum.Externality;
 
 public class PathManager {
@@ -136,6 +132,10 @@ public class PathManager {
 		Path thepath = Paths.get(uri.getPath());
 		return thepath;
 	}
+	/**
+	 * sets home directory
+	 * @param home contains path to home directory
+	 */
 	public void setHome(Path home) {
 		homeDir = home.toAbsolutePath();
 	}

@@ -52,25 +52,25 @@ public class Tag {
 		uri = myUri;
 	}
 	/**
-	 * returns path of tag
+	 * @return path of tag
 	 */
 	public Path getPath() {
 		return this.path;
 	}
 	/**
-	 * returns Tag type of tag
+	 * @return Tag type of tag
 	 */
 	public TagType getType() {
 		return this.type;
 	}
 	/**
-	 * returns externality of tag
+	 * @return externality of tag
 	 */
 	public Externality getExternality() {
 		return this.eality;
 	}
 	/**
-	 * returns URI of tag
+	 * @return URI of tag
 	 */
 	public URI getUri() {
 		return this.uri;

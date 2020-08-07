@@ -46,6 +46,7 @@ public class Style extends Tag {
 	}
 	/**
 	 * returns listings
+	 * @return linked list of paths the style was listed on
 	 */
 	public LinkedList<Path> getListings(){
 		return this.listings;
