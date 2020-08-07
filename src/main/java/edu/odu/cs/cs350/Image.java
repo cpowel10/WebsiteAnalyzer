@@ -1,9 +1,7 @@
 package edu.odu.cs.cs350;
 
 import java.util.LinkedList;
-//import java.nio.file.Paths;
 import java.nio.file.Path;
-
 import java.net.URI;
 
 import edu.odu.cs.cs350.Enum.*;
