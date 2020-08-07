@@ -82,14 +82,6 @@ jacocoTestReport {
     }
 }
 
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-
-        }
-    }
-}
-
 spotbugsMain {
     ignoreFailures = true
     effort = "max"
