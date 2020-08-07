@@ -45,7 +45,7 @@ public class Analyzer {
 
 	/**
 	 * Iterates over the page's script tags and analyzes them.
-	 * @pre Page to analyze
+	 * @param Page to analyze
 	 */
 	public void analyzePageScripts(HTMLDocument page) {
 		Script scrToAdd;
@@ -65,9 +65,9 @@ public class Analyzer {
 		}
 	}
 
-	/*
+	/**
 	 * Iterates over the page's Anchor tags and analyzes them.
-	 * @pre Page to analyze
+	 * @param Page to analyze
 	 */
 	public void analyzePageAnchors(HTMLDocument page) {
 		Path expanded;
@@ -79,9 +79,9 @@ public class Analyzer {
 		}
 	}
 
-	/*
+	/**
 	 * Iterates over the page's style tags and analyzes them.
-	 * @pre Page to analyze
+	 * @param Page to analyze
 	 */
 	public void analzyePageStyles(HTMLDocument page) {
 		Style styToAdd;
@@ -101,7 +101,7 @@ public class Analyzer {
 		}
 	}
 
-	/*
+	/**
 	 * Iterates over the page's image tags and analyzes them.
 	 * @pre Page to analyze
 	 */
