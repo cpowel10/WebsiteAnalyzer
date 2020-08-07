@@ -54,6 +54,7 @@ public class TestPageReader {
 		imgPaths.add(Paths.get(imgString));
 		Image img1 = new Image(); //~235 KB (240,698 bytes)
 		img1.setPath(Paths.get(imgString));
+		img1.setExternality(Externality.INTERNAL);
 		expectedImages.add(img1);
 		/************************/
 		images = pgReader.scanForImages(path1);
@@ -80,6 +81,7 @@ public class TestPageReader {
 				+ "\\src\\test\\data\\SampleHTML\\Styles\\Style.css");
 		Style style1 = new Style();
 		style1.setPath(stylePath);
+		style1.setExternality(Externality.INTERNAL);
 		expectedStyles.add(style1);
 		/************************/
 		images = pgReader.scanForImages(path2);
@@ -106,6 +108,7 @@ public class TestPageReader {
 				+ "\\src\\test\\data\\SampleHTML\\Scripts\\JavaScript.js");
 		Script script1 = new Script();
 		script1.setPath(scriptPath);
+		script1.setExternality(Externality.INTERNAL);
 		expectedScripts.add(script1);
 		/************************/
 		images = pgReader.scanForImages(path3);
@@ -128,13 +131,14 @@ public class TestPageReader {
 	
 	@Test
 	public void testPageReaderAnchors() throws IOException {
-		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\CS350 Project\\tangerine-2"
-				+ "\\src\\test\\data\\SampleHTML\\page1.html");
+		Path anchorPath = Paths.get("C:\\Users\\chris\\Desktop\\SampleHTML\\page1.html");
 		Anchor anchor1 = new Anchor();
 		anchor1.setPath(anchorPath);
+		anchor1.setExternality(Externality.INTERNAL);
 		Anchor anchor2 = new Anchor();
 		//anchor2.setExternality(Externality.EXTERNAL);
 		anchor2.setPath(Paths.get("/~tkennedy/cs350/sum20/Protected/websiteAnalysis/index.html"));
+		anchor2.setExternality(Externality.EXTERNAL);
 		expectedAnchors.add(anchor1);
 		expectedAnchors.add(anchor2);
 		/************************/
@@ -152,7 +156,7 @@ public class TestPageReader {
 			assertTrue(scripts.get(i).equals(expectedScripts.get(i)));
 		}
 		for (int i = 0 ; i < anchors.size() - 1 ; i++) {
-			assertTrue(anchors.get(i).equals(expectedAnchors.get(i)));
+			assertTrue("Failed Anchor #" + i+1,anchors.get(i).equals(expectedAnchors.get(i)));
 		}
 	}
 }
