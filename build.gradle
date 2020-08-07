@@ -2,6 +2,9 @@ buildscript {
     repositories {
         jcenter()
     }
+    dependencies {
+        classpath "com.github.fracpete:rsync4j-all:3.1.2-15"
+    }
 }
 
 plugins {
@@ -12,6 +15,8 @@ plugins {
    id "jacoco"
    id "com.github.spotbugs" version "4.5.0"
    id "pmd"
+   id "org.jbake.site" version "5.3.0"
+   id "org.hidetake.ssh" version "2.10.1"
 }
 
 sourceCompatibility = 1.8
@@ -58,6 +63,10 @@ test {
         html.enabled = true
     }
 
+    jacoco {
+        append = false
+    }
+    
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
@@ -69,7 +78,15 @@ jacocoTestReport {
         html.enabled true
         xml.enabled true
         csv.enabled true
-        html.destination file("$buildDir/reports/tests/test/jacocoHtml")
+        html.destination file("$buildDir/reports/jacocoHtml")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+
+        }
     }
 }
 
@@ -94,5 +111,59 @@ pmd {
     ]
 }
 
+task reports (dependsOn: ["javadoc", "check",
+                          "jacocoTestReport",
+                          //"jacocoIntegrationTestReport",
+                          //"mergedJacocoReportHTML",
+                          "projectReport"]) {
+
+    description "Generate all reports and documentation for this project"
+}
+
+task copyJDocs (type: Copy) {
+    from "build/docs"
+    into "build/tmp/website/assets"
+    dependsOn "javadoc"
+}
+
+task copyReports (type: Copy) {
+    from "build/reports"
+    into "build/tmp/website/assets"
+    dependsOn "reports"
+}
+
+task copyJbakeTemplates (type: Copy) {
+    from "src/jbake/"
+    into "build/tmp/website"
+}
+
+jbake {
+    srcDirName = "build/tmp/website"
+}
+
+task setupWebsite (dependsOn: ["copyJbakeTemplates", "copyReports", "copyJDocs"]) {
+}
+
+import com.github.fracpete.rsync4j.RSync;
+import com.github.fracpete.processoutput4j.output.ConsoleOutputProcessOutput;
+
+task deployWebsite (dependsOn: "bake") {
+    doLast {
+        def sourceDir = "build/jbake/";
+        def destURL = "linux.cs.odu.edu";
+        RSync rsync = new RSync()
+                .source(sourceDir)
+                .destination(destURL)
+                .recursive(true)
+                .archive(true)
+                .delete(true)
+                .verbose(true)
+                .rsh("ssh -o IdentitiesOnly=yes");
+        ConsoleOutputProcessOutput output = new ConsoleOutputProcessOutput();
+        output.monitor(rsync.builder());
+    }
+}
+
+bake.dependsOn "setupWebsite"
 build.dependsOn javadoc
 spotbugsTest.enabled = false
