@@ -44,21 +44,13 @@ public class Main {
         	HTMLDocument tempHTML = new HTMLDocument(p);
         	PageReader reader = new PageReader();
         	LinkedList<Image> tempImages = reader.scanForImages(p);
+        	tempHTML.setImages(tempImages);
         	LinkedList<Script> tempScripts = reader.scanForScripts(p);
+        	tempHTML.setScripts(tempScripts);
         	LinkedList<Style> tempStyles = reader.scanForStyles(p);
+        	tempHTML.setStyles(tempStyles);
         	LinkedList<Anchor> tempAnchors = reader.scanForAnchors(p);
-        	for (Image i : tempImages) {
-        		tempHTML.addElement(i);
-        	}
-        	for (Style i : tempStyles) {
-        		tempHTML.addElement(i);
-        	}
-        	for (Script i : tempScripts) {
-        		tempHTML.addElement(i);
-        	}
-        	for (Anchor i : tempAnchors) {
-        		tempHTML.addElement(i);
-        	}
+        	tempHTML.setAnchors(tempAnchors);
         	htmlDocs.add(tempHTML);
         }
         site.setPages(htmlDocs);
