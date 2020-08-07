@@ -23,6 +23,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	private int externalStyles;
 	private int internalImages;
 	private int externalImages;
+
   	/**
 	 * defualt constructor
 	 */
@@ -34,6 +35,7 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		allAnchors = new LinkedList<Anchor>();
 		totalImageSize = 0;
 	}
+	
   	/**
   	 * nondefault contructor
 	 * @param userPath contains path to HTMLDocument (page)
