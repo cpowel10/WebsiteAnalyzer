@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class Website {
 	private Path localPath;
-	private LinkedList<String> urls;
+	private LinkedList<String> allUrls;
 	private LinkedList<HTMLDocument> allPages; 
 	private LinkedList<AudioFile> allAudioFiles;
 	private LinkedList<VideoFile> allVideoFiles;
@@ -17,7 +17,7 @@ public class Website {
 	 */
 	public Website() {
 		this.localPath = Paths.get("pathNotSet");
-		this.urls = new LinkedList<String>();
+		this.allUrls = new LinkedList<String>();
 		this.allPages = new LinkedList<HTMLDocument>();
 		this.allAudioFiles = new LinkedList<AudioFile>();
 		this.allVideoFiles = new LinkedList<VideoFile>();
@@ -34,7 +34,7 @@ public class Website {
 	 * @return the LinkedList of URLS(of type string)
 	 */
 	public LinkedList<String> getURLs(){
-		return this.urls;
+		return this.allUrls;
 	}
 	/**
 	 * @return the LinkedList of pages(of type HTMLDocument)
@@ -78,7 +78,7 @@ public class Website {
 	 * @param url contains a linked list of strings of urls of the website
 	 */
 	public void setURLs(LinkedList<String> url){
-		this.urls = url;
+		this.allUrls = url;
 	}
 	/**
 	 * sets the pages(of type HTMLDocument)
