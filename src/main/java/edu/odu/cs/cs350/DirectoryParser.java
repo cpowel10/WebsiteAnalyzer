@@ -38,6 +38,10 @@ public class DirectoryParser {
 		Arrays.asList("m4a", "mka", "ogg");
 	private List<String> audioExtensions =
 		Arrays.asList("mkv", "mp4");
+	private List<String> htmlExtension =
+			Arrays.asList("html");
+	private List<String> ignoreExtensions =
+		Arrays.asList("jpeg", "png", ".css", ".js");
 
 	private Path homeDir;
 	private URL[] urls;
@@ -92,13 +96,20 @@ public class DirectoryParser {
 			foundAudios.add(new AudioFile(size, p));
 			return;
 		}
-		//**maaaaaybe* this will be okay? checks MIME type for text
-		if(Files.probeContentType(p).startsWith("text")) {
-			if(hasHtml(p)) {
-				htmlPaths.add(p);
-				return;
-			}
+		if(ignoreExtensions.contains(extension)) {
+			return;
 		}
+		if(htmlExtension.contains(extension)) {
+			htmlPaths.add(p);
+			return;
+		}
+		//**maaaaaybe* this will be okay? checks MIME type for text
+//		if(Files.probeContentType(p).startsWith("text")) {
+//			if(hasHtml(p)) {
+//				htmlPaths.add(p);
+//				return;
+//			}
+//		}
 		foundNonCats.add(new NonCategoryFile(size, p));
 	}
 

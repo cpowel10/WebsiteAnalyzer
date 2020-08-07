@@ -26,12 +26,15 @@ public class Analyzer {
 	/** 
 	 * Iterates over site's pages and performs the relevant analysis on each individual
 	 * type of tag that we care about
+	 * @throws IOException 
 	 */
-	public void analyzeWebsite() {
+	public void analyzeWebsite() throws IOException {
 		for(HTMLDocument page : site.getPages()) {
 
 			analyzePageScripts(page);
 			analzyePageStyles(page);
+			analyzeImages(page);
+			analyzePageAnchors(page);
 			
 			//Call the page to count and set its external/internal/intra counters
 	 		//for each of the tag types
@@ -124,7 +127,7 @@ public class Analyzer {
 				if(tempImage.getExternality() == Externality.INTERNAL) {
 					imgToAdd = new Image(tempImage.getPath(), 
 										Files.size(tempImage.getPath()),
-										page.getPath(), Externality.INTERNAL, URI.create(page.getPath().toString())); //likely a better way
+										page.getPath(), Externality.INTERNAL, null/*URI.create(page.getPath().toString())*/); //likely a better way
 				}
 				else {
 					imgToAdd = new Image(tempImage.getPath(), 0,

@@ -176,6 +176,7 @@ public class PageReader {
 			String anchorString = a.attr("href");
 			try {
 				tempAnchor.setPath(Paths.get(anchorString));
+				tempAnchor.setExternality(Externality.INTERNAL);
 				anchorList.add(tempAnchor);
 			}catch(InvalidPathException e) {
 				URL url = new URL(anchorString);

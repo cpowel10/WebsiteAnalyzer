@@ -108,6 +108,9 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	 */
 	public void setImages(LinkedList<Image> images){
 		this.allImages = images;
+		for (Image i : allImages) {
+			totalImageSize += i.getSize();
+		}
 	}
 	/**
 	 * sets linked list of scripts
