@@ -29,11 +29,11 @@ public class TestWebsite {
     }
     @Test 
     public final void testSetPath(){
-        path = Paths.get("newPath");
+        Path newPath = Paths.get("newPath");
 
-        web.setPath(path);
+        web.setPath(newPath);
 
-        assertThat(web.getPath(), is(path));
+        assertThat(web.getPath(), is(newPath));
         assertThat(web.getURLs(), is(urls));
 		assertThat(web.getURLs(), is(pages));
 		assertThat(web.getPages(), is(audios));
