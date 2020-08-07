@@ -3,7 +3,6 @@ package edu.odu.cs.cs350;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
-
 import java.util.Iterator;
 
 public class Website {
@@ -158,50 +157,5 @@ public class Website {
 	 */
 	public Iterator<NonCategoryFile> getNonCategoryIteraotr() {
 		return allNonCategoryFiles.iterator();
-	}
-	/**
-	 * returns the number of Images from the website that 
-	 * are marked as External
-	 */
-	int numExternalImages() {
-		int count = 0;
-		//for each HTMLDoc
-		//	for eachImage
-		//		if( x.externality == externality.EXTERNAL)
-		//			count++;
-		return count;
-	}
-	/**
-	 * returns the number of Scripts used in the website
-	 */
-	int numScriptsReferenced() {
-		return -1;
-	}
-	/**
-	 * returns the number of Stylesheets used in the website
-	 */
-	int numStylesUtilized() {
-		return -1;
-	}
-	/**
-	 * returns the number of Links on the website that 
-	 * are marked as Intra
-	 */
-	int numIntraLinks() {
-		return -1;
-	}
-	/**
-	 * returns the number of Links on the website that 
-	 * are marked as Internal
-	 */
-	int numInternalLinks() {
-		return -1;
-	}
-	/**
-	 * returns the number of Links on the website that 
-	 * are marked as External
-	 */
-	int numExternalLinks() {
-		return -1;
 	}
 }
