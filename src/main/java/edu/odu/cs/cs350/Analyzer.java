@@ -146,7 +146,7 @@ public class Analyzer {
 		pageTotalImageSize = 0;
 	}
 	/**
-     * Excel file being manipulated.
+     * @return this analyzer's website
      */
 	public Website getWebsite() {
 		return site;

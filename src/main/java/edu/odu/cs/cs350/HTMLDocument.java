@@ -48,39 +48,42 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	}
 	
 	/**
-	 * adds sizes of all Image objects in
-	 * allImages and returns the totalImageSize
-	 * for the current HTMLDocument
+	 * @return the size of this page [total size of all images contained]
 	 */
 	public long getTotalImageSize() {
 		return totalImageSize;
 	}
+
 	/**
-	 * returns path to HTMLDocument
+	 * @return path to HTMLDocument
 	 */
 	public Path getPath() {
 		return path;
 	}
+
 	/**
-	 * returns linked list of images containing all images
+	 * @return linked list of images containing all images
 	 */
 	public LinkedList<Image> getImages(){
 		return allImages;
 	}
+
 	/**
-	 * returns linked list of scripts containing all scripts
+	 * @return linked list of scripts containing all scripts
 	 */
 	public LinkedList<Script> getScripts(){
 		return allScripts;
 	}
+
 	/**
-	 * returns linked list of styles containing all styles
+	 * @return linked list of styles containing all styles
 	 */
 	public LinkedList<Style> getStyles(){
 		return allStyles;
 	}
+
 	/**
-	 * returns linked list of anchors containing all anchors
+	 * @return linked list of anchors containing all anchors
 	 */
 	public LinkedList<Anchor> getAnchors(){
 		return allAnchors;
@@ -217,44 +220,68 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 	}
 
 	/**
-	 * returns count of intrapage links
+	 * @return number of intra-page links on this page
 	 */
-	public int getIntra(){
+	public int getNumIntraLinks() {
 		return this.intraLinks;
 	}
+
 	/**
-	 * returns count of internal links
+	 * @return number of links to outside the website on this page
 	 */
-	public int getIntern(){
-		return this.internalLinks;
-	}
-	/**
-	 * returns count of external links
-	 */
-	public int getExtern(){
+	public int getNumExternalLinks() {
 		return this.externalLinks;
 	}
-	
+
 	/**
-	 * (May go in PageReader class)
-	 * adds tag to its proper collection
-	 * @param tag contains tag to be sorted into its collection depending on its tag type 
+	 * @return number of links to within the website on this page
 	 */
-	public void addElement(Object tag) {
-		if (tag instanceof Anchor) {
-			allAnchors.add((Anchor) tag);
-		}
-		else if (tag instanceof Style) {
-			allStyles.add((Style) tag);
-		}
-		else if (tag instanceof Script) {
-			allScripts.add((Script) tag);
-		}
-		else {
-			allImages.add((Image) tag);
-			totalImageSize += ((Image) tag).getSize();
-		}
+	public int getNumInternalLinks() {
+		return this.internalLinks;
 	}
+
+	/**
+	 * @return number of external-site scripts on this page
+	 */
+	public int getNumExternalScripts() {
+		return this.externalScripts;
+	}
+
+	/**
+	 * @return number of internal-site scripts on this page
+	 */
+	public int getNumInternalScripts() {
+		return this.internalScripts;
+	}
+
+	/**
+	 * @return number of external-site styles on this page
+	 */
+	public int getNumExternalStyles() {
+		return this.externalStyles;
+	}
+
+	/**
+	 * @return number of internal-site links on this page
+	 */
+	public int getNumInternalStyles() {
+		return this.internalStyles;
+	}
+
+	/**
+	 * @return number of external-site images on this page
+	 */
+	public int getNumExternalImages() {
+		return this.externalImages;
+	}
+
+	/**
+	 * @return number of internal-site links on this page
+	 */
+	public int getNumInternalImages() {
+		return this.internalImages;
+	}
+
 	/**
 	 * Override for comparison, used in GenerateReport for Collections.sort(List)
 	 * compares two HTMLDocuments lexiconographically 
@@ -298,77 +325,5 @@ public class HTMLDocument implements Comparable<HTMLDocument> {
 		str += Integer.toString(allAnchors.size()) + " ";
 		str += String.valueOf(totalImageSize);
 		return str;
-	}
-	public int getLocalImages(LinkedList<Image> list){
-		int localCount = 0;
-		Image temp;
-		Iterator<Image> it = list.iterator();
-		while(it.hasNext()){
-			temp = it.next();
-			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
-				localCount++;
-			}
-		}
-		return localCount;
-	}
-	public int getLocalScripts(LinkedList<Script> list){
-		int localCount = 0;
-		Script temp;
-		Iterator<Script> it = list.iterator();
-		while(it.hasNext()){
-			temp = it.next();
-			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
-				localCount++;
-			}
-		}
-		return localCount;
-	}
-	public int getLocalStyles(LinkedList<Style> list){
-		int localCount = 0;
-		Style temp;
-		Iterator<Style> it = list.iterator();
-		while(it.hasNext()) {
-			temp = it.next();
-			if(temp.getExternality() == Externality.INTERNAL || temp.getExternality() == Externality.INTRA){
-				localCount++;
-			}
-		}
-		return localCount;
-	}
-	public int getExternalImages(LinkedList<Image> list){
-		int extCount = 0;
-		Image temp;
-		Iterator<Image> it = list.iterator();
-		while(it.hasNext()){
-			temp = it.next();
-			if(temp.getExternality() == Externality.EXTERNAL){
-				extCount++;
-			}
-		}
-		return extCount;
-	}
-	public int getExternalScripts(LinkedList<Script> list){
-		int extCount = 0;
-		Script temp;
-		Iterator<Script> it = list.iterator();
-		while(it.hasNext()){
-			temp = it.next();
-			if(temp.getExternality() == Externality.EXTERNAL){
-				extCount++;
-			}
-		}
-		return extCount;
-	}
-	public int getExternalStyles(LinkedList<Style> list){
-		int extCount = 0;
-		Style temp;
-		Iterator<Style> it = list.iterator();
-		while(it.hasNext()){
-			temp = it.next();
-			if(temp.getExternality() == Externality.EXTERNAL){
-				extCount++;
-			}
-		}
-		return extCount;
 	}
 }
